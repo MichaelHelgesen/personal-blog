@@ -1,12 +1,17 @@
-import React from "react"
+import React from "react";
+import { Link } from "gatsby";
+import Layout from "../components/layout"
+import "../styles/index.scss"
+
 
 const IndexPage = () => {
     return (
-        <div>
+        <Layout>
             <h1>Hello!</h1>
             <h2>I'm Mikke, trying to be a front end developer.</h2>
-        </div>
+            <p>Need a developer? <Link to="/contact">Contact me</Link></p>
+        </Layout>
     )
-}
+};
 
 export default IndexPage
