@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import layoutStyles from "./layout.module.scss";
+import ("../styles/prism-dark.css");
 
 const Layout = (props) => {
     return (
