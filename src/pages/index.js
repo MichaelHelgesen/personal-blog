@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 import Layout from "../components/layout"
 import "../styles/index.scss"
 import Head from "../components/head";
-import ("../styles/prism-dark.css");
+import "../styles/prism-dark.css";
 
 
 const IndexPage = () => {
