@@ -1,7 +1,6 @@
 import React from "react";
 import { Link, graphql, useStaticQuery } from "gatsby";
 import headerStyles from "./header.module.scss";
-import ("../styles/prism-dark.css");
 const HeaderComponent = () => {
     const data = useStaticQuery(graphql`
         query {

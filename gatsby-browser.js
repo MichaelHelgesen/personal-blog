@@ -6,8 +6,4 @@
 
 // You can delete this file if you're not using it
 
-require("prism-themes/themes/prism-atom-dark.css");
-
-exports.onInitialClientRender = () => {
-  require("typeface-nunito");
-};
+require("./prism-themes/themes/prism-dark.css");
