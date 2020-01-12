@@ -31,6 +31,7 @@ export const query = graphql`
       body {
         json
       }
+      codeBlock2{childMarkdownRemark {html}}
     }
   }
 `
@@ -45,6 +46,7 @@ const Blog = (props) => {
       }
     }
   }
+
     return (
         <Layout>
           <Head title={props.data.contentfulBlogPost.title}/>
@@ -53,6 +55,12 @@ const Blog = (props) => {
           {documentToReactComponents(
             props.data.contentfulBlogPost.body.json, options
           )}
+          
+          <div dangerouslySetInnerHTML={{ __html: props.data.contentfulBlogPost.codeBlock2.childMarkdownRemark.html }} />
+            
+          
+
+          
         </Layout>
     )
 };
