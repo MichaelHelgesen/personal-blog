@@ -47,6 +47,12 @@ const Blog = (props) => {
     }
   }
 
+  if (props.data.contentfulBlogPost.codeBlock2) {
+    console.log("yes")
+  } else {
+    console.log("no")
+  }
+
     return (
         <Layout>
           <Head title={props.data.contentfulBlogPost.title}/>
@@ -56,11 +62,10 @@ const Blog = (props) => {
             props.data.contentfulBlogPost.body.json, options
           )}
           
-          <div dangerouslySetInnerHTML={{ __html: props.data.contentfulBlogPost.codeBlock2.childMarkdownRemark.html }} />
-            
-          
+          {props.data.contentfulBlogPost.codeBlock2 != null && <div dangerouslySetInnerHTML={{ __html: props.data.contentfulBlogPost.codeBlock2.childMarkdownRemark.html }} /> }
 
-          
+             
+
         </Layout>
     )
 };
