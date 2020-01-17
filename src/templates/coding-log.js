@@ -25,18 +25,18 @@ import Head from "../components/head";
 
 export const query = graphql`
   query ($slug: String!) {
-    contentfulBlogPost(slug: {eq: $slug}) {
+    contentfulCodingLog(slug: {eq: $slug}) {
       title
       publishedDate(formatString: "MMMM Do, YYYY")
       body {
         json
       }
-      codeBlock2{childMarkdownRemark {html}}
+     
     }
   }
 `
 
-const Blog = (props) => {
+const CodeLog = (props) => {
   const options = {
     renderNode: {
       "embedded-asset-block": (node) => {
@@ -48,21 +48,21 @@ const Blog = (props) => {
   }
 
 
+
     return (
         <Layout>
-          <Head title={props.data.contentfulBlogPost.title}/>
-          <h1>{props.data.contentfulBlogPost.title}</h1>
-          <p>{props.data.contentfulBlogPost.publishedDate}</p>
+          <Head title={props.data.contentfulCodingLog.title}/>
+          <h1>{props.data.contentfulCodingLog.title}</h1>
+          <p>{props.data.contentfulCodingLog.publishedDate}</p>
           {documentToReactComponents(
-            props.data.contentfulBlogPost.body.json, options
+            props.data.contentfulCodingLog.body.json, options
           )}
           
-          {props.data.contentfulBlogPost.codeBlock2 != null && <div dangerouslySetInnerHTML={{ __html: props.data.contentfulBlogPost.codeBlock2.childMarkdownRemark.html }} /> }
-
+          
              
 
         </Layout>
     )
 };
 
-export default Blog;
+export default CodeLog;

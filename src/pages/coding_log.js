@@ -3,9 +3,10 @@ import Layout from "../components/layout";
 import { Link, graphql, useStaticQuery} from "gatsby";
 import blogStyles from "./blog.module.scss";
 import Head from "../components/head";
+
 const CodingLogPage = () => {
 
-    const blogData = useStaticQuery(graphql`
+    const codeData = useStaticQuery(graphql`
     query { 
         allContentfulCodingLog (
          sort: {
@@ -27,7 +28,7 @@ const CodingLogPage = () => {
     const Blogdata = () => {
         return (
             <ol className={blogStyles.posts}>
-                {blogData.allContentfulCodingLog.edges.map((item) => (
+                {codeData.allContentfulCodingLog.edges.map((item) => (
                         <li className={blogStyles.post}>
                             <Link to={`coding_log/${item.node.slug}`}>
                                 <h2>
@@ -45,8 +46,8 @@ const CodingLogPage = () => {
 
     return (
         <Layout>
-            <Head title="Blog"/>
-            <h1>Blog</h1>
+            <Head title="Coding Log"/>
+            <h1>Coding Log</h1>
             <Blogdata />
             
         </Layout>
