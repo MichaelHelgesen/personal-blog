@@ -34,7 +34,7 @@ const BlogPage = () => {
                                 <h2>
                                     {item.node.title}
                                 </h2>
-                                <p>{item.node.publishedDate}</p>
+                                <p className={blogStyles.date}>{item.node.publishedDate}</p>
                             </Link>
                             
                         </li>
