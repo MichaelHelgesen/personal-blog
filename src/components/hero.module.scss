@@ -1,0 +1,56 @@
+.hero {
+    background: url("../images/thought-catalog-505eectW54k-unsplash.jpg") no-repeat center;
+    background-size: cover;
+    padding: 4em 0;
+    position:relative;
+    margin-bottom: 4em;
+    text-align: center;
+}
+
+.hero p {
+    font-weight: bold;
+    font-size: 2em;
+    line-height: 1.2em;
+    padding: 0;
+    width: 90%;
+    margin: 0 auto;
+    color: white;
+    z-index: 1;
+    position: relative;
+}
+
+.hero p span {
+    position: relative;
+}
+
+.hero p span:after {
+    content: "";
+    background: red;
+    display: inline-block;
+    width: 85%;
+    height: 9px;
+    position: absolute;
+    bottom: 3px;
+    z-index:-1;
+    left: 0;
+}
+
+.hero p span:nth-of-type(2):after {
+    background: purple;
+}
+
+.hero p span:nth-of-type(3):after {
+    background: green;
+}
+
+.hero:before {
+    content: '\A';
+    position: absolute;
+    width: 100%; 
+    height:100%;
+    top:0; 
+    left:0;
+    background:rgba(0,0,0,0.7);
+    opacity: 1;
+    display: block;
+}

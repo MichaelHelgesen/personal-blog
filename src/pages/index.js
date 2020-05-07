@@ -1,17 +1,21 @@
 import React from "react";
-import { Link } from "gatsby";
+import { Link, graphql, useStaticQuery} from "gatsby";
 import Layout from "../components/layout"
 import "../styles/index.scss"
 import Head from "../components/head";
+import Hero from "../components/hero";
+import BlogData from "../components/blogdata"
+
 
 
 const IndexPage = () => {
+    
+
     return (
         <Layout>
             <Head title="Home" />
-            <h1>Hello!</h1>
-            <h2>I'm Mikke, trying to be a front end developer.</h2>
-            <p>Need a developer? <Link to="/contact">Contact me</Link></p>
+            <Hero />
+            <BlogData />
         </Layout>
     )
 };

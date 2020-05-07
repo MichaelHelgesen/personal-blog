@@ -3,6 +3,7 @@ import Layout from "../components/layout";
 import { Link, graphql, useStaticQuery} from "gatsby";
 import blogStyles from "./blog.module.scss";
 import Head from "../components/head";
+import Breadcrumbs from "../components/breadcrumb";
 
 const CodingLogPage = () => {
 
@@ -31,10 +32,13 @@ const CodingLogPage = () => {
                 {codeData.allContentfulCodingLog.edges.map((item) => (
                         <li className={blogStyles.post}>
                             <Link to={`coding_log/${item.node.slug}`}>
-                                <h2>
-                                    {item.node.title}
-                                </h2>
-                                <p>{item.node.publishedDate}</p>
+                                <div>
+                                    <h2>
+                                        {item.node.title}
+                                    </h2>
+                                
+                                    <p>{item.node.publishedDate}</p>
+                                </div>
                             </Link>
                             
                         </li>
@@ -47,7 +51,8 @@ const CodingLogPage = () => {
     return (
         <Layout>
             <Head title="Coding Log"/>
-            <h1>Coding Log</h1>
+            <Breadcrumbs crumbs={ [ '/', 'Coding Log' ] } />
+            <h1 className={blogStyles.header}>Coding Log</h1>
             <Blogdata />
             
         </Layout>

@@ -3,6 +3,8 @@ import { graphql } from "gatsby";
 import Layout from "../components/layout"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import Head from "../components/head";
+import layoutStyles from "../components/layout.module.scss";
+import Breadcrumbs from "../components/breadcrumb";
 // export const query = graphql`
 // query (
 //     $slug: String!
@@ -52,15 +54,17 @@ const CodeLog = (props) => {
     return (
         <Layout>
           <Head title={props.data.contentfulCodingLog.title}/>
+          <div className={layoutStyles.contentWrapper}>
+          <Breadcrumbs crumbs={ [ '/', 'Coding Log', props.data.contentfulCodingLog.title ] } />
           <h1>{props.data.contentfulCodingLog.title}</h1>
-          <p>{props.data.contentfulCodingLog.publishedDate}</p>
+          <p className={layoutStyles.date}>{props.data.contentfulCodingLog.publishedDate}</p>
           {documentToReactComponents(
             props.data.contentfulCodingLog.body.json, options
           )}
           
           
              
-
+            </div>
         </Layout>
     )
 };

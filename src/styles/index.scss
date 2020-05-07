@@ -1,7 +1,12 @@
 /* Reset provided by https://github.com/gatsbyjs/gatsby-starter-blog via MIT license */
 
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
 html {
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
   }
@@ -202,7 +207,7 @@ html {
   }
   body {
     color: hsla(0, 0%, 0%, 0.8);
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: normal;
     word-wrap: break-word;
     font-kerning: normal;
@@ -622,3 +627,50 @@ html {
       font-size: 100%;
     }
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+} 
+
+html {
+  background: #fbfbfb;
+}
+
+.open-nav {
+  display: grid;
+}
+
+.breadcrumb {
+  margin: 2em .5em 0 .5em;
+}
+
+.breadcrumb ol {
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb__list__item {
+  list-style-type: none;
+  text-decoration: none;
+  margin-right: .4em;
+}
+
+.breadcrumb__list__item a {
+  list-style-type: none;
+  text-decoration: none;
+  color: black;
+  font-size: .85em;
+  font-weight: bold;
+}
+
+.breadcrumb__list__item .breadcrumb__link__active {
+  font-weight: normal;
+}
+
+.breadcrumb__separator {
+  margin-right: .4em;
+}

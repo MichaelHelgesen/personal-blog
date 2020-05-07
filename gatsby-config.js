@@ -6,7 +6,7 @@
 
 module.exports = {
   siteMetadata: {
-    title: "Mikke Learns!",
+    title: "Mikke.Learns",
     author: "Mikke Helgesen"
   },
   plugins: [
@@ -74,6 +74,12 @@ module.exports = {
               // code used in markdown i.e. single backtick code like `this`.
               noInlineHighlight: false,
             },
+          },
+          {
+            resolve: `gatsby-plugin-breadcrumb`,
+            options: {
+              useAutoGen: true,
+            }
           },
         ],
       },
