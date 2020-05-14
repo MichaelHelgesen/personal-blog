@@ -19,12 +19,17 @@ module.exports.createPages = async ({ graphql, actions}) => {
     const { createPage } = actions;
     const blogTemplate = path.resolve("./src/templates/blog.js");
     const codeTemplate = path.resolve("./src/templates/coding-log.js");
+    const blogCategoryLayout = path.resolve("./src/templates/blog-category.js");
+    const blogListLayout = path.resolve(`./src/templates/blog-list.js`);
+
+    
     const res = await graphql(`
         query {
             allContentfulBlogPost {
                 edges {
                     node {
                         slug
+                        category {categoryName}
                     }
                 }
             }
@@ -42,6 +47,20 @@ module.exports.createPages = async ({ graphql, actions}) => {
             }
         }
     `)
+
+    const test = await graphql(`
+    query {
+        allContentfulCodingLog (
+            limit: 1000
+        ) {
+            edges {
+                node {
+                    slug
+                }
+            }
+        }
+    }
+`)
 
     res.data.allContentfulBlogPost.edges.forEach((edge) => {
         createPage({
@@ -62,6 +81,25 @@ module.exports.createPages = async ({ graphql, actions}) => {
             }
         })
     })
+
+
+    const postsPerPage = 9;
+    const posts = test.data.allContentfulCodingLog.edges;
+    const postsWithoutFeatured = posts;
+    const numPages = Math.ceil(postsWithoutFeatured.length / postsPerPage)
+
+    Array.from({ length: numPages }).forEach((_, i) => {
+        createPage({
+          path: i === 0 ? `/blogger` : `/blogger/page/${i + 1}`,
+          component: blogListLayout,
+          context: {
+            limit: postsPerPage,
+            skip: i * postsPerPage,
+            currentPage: i + 1,
+            numPages,
+          },
+        })
+      })
 
 }
 

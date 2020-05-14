@@ -7,23 +7,24 @@
     text-align: center;
 }
 
-.hero p {
+.hero h1 {
     font-weight: bold;
     font-size: 2em;
     line-height: 1.2em;
     padding: 0;
-    width: 90%;
+    max-width: 600px;
+    width: 85%;
     margin: 0 auto;
     color: white;
     z-index: 1;
     position: relative;
 }
 
-.hero p span {
+.hero h1 span {
     position: relative;
 }
 
-.hero p span:after {
+.hero h1 span:after {
     content: "";
     background: red;
     display: inline-block;
@@ -35,11 +36,11 @@
     left: 0;
 }
 
-.hero p span:nth-of-type(2):after {
+.hero h1 span:nth-of-type(2):after {
     background: purple;
 }
 
-.hero p span:nth-of-type(3):after {
+.hero h1 span:nth-of-type(3):after {
     background: green;
 }
 
@@ -53,4 +54,19 @@
     background:rgba(0,0,0,0.7);
     opacity: 1;
     display: block;
+}
+
+@media only screen and (min-width: 1000px) {
+    .hero {
+        background: none;
+    }
+
+    .hero:before {
+        background: none;
+    }
+    
+    .hero h1 {
+        text-align: left;
+        color: black;
+    }
 }

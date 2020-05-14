@@ -10,9 +10,7 @@ const HeroComponent = () => {
 
     return (
         <div className={heroStyles.hero}>
-                
-                <p>Reprogramming my life by <span>reading</span>, <span>writing</span> and learning to <span>code</span></p>
-                
+                <h1>Reprogramming my life by <span>reading</span>, <span>writing</span> and learning to <span>code</span></h1>
         </div>
         
     )

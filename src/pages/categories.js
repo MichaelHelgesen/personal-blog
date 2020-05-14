@@ -5,7 +5,7 @@ import blogStyles from "./blog.module.scss";
 import Head from "../components/head";
 import Breadcrumbs from "../components/breadcrumb";
 
-const CodingLogPage = () => {
+const CategoryPage = () => {
 
     const codeData = useStaticQuery(graphql`
     query { 
@@ -31,7 +31,7 @@ const CodingLogPage = () => {
             <ol className={blogStyles.posts}>
                 {codeData.allContentfulCodingLog.edges.map((item) => (
                         <li className={blogStyles.post}>
-                            <Link to={`coding_log/${item.node.slug}`}>
+                            <Link to={`categories/${item.node.slug}`}>
                                 <div>
                                     <h2>
                                         {item.node.title}
@@ -50,11 +50,11 @@ const CodingLogPage = () => {
 
     return (
         <Layout>
-            <Head title="Coding Log"/>
+            <Head title="Categories"/>
             <div className={blogStyles.wrapper}>
             <div className={blogStyles.wrapperInner}>
-            <Breadcrumbs crumbs={ [ '/', 'Coding Log' ] } />
-            <h1 className={blogStyles.header}>Coding Log</h1>
+            <Breadcrumbs crumbs={ [ '/', 'Categories' ] } />
+            <h1 className={blogStyles.header}>Categories</h1>
             <Blogdata />
             </div>
             </div>
@@ -63,4 +63,4 @@ const CodingLogPage = () => {
     )
 }
 
-export default CodingLogPage;
+export default CategoryPage;

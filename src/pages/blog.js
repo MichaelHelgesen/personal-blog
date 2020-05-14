@@ -14,10 +14,13 @@ const BlogPage = () => {
     return (
         <Layout>
             <Head title="Blog" />
-            <Breadcrumbs crumbs={ [ '/', 'Blog' ] } />
-            <h1 className={blogStyles.header}>Blog</h1>
-            <BlogData />
-             
+            <div className={blogStyles.wrapper}>
+            <div className={blogStyles.wrapperInner}>
+                <Breadcrumbs crumbs={ [ '/', 'Blog' ] } />
+                <h1 className={blogStyles.header}>Blog</h1>
+                <BlogData />
+            </div>
+             </div>
         </Layout>
         
     )

@@ -54,6 +54,7 @@ const Blog = (props) => {
         <Layout>
           <Head title={props.data.contentfulBlogPost.title}/>
           <div className={layoutStyles.contentWrapper}>
+          <div className={layoutStyles.contentInner}>
           <Breadcrumbs crumbs={ [ '/', 'Blog', props.data.contentfulBlogPost.title ] } />
           <h1>{props.data.contentfulBlogPost.title}</h1>
           <p className={layoutStyles.date}>{props.data.contentfulBlogPost.publishedDate}</p>
@@ -61,6 +62,7 @@ const Blog = (props) => {
             props.data.contentfulBlogPost.body.json, options
           )}
           {props.data.contentfulBlogPost.codeBlock2 != null && <div dangerouslySetInnerHTML={{ __html: props.data.contentfulBlogPost.codeBlock2.childMarkdownRemark.html }} /> }
+          </div>
           </div>
           </Layout>
     )

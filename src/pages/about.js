@@ -45,9 +45,13 @@ const AboutPage = () => {
     return (
         <Layout>
             <Head title="About"/>
+            <div className={blogStyles.wrapper}>
+          <div className={blogStyles.wrapperInner}>
             <Breadcrumbs crumbs={ [ '/', 'About' ] } />
             <h1 className={blogStyles.header}>About me</h1>
             <HeroData />
+            </div>
+            </div>
         </Layout>
         
     )

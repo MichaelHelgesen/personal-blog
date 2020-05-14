@@ -17,6 +17,7 @@ const BlogData = () => {
              node { 
                 title
                 slug
+                category {categoryName}
                 publishedDate (formatString:"MMMM Do, YYYY")
                 featureImage {
                     file {
@@ -33,6 +34,28 @@ const BlogData = () => {
     const featuredImages = blogData.allContentfulBlogPost.edges.map((item) => 
         item.node.featureImage
     )
+
+   
+
+
+
+    function getCategories(blogPosts) {
+        const uniqueCategories = new Set()
+        // Iterate over all articles
+        blogPosts.edges.forEach(({ node }) => {
+          // Iterate over each category in an article
+          if (node.category) {
+            node.category.forEach(categoryName => {
+                uniqueCategories.add(categoryName["categoryName"])
+          })
+          }
+        })
+        // Create new array with duplicates removed
+        return Array.from(uniqueCategories)
+      }
+
+
+
 
     const Blogdata = () => {
         

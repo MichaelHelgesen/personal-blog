@@ -55,6 +55,7 @@ const CodeLog = (props) => {
         <Layout>
           <Head title={props.data.contentfulCodingLog.title}/>
           <div className={layoutStyles.contentWrapper}>
+          <div className={layoutStyles.contentInner}>
           <Breadcrumbs crumbs={ [ '/', 'Coding Log', props.data.contentfulCodingLog.title ] } />
           <h1>{props.data.contentfulCodingLog.title}</h1>
           <p className={layoutStyles.date}>{props.data.contentfulCodingLog.publishedDate}</p>
@@ -63,7 +64,7 @@ const CodeLog = (props) => {
           )}
           
           
-             
+          </div>
             </div>
         </Layout>
     )

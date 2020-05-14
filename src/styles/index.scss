@@ -674,3 +674,15 @@ html {
 .breadcrumb__separator {
   margin-right: .4em;
 }
+
+.innerWrapper {
+  max-width: 600px;
+  width: 85%;
+  margin: 0 auto;
+}
+
+@media only screen and (min-width: 1000px) {
+  .wrapper {
+      margin-left: 320px;
+  }
+}

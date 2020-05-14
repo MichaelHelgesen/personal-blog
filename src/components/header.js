@@ -47,7 +47,7 @@ const closeMenu = () => {
                     </svg>
                 
                     <ul className={headerStyles.navList} id="nav">
-                        <li class="exit" id="exit-btn" onClick={closeMenu}>
+                        <li id="exit-btn" onClick={closeMenu}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="48.968" height="48.968" viewBox="0 0 48.968 48.968">
                                 <g transform="translate(-378.092 -80.939)">
                                     <path id="Path_21" data-name="Path 21" d="M383,82l-46.847,46.847" transform="translate(43)" fill="none" stroke="#000" stroke-width="3"/>
@@ -59,13 +59,13 @@ const closeMenu = () => {
                             <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/">Home</Link>
                         </li>
                         <li>
+                        <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/blog" partiallyActive={true}>Blog</Link>
+                    </li>
+                    <li>
+                        <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/coding_log" partiallyActive={true}>Coding log</Link>
+                    </li>
+                        <li>
                             <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/about">About</Link>
-                        </li>
-                        <li>
-                            <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/blog">Blog</Link>
-                        </li>
-                        <li>
-                            <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/coding_log">Coding log</Link>
                         </li>
                         <li>
                             <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/contact">Contact</Link>
