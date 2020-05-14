@@ -6,7 +6,7 @@ import blogStyles from "../pages/blog.module.scss";
 import Head from "../components/head";
 
 const BlogPostList = ({ data, pageContext }) => {
-  const { allContentfulCodingLog } = data
+  const { allContentfulBlogPost } = data
   return (
     <Layout>
     <Head title="Bloger" />
@@ -18,10 +18,10 @@ const BlogPostList = ({ data, pageContext }) => {
 
 
     <div>
-      {allContentfulCodingLog.edges.map(({ node }) => {
+      {allContentfulBlogPost.edges.map(({ node }) => {
         return (
           <div>
-            <Link to={"coding_log/" + node.slug}>
+            <Link to={`coding_log/${node.slug}`}>
             {console.log(node.slug)}
               <h1>{node.title}</h1>
             </Link>
@@ -53,7 +53,7 @@ const BlogPostList = ({ data, pageContext }) => {
 export default BlogPostList
 export const query = graphql`
   query blogPostsList($skip: Int!, $limit: Int!) {
-    allContentfulCodingLog (
+    allContentfulBlogPost (
       sort: {
         fields:publishedDate,
         order: DESC

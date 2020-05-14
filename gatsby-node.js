@@ -84,7 +84,7 @@ module.exports.createPages = async ({ graphql, actions}) => {
 
 
     const postsPerPage = 9;
-    const posts = test.data.allContentfulCodingLog.edges;
+    const posts = res.data.allContentfulBlogPost.edges;
     const postsWithoutFeatured = posts;
     const numPages = Math.ceil(postsWithoutFeatured.length / postsPerPage)
 
@@ -100,6 +100,27 @@ module.exports.createPages = async ({ graphql, actions}) => {
           },
         })
       })
+
+      const categories = []
+      posts.forEach(({ node }, index) => {
+        if (node.category) {
+            node.category.forEach(cat => categories.push(cat["categoryName"]))
+        
+            createPage({
+              path: node.slug,
+              component: blogCategoryLayout,
+              context: {
+                slug: node.slug,
+              },
+            })
+        }
+        
+      })
+
+      const countCategories = categories.reduce((prev, curr) => {
+        prev[curr] = (prev[curr] || 0) + 1
+        return prev
+      }, {})
 
 }
 
