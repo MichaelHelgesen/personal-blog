@@ -83,6 +83,8 @@ module.exports.createPages = async ({ graphql, actions}) => {
     })
 
 
+
+
     const postsPerPage = 9;
     const posts = res.data.allContentfulBlogPost.edges;
     const postsWithoutFeatured = posts;
@@ -90,7 +92,7 @@ module.exports.createPages = async ({ graphql, actions}) => {
 
     Array.from({ length: numPages }).forEach((_, i) => {
         createPage({
-          path: i === 0 ? `/blogger` : `/blogger/page/${i + 1}`,
+          path: i === 0 ? `/blog` : `/blog/page/${i + 1}`,
           component: blogListLayout,
           context: {
             limit: postsPerPage,
@@ -121,6 +123,29 @@ module.exports.createPages = async ({ graphql, actions}) => {
         prev[curr] = (prev[curr] || 0) + 1
         return prev
       }, {})
+
+      const allCategories = Object.keys(countCategories)
+
+      allCategories.forEach((cat, i) => {
+        const link = `/blog/category/${cat.toLowerCase()}`
+        Array.from({
+          length: Math.ceil(countCategories[cat] / postsPerPage),
+        }).forEach((_, i) => {
+          createPage({
+            path: i === 0 ? link : `${link}/page/${i + 1}`,
+            component: blogCategoryLayout,
+            context: {
+              allCategories: allCategories,
+              category: cat,
+              limit: postsPerPage,
+              skip: i * postsPerPage,
+              currentPage: i + 1,
+              numPages: Math.ceil(countCategories[cat] / postsPerPage),
+            },
+          })
+        })
+      })
+
 
 }
 

@@ -68,7 +68,7 @@ const IndexBlogData = () => {
                                         item.node.category ? 
                                         
                                             item.node.category[0]["categoryName"] === category ?
-                                            <li><Link to={`blog/${item.node.slug}`}><h2>{item.node.title}{console.log(item)}</h2></Link></li>:    
+                                            <li><Link to={`blog/${item.node.slug}`}><h2>{item.node.title}</h2></Link></li>:    
                                             null
                                             
                                          : 

@@ -6,33 +6,66 @@ import blogStyles from "../pages/blog.module.scss";
 import Head from "../components/head";
 
 const BlogPostList = ({ data, pageContext }) => {
+  
   const { allContentfulBlogPost } = data
+  
+  const featuredImages = allContentfulBlogPost.edges.map((item) => 
+  item.node.featureImage
+)
+  
   return (
     <Layout>
-    <Head title="Bloger" />
+    <Head title="Blog" />
     
     <div className={blogStyles.wrapper}>
     <div className={blogStyles.wrapperInner}>
-        <Breadcrumbs crumbs={ [ '/', 'Blogger' ] } />
+        <Breadcrumbs crumbs={ [ '/', 'Blog' ] } />
         <h1 className={blogStyles.header}>Blog</h1>
 
 
     <div>
-      {allContentfulBlogPost.edges.map(({ node }) => {
+    <ol className={blogStyles.posts}>
+      {allContentfulBlogPost.edges.map(({ node }, index) => {
         return (
-          <div>
-            <Link to={`coding_log/${node.slug}`}>
-            {console.log(node.slug)}
-              <h1>{node.title}</h1>
-            </Link>
-            <p>{node.publishedDate}</p>
-          </div>
+                  <li className={blogStyles.post}>
+                      <Link to={`blog/${node.slug}`}> 
+                          {node.featuredImages ? null : null }
+                          
+                          {featuredImages[index] ? <div className={blogStyles.featuredImage} style={{
+                              height: "250px",
+                              background: "url(" + featuredImages[index]["file"]["url"] + ") no-repeat center center",
+                              '-webkit-background-size': "cover",
+                              '-moz-background-size': "cover",
+                              '-o-background-size': "cover",
+                              'background-size': "cover"
+                          }}></div> : null }
+                          <div>
+                              <h2>
+                                  {node.title}
+                              </h2>   
+                              <p className={blogStyles.date}>{node.publishedDate}</p>
+                          </div>
+                          <div>
+                          {node.category ? 
+                            node.category.map((cat, index, arr) => (
+                            
+                              <Link to={`/blog/category/${cat["categoryName"].toLowerCase()}`}>{cat["categoryName"]}</Link>
+                            
+                          ))
+                            :
+                          null
+                          }
+                          
+                          </div>
+                      </Link>    
+                  </li>
         )
       })}
+      </ol>
       <ul>
                 {Array.from({ length: pageContext.numPages }).map((item, i) => {
                   const index = i + 1
-                  const link = index === 1 ? '/blogger' : `/blogger/page/${index}`
+                  const link = index === 1 ? '/blog' : `/blog/page/${index}`
                   return (
                     <li>
                       {pageContext.currentPage === index ? (
@@ -66,6 +99,12 @@ export const query = graphql`
            title
            slug
            publishedDate (formatString:"MMMM Do, YYYY")
+           category {categoryName}
+           featureImage {
+            file {
+                url
+            }
+          }
       }
     }
   }
@@ -75,6 +114,22 @@ export const query = graphql`
 
 
 /*
+
+            <div>
+            {node.category ? 
+              node.category.map((cat, index, arr) => (
+              
+                <Link to={`/blog/category/${cat["categoryName"].toLowerCase()}`}>{cat["categoryName"]}</Link>
+              
+            ))
+              :
+            null
+            }
+            
+            </div>
+
+
+
 import React from "react";
 import Layout from "../components/layout";
 import { Link, graphql, useStaticQuery} from "gatsby";
