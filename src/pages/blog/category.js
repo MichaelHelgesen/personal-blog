@@ -62,6 +62,7 @@ const IndexBlogData = () => {
                     
                     <div>
                     <p>{category}</p>
+                    <Link to={`blog/category/${category.toLowerCase()}`}>{category}</Link>
 
                         <ol>
                         {blogData.allContentfulBlogPost.edges.map((item) => (    
@@ -78,7 +79,7 @@ const IndexBlogData = () => {
                             )
                         )} 
                     </ol>      
-                        <p>More in <Link to={`blog/category/${category.toLowerCase()}`}>{category}</Link></p>
+                        
                     </div>
                         
                 ))}

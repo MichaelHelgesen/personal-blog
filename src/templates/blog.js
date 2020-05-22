@@ -1,5 +1,5 @@
 import React from "react";
-import { graphql } from "gatsby";
+import { Link,  graphql } from "gatsby";
 import Layout from "../components/layout"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import Head from "../components/head";
@@ -29,6 +29,7 @@ export const query = graphql`
   query ($slug: String!) {
     contentfulBlogPost(slug: {eq: $slug}) {
       title
+      category {categoryName}
       publishedDate(formatString: "MMMM Do, YYYY")
       body {
         json
@@ -50,6 +51,7 @@ const Blog = (props) => {
   }
 
 
+
     return (
         <Layout>
           <Head title={props.data.contentfulBlogPost.title}/>
@@ -57,7 +59,8 @@ const Blog = (props) => {
           <div className={layoutStyles.contentInner}>
           <Breadcrumbs crumbs={ [ '/', 'Blog', props.data.contentfulBlogPost.title ] } />
           <h1>{props.data.contentfulBlogPost.title}</h1>
-          <p className={layoutStyles.date}>{props.data.contentfulBlogPost.publishedDate}</p>
+          <p className={layoutStyles.date}>{props.data.contentfulBlogPost.publishedDate} {props.data.contentfulBlogPost.category ? 
+          <span>in <Link to={`blog/category/${props.data.contentfulBlogPost.category[0]["categoryName"].toLowerCase()}`}>{props.data.contentfulBlogPost.category[0]["categoryName"]}</Link></span> : null}</p>
           {documentToReactComponents(
             props.data.contentfulBlogPost.body.json, options
           )}
