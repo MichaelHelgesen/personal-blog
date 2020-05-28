@@ -17,9 +17,60 @@
     text-align: center;
 }
 
+.list {
+    margin: 0;
+}
+
+.categorylist {
+    text-align:center;
+    margin: 0 0 2em 0;
+    a {
+    display: inline-block;
+    margin-right: .5em;
+    margin-bottom: .5em;
+    font-size: .85em;
+    color: black;
+    text-decoration: none;
+    padding: .5em 1.5em;
+    background-color: #eeeeee;
+    border-radius: 3px;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    .activecategory {
+        background: #cccccc;
+     }
+}
+
 .posts {
     list-style-type: none;
     margin: 0;
+}
+
+.pagination {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top:-1px;
+    li {
+        list-style-type: none; 
+        margin:0;
+    }
+    a, span {
+        padding: 1em 1.5em;
+        display:block;
+    }
+    a {
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    span {
+        border-top: 1px solid black;
+    }
 }
 
 .post {
@@ -27,12 +78,13 @@
     text-align: center;
     /*box-shadow: 1px 1px 10px rgba($color: #000000, $alpha: .2);*/
     border-bottom: 1px solid #cccccc;
+    list-style-type: none;
     a {
         /*background: #f4f4f4;*/
         color: #252525;
         display: block;
         text-decoration: none;
-        padding-top: 2em;
+        padding-top: 1em;
     }
 
     a:hover h2 {
@@ -42,12 +94,27 @@
     h2 {
         margin-bottom: 5px;
         line-height: 1.3em;
+        text-transform: unset;
+        letter-spacing: unset;
+        font-size: 1.3em;
     }
 
     p {
-        color: #777777;
-        font-size: .8rem;
+        color: #888888;
+        font-size: .7rem;
         font-style: italic;
+        margin: 0;
+    }
+
+    p a {
+        display: inline-block;
+        font-style: italic;
+        color: unset;
+        padding-top: unset;
+    }
+
+    p a:hover  {
+        text-decoration: underline;
     }
 
     img {
@@ -55,12 +122,13 @@
     }
 
     div {
-        padding: 0 1em 1.5em 1em;
+        padding: 0 1em 1em 1em;
     }
 
     .featuredImage {
         box-shadow: 1px 1px 10px rgba($color: #000000, $alpha: .2);
-        margin-bottom: 2em;
+        margin-bottom: 1em;
+        padding-top:2em;
     }
 
 }
@@ -84,7 +152,7 @@
         text-align: unset;
 
         div {
-            padding: 0 0em 1.5em 0em;
+            padding: 0 0em 1em 0em;
         }
     }
 

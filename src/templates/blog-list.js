@@ -28,7 +28,7 @@ const BlogPostList = ({ data, pageContext }) => {
       {allContentfulBlogPost.edges.map(({ node }, index) => {
         return (
                   <li className={blogStyles.post}>
-                      <Link to={`blog/${node.slug}`}> 
+                      <Link className={blogStyles.bloglink} to={`blog/${node.slug}`}> 
                           {node.featuredImages ? null : null }
                           
                           {featuredImages[index] ? <div className={blogStyles.featuredImage} style={{
@@ -40,29 +40,35 @@ const BlogPostList = ({ data, pageContext }) => {
                               'background-size': "cover"
                           }}></div> : null }
                           <div>
-                              <h2>
-                                  {node.title}
-                              </h2>   
-                              <p className={blogStyles.date}>{node.publishedDate}</p>
-                          </div>
-                          <div>
-                          {node.category ? 
+                             
+                              <p className={blogStyles.date}>{node.publishedDate}
+                              
+                              
+                              
+                          {node.category ? " in " : null }
+
+                           {node.category ? 
+                            
                             node.category.map((cat, index, arr) => (
-                            
-                              <Link to={`/blog/category/${cat["categoryName"].toLowerCase()}`}>{cat["categoryName"]}</Link>
-                            
+                              index === arr.length - 1 ? <Link to={`/blog/category/${cat["categoryName"].toLowerCase()}`}>{cat["categoryName"]}</Link> : <span><Link to={`/blog/category/${cat["categoryName"].toLowerCase()}`}>{cat["categoryName"]}</Link>, </span>
                           ))
                             :
                           null
                           }
-                          
+                                                        
+                              </p>
+
+                              <h2>
+                              {node.title}
+                          </h2>   
+
                           </div>
                       </Link>    
                   </li>
         )
       })}
       </ol>
-      <ul>
+      <ul className={blogStyles.pagination}>
                 {Array.from({ length: pageContext.numPages }).map((item, i) => {
                   const index = i + 1
                   const link = index === 1 ? '/blog' : `/blog/page/${index}`
@@ -71,7 +77,7 @@ const BlogPostList = ({ data, pageContext }) => {
                       {pageContext.currentPage === index ? (
                         <span>{index}</span>
                       ) : (
-                        <a href={link}>{index}</a>
+                        <Link to={link}>{index}</Link>
                       )}
                     </li>
                   )

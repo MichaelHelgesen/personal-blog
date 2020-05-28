@@ -60,7 +60,13 @@ const Blog = (props) => {
           <Breadcrumbs crumbs={ [ '/', 'Blog', props.data.contentfulBlogPost.title ] } />
           <h1>{props.data.contentfulBlogPost.title}</h1>
           <p className={layoutStyles.date}>{props.data.contentfulBlogPost.publishedDate} {props.data.contentfulBlogPost.category ? 
-          <span>in <Link to={`blog/category/${props.data.contentfulBlogPost.category[0]["categoryName"].toLowerCase()}`}>{props.data.contentfulBlogPost.category[0]["categoryName"]}</Link></span> : null}</p>
+           <span>in&nbsp;
+             {props.data.contentfulBlogPost.category.map((cat, index, arr) => (
+              index === arr.length - 1 ? <Link to={`/blog/category/${cat["categoryName"].toLowerCase()}`}>{cat["categoryName"]}</Link> : <span><Link to={`/blog/category/${cat["categoryName"].toLowerCase()}`}>{cat["categoryName"]}</Link>, </span> 
+              
+          ))}
+          </span>
+             : null}</p>
           {documentToReactComponents(
             props.data.contentfulBlogPost.body.json, options
           )}
