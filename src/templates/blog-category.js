@@ -4,14 +4,13 @@ import { Link, graphql } from "gatsby";
 import blogStyles from "../pages/blog.module.scss";
 import Head from "../components/head";
 import Breadcrumbs from "../components/breadcrumb";
-import CurrentPage from "../components/currentpage";
 
 const BlogCategory = ({ data, pageContext }) => {
   const { allContentfulBlogPost } = data
   const featuredImages = allContentfulBlogPost.edges.map((item) => 
   item.node.featureImage
 )
-
+console.log(pageContext["allCategories"]);
 
 const url = `${typeof window !== 'undefined' ? window.location.href : ''}`
 const lastUrl = url.substr(url.lastIndexOf('/') + 1);
@@ -26,7 +25,7 @@ lastUrl.slice(1)
         
         <h1 className={blogStyles.header}>{lastWordInUrl}</h1>
         <div className={blogStyles.categorylist}>
-        {pageContext.allCategories.map(cat => (
+        {pageContext["allCategories"].map(cat => (
           
           cat === lastWordInUrl ? <Link className={blogStyles.activecategory} to={`/blog/category/${cat.toLowerCase()}`}>{cat}</Link> : <Link to={`/blog/category/${cat.toLowerCase()}`}>{cat}</Link> 
           
