@@ -109,7 +109,7 @@ module.exports.createPages = async ({ graphql, actions}) => {
             node.category.forEach(cat => categories.push(cat["categoryName"]))
         
             createPage({
-              path: node.slug,
+              path: `/blog/${node.slug}`,
               component: blogCategoryLayout,
               context: {
                 slug: node.slug,
