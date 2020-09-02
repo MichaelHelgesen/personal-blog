@@ -36,14 +36,21 @@ h2 {
         color:#252525;
         display: block;
         padding: 1em 0;
+        
     }
     a:hover {
         text-decoration: underline;
+        color: #D7707F;
     }
     svg {
         height: 10px;
         margin-left: 10px;
         color: #888888;
+        transition: all 0.2s ease;
+    }
+
+    a:hover svg {
+        margin-left: 15px;
     }
 }
 
@@ -55,7 +62,7 @@ h2 {
     list-style-type: none;
     a {
         /*background: #f4f4f4;*/
-        color: #252525;
+        color: #0E6BA8;
         display: block;
         text-decoration: none;
         padding-top: .5em;
@@ -63,12 +70,14 @@ h2 {
 
     a:hover h3 {
         text-decoration: underline;
+        color: #D7707F;
     }
 
     h3 {
         margin-bottom: 5px;
         line-height: 1.3em;
         font-size: 1.1em;
+        transition: all 0.2s ease;
     }
 
     p {

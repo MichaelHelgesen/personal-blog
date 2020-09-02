@@ -1,5 +1,5 @@
 .header {
-    background: white;
+    background: #0E6BA8;
     box-shadow: 0px 1px 10px rgba($color: #000000, $alpha: .1);
     display: flex;
     padding: 1em .5em .9em .5em;
@@ -8,7 +8,7 @@
 }
 
 .title {
-    color: #000000;
+    color: white;
     text-decoration: none;
     font-weight: 700;
     padding-left: 40px;
@@ -45,16 +45,16 @@ nav {
 }
 
 .nav-item {
-    color: #313131;
+    color: white;
     text-decoration: none;
 }
 
 .nav-item:hover {
-    color: #666666;
+    text-decoration: underline;
 }
 
 .active-nav-item {
-    color: #333333;
+    color: white;
 }
 
 .logoSvg {
@@ -63,7 +63,7 @@ nav {
     position: absolute;
     left:.5em;
     top: .5em;
-    color: #666666;
+    fill: #0A2239;
 }
 
 .exit {
@@ -160,6 +160,7 @@ nav {
         -o-transform: rotate(10deg);
         transform: rotate(10deg);
         opacity: .06;
+        color: white;
     }
 
     .nav-list {
@@ -178,6 +179,7 @@ nav {
         height: 50px;
         left: 1.4em;
         top: 1.4em;
+        color: white;
     }
 
     .title {

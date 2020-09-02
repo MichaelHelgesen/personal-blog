@@ -10,12 +10,11 @@ const BlogCategory = ({ data, pageContext }) => {
   const featuredImages = allContentfulBlogPost.edges.map((item) => 
   item.node.featureImage
 )
-console.log(pageContext["allCategories"]);
 
 const url = `${typeof window !== 'undefined' ? window.location.href : ''}`
 const lastUrl = url.substr(url.lastIndexOf('/') + 1);
-const lastWordInUrl = lastUrl.charAt(0).toUpperCase() +  
-lastUrl.slice(1)
+const lastWordInUrl = lastUrl.charAt(0).toUpperCase() + lastUrl.slice(1)
+
   return (
     <Layout>
     <Head title="Categories" />

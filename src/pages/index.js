@@ -6,6 +6,7 @@ import Hero from "../components/hero";
 /*import BlogData from "../components/blogdata"*/
 /*import BlogPage from "./blog";*/
 import IndexBlogData from "../components/indexblog";
+import IndexCodeLog from "../components/indexcodelog";
 
 
 const IndexPage = () => {
@@ -18,6 +19,7 @@ const IndexPage = () => {
             <Hero />
             <div className={"innerWrapper"}>
             <IndexBlogData />
+            <IndexCodeLog />
             </div>
             </div>
         </Layout>
