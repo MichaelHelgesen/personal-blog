@@ -25,7 +25,6 @@ const AboutPage = () => {
         item.text
     )
  
-    console.log(heroText[0].text)
     
     const HeroData = () => {
         return (

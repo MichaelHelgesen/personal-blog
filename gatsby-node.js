@@ -21,7 +21,6 @@ module.exports.createPages = async ({ graphql, actions}) => {
     const codeTemplate = path.resolve("./src/templates/coding-log.js");
     const blogCategoryLayout = path.resolve("./src/templates/blog-category.js");
     const blogListLayout = path.resolve(`./src/templates/blog-list.js`);
-
     
     const res = await graphql(`
         query {
@@ -48,28 +47,14 @@ module.exports.createPages = async ({ graphql, actions}) => {
         }
     `)
 
-    const test = await graphql(`
-    query {
-        allContentfulCodingLog (
-            limit: 1000
-        ) {
-            edges {
-                node {
-                    slug
-                }
-            }
-        }
-    }
-`)
-
     res.data.allContentfulBlogPost.edges.forEach((edge) => {
-        createPage({
-            component: blogTemplate,
-            path: `/blog/${edge.node.slug}`,
-            context: {
-                slug: edge.node.slug
-            }
-        })
+            createPage({
+                component: blogTemplate,
+                path: `/blog/${edge.node.slug}`,
+                context: {
+                    slug: edge.node.slug
+                }
+            })
     })
 
     code.data.allContentfulCodingLog.edges.forEach((edge) => {

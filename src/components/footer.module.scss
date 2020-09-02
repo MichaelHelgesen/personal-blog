@@ -1,3 +1,66 @@
 .footer {
-    margin-top: 3rem;
+    margin: 3em 0 0 0;
+}
+
+.footerwrapper  {
+    max-width: 600px;
+    width: 85%;
+    margin: 0 auto;
+    border-top: 1px solid rgb(207, 207, 207);
+    padding: 1em 0 0 0;
+    text-align: center;
+}
+
+.description p {
+    font-weight: bold;
+    margin: 0;
+}
+
+.description a {
+    text-decoration: none;
+    font-size: .8em;
+}
+
+.description a:hover {
+    text-decoration: underline;
+}
+
+
+.description svg {
+    width: 35px;
+    padding-left: 8px;
+}
+
+.author {
+    font-size: .8em;
+    color: #8d8d8d;
+}
+
+.author a {
+    color: #8d8d8d;
+}
+
+@media only screen and (min-width: 1000px) {
+    .footer {
+        margin-left: 320px;
+    }
+
+    .description {
+        position: fixed; 
+        bottom: 0;
+        left: 0;
+        width: 320px;
+    }
+
+    .description p {
+        padding: 0 2em;
+        color: #E0909C;
+        text-align: left;
+        margin-bottom: 1.45rem;
+    }
+
+    .description a {
+        color: white;
+    }
+
 }
