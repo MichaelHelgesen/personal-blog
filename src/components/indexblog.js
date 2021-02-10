@@ -19,7 +19,7 @@ const IndexBlogData = () => {
                 title
                 slug
                 category {categoryName}
-                publishedDate (formatString:"MMMM Do, YYYY")
+                publishedDate (formatString:"DD.MM.YY")
                 featureImage {
                     file {
                         url
@@ -57,9 +57,6 @@ const IndexBlogData = () => {
 
 
     const Blogdata = () => {
-      
-      
-
 
       return (
             
@@ -82,20 +79,20 @@ const IndexBlogData = () => {
                           return testing
                          }).map(function(post, index) {
                            return <li className={blogStyles.post}>
-                            <Link to={`blog/${post.node.slug}`}> 
+                            <Link to={`blogg/${post.node.slug}`}> 
                                 
                                 <div>
-                                <p className={blogStyles.date}>{post.node.publishedDate}</p>
+                                
                                     <h3>
                                         {post.node.title}
                                     </h3>   
-                                    
+                                    <p className={blogStyles.date}>{post.node.publishedDate}</p>
                                 </div>
                             </Link>    
                         </li>
                          }).slice(0,3)}                       
 
-                         <li className={blogStyles.readmore}><Link to={`blog/category/${category.toLowerCase()}`}>More in {category} 
+                         <li className={blogStyles.readmore}><Link to={`blogg/kategori/${category.toLowerCase()}`}>Mer i {category} 
                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 100">
                          <defs>
                            <marker id="arrowhead" markerWidth="10" markerHeight="7" 

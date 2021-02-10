@@ -31,7 +31,7 @@ const AboutPage = () => {
             <div>
                 {heroData.allContentfulHeroTexts.nodes.map((item, index) => (
                                 <div>
-                                {item.contentfulid === "About" ? <p>{heroText[index].text}</p> : null }
+                                {item.contentfulid === "Om" ? <p>{heroText[index].text}</p> : null }
                                 </div>
                             
                     )
@@ -43,11 +43,11 @@ const AboutPage = () => {
     
     return (
         <Layout>
-            <Head title="About"/>
+            <Head title="Om Mikke"/>
             <div className={blogStyles.wrapper}>
           <div className={blogStyles.wrapperInner}>
-            <Breadcrumbs crumbs={ [ '/', 'About' ] } />
-            <h1 className={blogStyles.header}>About me</h1>
+            <Breadcrumbs crumbs={ [ '/', 'Om' ] } />
+            <h1 className={blogStyles.header}>Om meg</h1>
             <HeroData />
             </div>
             </div>

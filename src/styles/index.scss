@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500;700;800;900&display=swap');
 
 html {
     font-family: 'Roboto', sans-serif;
@@ -14,6 +14,7 @@ html {
     margin: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: #f2f2f2;
   }
   article,
   aside,
@@ -68,7 +69,6 @@ html {
     font-style: italic;
   }
   h1 {
-    font-size: 2em;
     margin: 0.67em 0;
   }
   mark {
@@ -241,7 +241,7 @@ html {
       Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     font-weight: bold;
     text-rendering: optimizeLegibility;
-    font-size: 2.25rem;
+   
     line-height: 1.1;
   }
   h2 {
@@ -635,6 +635,12 @@ html {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
+}
+
+h1 {
+  font-family: 'Roboto Slab', sans-serif;
+  font-weight: 800;
+  font-size:2.45em;
 } 
 
 html {
@@ -643,6 +649,17 @@ html {
 
 .open-nav {
   display: grid;
+}
+
+li#exit-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+li#exit-btn svg {
+  height:40px;
 }
 
 .breadcrumb {

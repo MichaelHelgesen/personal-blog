@@ -30,7 +30,7 @@ export const query = graphql`
     contentfulBlogPost(slug: {eq: $slug}) {
       title
       category {categoryName}
-      publishedDate(formatString: "MMMM Do, YYYY")
+      publishedDate(formatString: "DD.MM.YY")
       body {
         json
       }
@@ -57,12 +57,12 @@ const Blog = (props) => {
           <Head title={props.data.contentfulBlogPost.title}/>
           <div className={layoutStyles.contentWrapper}>
           <div className={layoutStyles.contentInner}>
-          <Breadcrumbs crumbs={ [ '/', 'Blog', props.data.contentfulBlogPost.title ] } />
+          <Breadcrumbs crumbs={ [ '/', 'Blogg', props.data.contentfulBlogPost.title ] } />
           <h1>{props.data.contentfulBlogPost.title}</h1>
-          <p className={layoutStyles.date}>{props.data.contentfulBlogPost.publishedDate} {props.data.contentfulBlogPost.category ? 
-           <span>in&nbsp;
+          <p className={layoutStyles.date}>{props.data.contentfulBlogPost.publishedDate}, {props.data.contentfulBlogPost.category ? 
+           <span>
              {props.data.contentfulBlogPost.category.map((cat, index, arr) => (
-              index === arr.length - 1 ? <Link to={`/blog/category/${cat["categoryName"].toLowerCase()}`}>{cat["categoryName"]}</Link> : <span><Link to={`/blog/category/${cat["categoryName"].toLowerCase()}`}>{cat["categoryName"]}</Link>, </span> 
+              index === arr.length - 1 ? <Link to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>#{cat["categoryName"]}</Link> : <span><Link to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>#{cat["categoryName"]}</Link> </span> 
               
           ))}
           </span>

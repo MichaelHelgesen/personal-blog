@@ -19,7 +19,7 @@ const CodingLogPage = () => {
              node { 
                 title
                 slug
-                publishedDate (formatString:"MMMM Do, YYYY")
+                publishedDate (formatString:"DD.MM.YY")
            }
          }
        }

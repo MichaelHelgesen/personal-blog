@@ -2,9 +2,11 @@
     background: #0E6BA8;
     box-shadow: 0px 1px 10px rgba($color: #000000, $alpha: .1);
     display: flex;
-    padding: 1em .5em .9em .5em;
+    padding: 1.5em 1em 1.2em 1em;
     justify-content: space-between;
     align-content: center;   
+    
+    box-shadow: 0px -2px 12px 1px;
 }
 
 .title {
@@ -12,12 +14,50 @@
     text-decoration: none;
     font-weight: 700;
     padding-left: 40px;
+    font-family: 'Roboto Slab';
+    text-transform: uppercase;
+}
+
+.title:hover .logoSvg {
+    transform: rotate(-15deg) scale(1.05);
+}
+
+.logowrapper {
+    width: 48px;
+    height: 48px;
+    background: white;
+    display: block;
+    position: absolute;
+    top: .90em;
+    left: 1em;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.logo {
+    display: flex;
+    border-bottom: 5px solid #103750;
+    margin-left: 10px;
+}
+
+.logofirst {
+    font-weight: 100;
+    color: white;
+}
+
+.logosecond {
+    font-weight: 900;
+    color: #e1909c;
+    
+    margin-left: 5px;
+
+    /*border-bottom: 5px solid #103750;*/
 }
 
 nav {
     height: 20px;
     margin: 0;
-    padding: 0;
+    padding: 3px 0 0 0;
     display: inline-block;
 }
 
@@ -35,6 +75,7 @@ nav {
     place-content: center;
     z-index: 2;
     font-weight: bold;
+    text-align: center;
 }
 
 .menuBtn {
@@ -45,42 +86,35 @@ nav {
 }
 
 .nav-item {
-    color: white;
+    color: #000000;
     text-decoration: none;
+    font-size: 2em;
+    line-height: 1.6em;
+    transition: all .2s ease;
+    
 }
 
 .nav-item:hover {
-    text-decoration: underline;
+    color: #e1909c;
 }
 
 .active-nav-item {
-    color: white;
+    color: #0E6BA8;
 }
 
 .logoSvg {
-    width: 38px;
-    height: 38px;
-    position: absolute;
-    left:.5em;
-    top: .5em;
     fill: #0A2239;
-}
-
-.exit {
-    position: fixed;
-    top: 0;
-    right: 0;
+    transition: all .1s ease;
+    width: 100%;
+    height: auto;
 }
 
 @media only screen and (min-width: 481px) {
-    .logoSvg {
-        width: 45px;
-        height: 45px;
-    }
+
     .title {
         padding-left: 50px;
     }
-  }
+    }
 
   @media only screen and (min-width: 570px) {
     .menuBtn {
@@ -110,10 +144,6 @@ nav {
         font-size: .95em;
     }
 
-    .active-nav-item {
-        font-weight: bold;
-    }
-
     .nav-list svg {
         display: none;
     }
@@ -123,7 +153,15 @@ nav {
     }
 
     .nav-item {
-        padding: 0 .5em;
+        padding: 3px .5em 0 .5em;
+        color: white;
+        font-size: unset;
+        line-height: 1.6em;
+        font-weight: bold;
+    }
+
+    .active-nav-item {
+        color: #103750
     }
 
     .nav-list li:last-of-type .nav-item {
@@ -139,11 +177,11 @@ nav {
         height: 100vh;
         position: fixed;
         justify-content: flex-start;
-        width: 320px;
+        width: 220px;
         overflow: hidden;
+        box-shadow: -8px 3px 17px 5px;
 
-    }
-
+  }
 
     .header:before {
         content: "";
@@ -174,22 +212,68 @@ nav {
         display: block;
     }
 
-    .logoSvg {
-        width: 50px;
-        height: 50px;
-        left: 1.4em;
-        top: 1.4em;
-        color: white;
-    }
+
 
     .title {
-        margin-top: 4.2em;
+        margin-top: 1.9em;
         padding-left: 0;
         font-size: 1.2em;
         margin-bottom: 1em;
+        color: #0d6ba8;
+        text-align: center;
     }
 
+    .title:hover .logoSvg {
+        transform: rotate(-15deg) scale(1.05);
+    }
+
+    .logo {
+        line-height: 1.1em;
+        display: unset;
+        border:none;
+        margin-left: 0;
+    }
+
+    .logowrapper {
+        width: 60px;
+        height: 60px;
+        position: unset;
+        top: unset;
+        left: unset;
+        margin: 0 auto 8px auto;
+        padding: 5px;
+    }
+
+    .logofirst {
+        font-weight: 100;
+        color: white;
+    }
+
+    .logosecond {
+        font-size: 1.23em;
+        font-weight: 900;
+        color: #e1909c;
+        padding-bottom: 3px;
+        border-bottom: 5px solid #103750;
+        border-left: none;
+        margin-left: 0;
+    padding-left: 0;
+    }
+    
+
     .active-nav-item {
-        text-decoration: underline;
+        color: #103750
+    }
+    .logoSvg {
+        padding: 3px;
+    }
+  }
+
+  @media only screen and (min-width: 1200px) {
+    .header {
+        width: 320px;
+    }
+    .nav-item {
+        font-size: 1.2em;
     }
   }

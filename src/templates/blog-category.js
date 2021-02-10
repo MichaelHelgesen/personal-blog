@@ -17,16 +17,17 @@ const lastWordInUrl = lastUrl.charAt(0).toUpperCase() + lastUrl.slice(1)
 
   return (
     <Layout>
-    <Head title="Categories" />
+    <Head title="Kategorier" />
     <div className={blogStyles.wrapper}>
     <div className={blogStyles.wrapperInner}>
-    <Breadcrumbs crumbs={ [ '/', 'Blog', "Category" ] } />
+    <Breadcrumbs crumbs={ [ '/', 'Blogg', "Kategori" ] } />
         
         <h1 className={blogStyles.header}>{lastWordInUrl}</h1>
         <div className={blogStyles.categorylist}>
+        <Link className="blogg" to={`/blogg`}>Alle</Link>
         {pageContext["allCategories"].map(cat => (
           
-          cat === lastWordInUrl ? <Link className={blogStyles.activecategory} to={`/blog/category/${cat.toLowerCase()}`}>{cat}</Link> : <Link to={`/blog/category/${cat.toLowerCase()}`}>{cat}</Link> 
+          cat === lastWordInUrl ? <Link className={blogStyles.activecategory} to={`/blogg/kategori/${cat.toLowerCase()}`}>{cat}</Link> : <Link to={`/blogg/kategori/${cat.toLowerCase()}`}>{cat}</Link> 
           
             ))}
 </div>
@@ -35,40 +36,28 @@ const lastWordInUrl = lastUrl.charAt(0).toUpperCase() + lastUrl.slice(1)
     {allContentfulBlogPost.edges.map(({ node }, index) => {
       return (
                 <li className={blogStyles.post}>
-                    <Link className={blogStyles.bloglink} to={`blog/${node.slug}`}> 
-                        {node.featuredImages ? null : null }
+                    <Link className={blogStyles.bloglink} to={`blogg/${node.slug}`}> 
                         
-                        {featuredImages[index] ? <div className={blogStyles.featuredImage} style={{
-                            height: "250px",
-                            background: "url(" + featuredImages[index]["file"]["url"] + ") no-repeat center center",
-                            '-webkit-background-size': "cover",
-                            '-moz-background-size': "cover",
-                            '-o-background-size': "cover",
-                            'background-size': "cover"
-                        }}></div> : null }
                         <div>
-                           
-                            <p className={blogStyles.date}>{node.publishedDate}
-                            
-                            
-                            
-                        {node.category ? " in " : null }
-
-                         {node.category ? 
-                          
-                          node.category.map((cat, index, arr) => (
-                            index === arr.length - 1 ? <Link to={`/blog/category/${cat["categoryName"].toLowerCase()}`}>{cat["categoryName"]}</Link> : <span><Link to={`/blog/category/${cat["categoryName"].toLowerCase()}`}>{cat["categoryName"]}</Link>, </span>
-                        ))
-                          :
-                        null
-                        }
-                                                      
-                            </p>
-
                             <h2>
                             {node.title}
                         </h2>   
-
+                        <p className={blogStyles.date}>{node.publishedDate},
+                            
+                            
+                            
+                            {node.category ? " " : null }
+    
+                             {node.category ? 
+                              
+                              node.category.map((cat, index, arr) => (
+                                index === arr.length - 1 ? <Link to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>#{cat["categoryName"]}</Link> : <span><Link to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>#{cat["categoryName"]}</Link> </span>
+                            ))
+                              :
+                            null
+                            }
+                                                          
+                                </p>
                         </div>
                     </Link>    
                 </li>
@@ -78,7 +67,7 @@ const lastWordInUrl = lastUrl.charAt(0).toUpperCase() + lastUrl.slice(1)
     <ul className={blogStyles.pagination}>
               {Array.from({ length: pageContext.numPages }).map((item, i) => {
                 const index = i + 1
-                const link = index === 1 ? '/blog' : `/blog/page/${index}`
+                const link = index === 1 ? '/blogg' : `/blogg/side/${index}`
                 return (
                   <li>
                     {pageContext.currentPage === index ? (
@@ -111,7 +100,7 @@ export const query = graphql`
         node { 
            title
            slug
-           publishedDate (formatString:"MMMM Do, YYYY")
+           publishedDate (formatString:"DD.MM.YY")
            category {categoryName}
            featureImage {
             file {

@@ -50,7 +50,7 @@ module.exports.createPages = async ({ graphql, actions}) => {
     res.data.allContentfulBlogPost.edges.forEach((edge) => {
             createPage({
                 component: blogTemplate,
-                path: `/blog/${edge.node.slug}`,
+                path: `/blogg/${edge.node.slug}`,
                 context: {
                     slug: edge.node.slug
                 }
@@ -70,14 +70,14 @@ module.exports.createPages = async ({ graphql, actions}) => {
 
 
 
-    const postsPerPage = 9;
+    const postsPerPage = 10;
     const posts = res.data.allContentfulBlogPost.edges;
     const postsWithoutFeatured = posts;
     const numPages = Math.ceil(postsWithoutFeatured.length / postsPerPage)
 
     Array.from({ length: numPages }).forEach((_, i) => {
         createPage({
-          path: i === 0 ? `/blog` : `/blog/page/${i + 1}`,
+          path: i === 0 ? `/blogg` : `/blogg/side/${i + 1}`,
           component: blogListLayout,
           context: {
             limit: postsPerPage,
@@ -94,7 +94,7 @@ module.exports.createPages = async ({ graphql, actions}) => {
             node.category.forEach(cat => categories.push(cat["categoryName"]))
         
             createPage({
-              path: `/blog/${node.slug}`,
+              path: `/blogg/${node.slug}`,
               component: blogCategoryLayout,
               context: {
                 slug: node.slug,
@@ -112,12 +112,12 @@ module.exports.createPages = async ({ graphql, actions}) => {
       const allCategories = Object.keys(countCategories)
 
       allCategories.forEach((cat, i) => {
-        const link = `/blog/category/${cat.toLowerCase()}`
+        const link = `/blogg/kategori/${cat.toLowerCase()}`
         Array.from({
           length: Math.ceil(countCategories[cat] / postsPerPage),
         }).forEach((_, i) => {
           createPage({
-            path: i === 0 ? link : `${link}/page/${i + 1}`,
+            path: i === 0 ? link : `${link}/side/${i + 1}`,
             component: blogCategoryLayout,
             context: {
               allCategories: allCategories,

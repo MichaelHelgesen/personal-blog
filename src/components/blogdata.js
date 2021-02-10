@@ -63,7 +63,7 @@ const BlogData = () => {
             <ol className={blogStyles.posts}>
                 {blogData.allContentfulBlogPost.edges.map((item, index) => (    
                         <li className={blogStyles.post}>
-                            <Link to={`blog/${item.node.slug}`}> 
+                            <Link to={`blogg/${item.node.slug}`}> 
                                 {item.node.featuredImages ? null : null }
                                 
                                 {featuredImages[index] ? <div className={blogStyles.featuredImage} style={{

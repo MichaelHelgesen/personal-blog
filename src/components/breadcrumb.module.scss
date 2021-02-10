@@ -23,12 +23,13 @@
   }
   
   .breadcrumb ul li a {
-    text-decoration: none;
+    text-decoration: nounderlinene;
     font-weight: bold;
-    color:#545454;
+    color:#0E6BA8;
+    transition: all .2s ease;
   }
   
   .breadcrumb ul li a:hover {
-    color: #01447e;
+    color: #D7707F;
     text-decoration: underline;
   }

@@ -58,7 +58,7 @@ const BlogListData = () => {
               <ul>
               {Array.from({ length: pageContext.numPages }).map((item, i) => {
                 const index = i + 1
-                const link = index === 1 ? '/test' : `/test/page/${index}`
+                const link = index === 1 ? '/test' : `/test/side/${index}`
                 return (
                   <li>
                     {pageContext.currentPage === index ? (

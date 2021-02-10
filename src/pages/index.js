@@ -14,12 +14,12 @@ const IndexPage = () => {
 
     return (
         <Layout>
-            <Head title="Home" />
+            <Head title="Hjem" />
             <div className={"wrapper"}>
             <Hero />
             <div className={"innerWrapper"}>
             <IndexBlogData />
-            <IndexCodeLog />
+            
             </div>
             </div>
         </Layout>
