@@ -197,6 +197,11 @@ nav {
         color: white;
     }
 
+    nav {
+        display: block!important;
+        align-items: unset;
+    }
+
     .nav-list {
         list-style-type: none;
         font-weight: bold;
