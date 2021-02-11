@@ -706,3 +706,9 @@ li#exit-btn svg {
       margin-left: 320px;
   }
 }
+
+@media only screen and (min-width: 1250px) {
+  .innerWrapper{
+      margin: 0 0 0 160px;
+  }
+}

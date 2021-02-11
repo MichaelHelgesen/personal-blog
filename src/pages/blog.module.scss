@@ -158,12 +158,6 @@
     .breadcrumb {
         text-align: left;
     }  
-
-
-
-    
-
-
 }
 
 @media only screen and (min-width: 1000px) {
@@ -171,3 +165,9 @@
         margin-left: 320px;
     }
 }
+
+@media only screen and (min-width: 1250px) {
+    .wrapperInner{
+        margin: 0 0 0 160px;
+    }
+  }

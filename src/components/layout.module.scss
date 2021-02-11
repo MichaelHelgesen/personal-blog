@@ -15,7 +15,7 @@
         margin-top: .5em;
         margin-bottom: .5em;
         text-align: center;
-        font-size: 9.5vw;
+        font-size: 9vw;
         line-height: 1.2em;
         color: #2d2d2d;
     }
@@ -75,9 +75,17 @@ p.date a:hover {
     }
   }
 
-  @media only screen and (min-width: 12000px) {
+  @media only screen and (min-width: 1200px) {
     .contentWrapper {
         margin: 0;
         margin-left: 320px;
+    }
+}
+
+@media only screen and (min-width: 1250px) {
+    .contentInner{
+        max-width: 600px;
+        width: 85%;
+        margin: 0 0 0 160px;
     }
 }
