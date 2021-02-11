@@ -64,7 +64,7 @@ const IndexBlogData = () => {
                 {categories.map((category) => (
                     
                     <div className={blogStyles.section}>
-                    <h2>{category}</h2>
+                    <h2>#{category}</h2>
 
                         <ol className={blogStyles.list}>
 

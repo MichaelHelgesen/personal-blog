@@ -98,8 +98,26 @@ h2 {
     border-top: 1px solid #dbdbdb;
 }
 
+
+
 @media only screen and (min-width: 1000px) {
     .wrapper {
+        margin: 0;
+        margin-left: 220px;
+    }
+  }
+
+  @media only screen and (min-width: 1100px) {
+    .wrapper {
+        margin: 0;
         margin-left: 320px;
+    }
+}
+
+@media only screen and (min-width: 1250px) {
+    .wrapperInner{
+        max-width: 600px;
+        width: 85%;
+        margin: 0 0 0 160px;
     }
 }

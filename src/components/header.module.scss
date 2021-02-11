@@ -181,7 +181,7 @@ nav {
         width: 200%;
         height: 200%;
         bottom: -140%;
-        left: -90%;
+        left: -130%;
         z-index: -1;
         background: url("../images/education.svg") 0 0 no-repeat;
         -webkit-transform: rotate(10deg);
@@ -266,11 +266,14 @@ nav {
     }
   }
 
-  @media only screen and (min-width: 1200px) {
+  @media only screen and (min-width: 1100px) {
     .header {
         width: 320px;
     }
     .nav-item {
         font-size: 1.2em;
+    }
+    .header:before {
+        left: -90%;
     }
   }
