@@ -7,9 +7,6 @@ import Breadcrumbs from "../components/breadcrumb";
 
 const BlogCategory = ({ data, pageContext }) => {
   const { allContentfulBlogPost } = data
-  const featuredImages = allContentfulBlogPost.edges.map((item) => 
-  item.node.featureImage
-)
 
 const url = `${typeof window !== 'undefined' ? window.location.href : ''}`
 const lastUrl = url.substr(url.lastIndexOf('/') + 1);

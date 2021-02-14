@@ -61,9 +61,9 @@ const IndexBlogData = () => {
       return (
             
             <div>
-                {categories.map((category) => (
+                {categories.map((category, index) => (
                     
-                    <div className={blogStyles.section}>
+                    <div className={blogStyles.section} key={index}>
                     <h2>#{category}</h2>
 
                         <ol className={blogStyles.list}>
@@ -78,7 +78,7 @@ const IndexBlogData = () => {
                           })
                           return testing
                          }).map(function(post, index) {
-                           return <li className={blogStyles.post}>
+                           return <li className={blogStyles.post} key={index}>
                             <Link to={`blogg/${post.node.slug}`}> 
                                 
                                 <div>
@@ -101,7 +101,7 @@ const IndexBlogData = () => {
                            </marker>
                          </defs>
                          <line x1="0" y1="50" x2="120" y2="50" stroke="#000" 
-                         stroke-width="8" marker-end="url(#arrowhead)" />
+                         strokeWidth="8" markerEnd="url(#arrowhead)" />
                        </svg>                         
                          </Link></li>
                         

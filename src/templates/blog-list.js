@@ -9,10 +9,6 @@ const BlogPostList = ({ data, pageContext }) => {
   
   const { allContentfulBlogPost } = data
   
-  const featuredImages = allContentfulBlogPost.edges.map((item) => 
-  item.node.featureImage
-)
-  
   return (
     <Layout>
     <Head title="Blogg" />
