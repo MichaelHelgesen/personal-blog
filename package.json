@@ -17,7 +17,6 @@
     "@contentful/rich-text-react-renderer": "^13.4.0",
     "gatsby": "^2.18.12",
     "gatsby-cli": "^2.19.1",
-    "gatsby-plugin-algolia": "^0.16.3",
     "gatsby-plugin-breadcrumb": "^9.0.2",
     "gatsby-plugin-react-helmet": "^3.1.18",
     "gatsby-plugin-sass": "^2.1.26",
