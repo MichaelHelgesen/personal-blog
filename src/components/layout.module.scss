@@ -55,6 +55,9 @@ p.date a:hover {
     color: #2d2d2d;
 }
 
+img:hover {
+    cursor: pointer;
+}
 
 @media only screen and (min-width: 500px) {
     .contentWrapper {

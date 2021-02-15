@@ -5,6 +5,8 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import Head from "../components/head";
 import layoutStyles from "../components/layout.module.scss";
 import Breadcrumbs from "../components/breadcrumb";
+import SimpleReactLightbox from 'simple-react-lightbox';
+import { SRLWrapper } from "simple-react-lightbox";
 // export const query = graphql`
 // query (
 //     $slug: String!
@@ -54,6 +56,7 @@ const Blog = (props) => {
 
     return (
         <Layout>
+          <SimpleReactLightbox>
           <Head title={props.data.contentfulBlogPost.title}/>
           <div className={layoutStyles.contentWrapper}>
           <div className={layoutStyles.contentInner}>
@@ -67,13 +70,16 @@ const Blog = (props) => {
           ))}
           </span>
              : null}</p>
+          <SRLWrapper>
           {documentToReactComponents(
             props.data.contentfulBlogPost.body.json, options
           )}
           {props.data.contentfulBlogPost.codeBlock2 != null && <div dangerouslySetInnerHTML={{ __html: props.data.contentfulBlogPost.codeBlock2.childMarkdownRemark.html }} /> }
+          </SRLWrapper>
           </div>
           </div>
-          </Layout>
+          </SimpleReactLightbox>
+        </Layout>
     )
 };
 
