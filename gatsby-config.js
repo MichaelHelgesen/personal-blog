@@ -83,37 +83,6 @@ module.exports = {
           },
         ],
       },
-    },
-    {
-      resolve: `gatsby-plugin-local-search`,
-      options: {
-          name: `pages`,
-          engine: `flexsearch`,
-          query: `query {
-            allContentfulBlogPost (
-              sort: {
-                fields:publishedDate,
-                order: DESC
-              }
-            ) { 
-              edges { 
-                node { 
-                   title
-                   slug
-                   category {categoryName}
-              }
-            }
-          }
-          }`,
-          ref: "slug",
-          index: ['title'],
-          store: ['title', 'slug'],
-          normalizer: ({ data }) =>
-          data.allContentfulBlogPost.edges.map(node => ({
-              title: node.title,
-              slug: node.slug,
-          })),
-      }
-  }
+    }
   ],
 }
