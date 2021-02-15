@@ -1,14 +1,28 @@
 import Layout from "../components/layout";
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, graphql } from "gatsby";
 import Breadcrumbs from "../components/breadcrumb";
 import blogStyles from "../pages/blog.module.scss";
 import Head from "../components/head";
+import Search from '../components/search';
+import { useFlexSearch } from 'react-use-flexsearch';
 
-const BlogPostList = ({ data, pageContext }) => {
+const BlogPostList = ({ data, pageContext, localSearchPages: { index, store } }) => {
   
+  const unFlattenResults = results =>
+    results.map(post => {
+        const { date, slug, tags, title } = post;
+        return { slug, title };
+    });
+
+
   const { allContentfulBlogPost } = data
-  
+  const { search } = window.location;
+  const query = new URLSearchParams(search).get('s')
+  const [searchQuery, setSearchQuery] = useState(query || '');
+  const results = useFlexSearch(searchQuery, index, store);
+  const posts = unFlattenResults(results);
+
   return (
     <Layout>
     <Head title="Blogg" />
@@ -18,7 +32,10 @@ const BlogPostList = ({ data, pageContext }) => {
         <Breadcrumbs crumbs={ [ '/', 'Blogg' ] } />
         <h1 className={blogStyles.header}>Blogg</h1>
 
-
+        <Search
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+            />
     <div>
     <ol className={blogStyles.posts}>
       {allContentfulBlogPost.edges.map(({ node }, index) => {
@@ -76,6 +93,10 @@ const BlogPostList = ({ data, pageContext }) => {
 export default BlogPostList
 export const query = graphql`
   query blogPostsList($skip: Int!, $limit: Int!) {
+    localSearchPages {
+      index
+      store
+    }
     allContentfulBlogPost (
       sort: {
         fields:publishedDate,
