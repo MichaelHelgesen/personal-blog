@@ -21,9 +21,9 @@ const BlogPostList = ({ data, pageContext }) => {
       return { node: { slug, title, category } };
     });
 
-  const { search } = window.location;
-  const query = new URLSearchParams(search).get('s')
-  const [searchQuery, setSearchQuery] = useState(query || '');
+  //const { search } = window.location;
+  //const query = new URLSearchParams(search).get('s')
+  const [searchQuery, setSearchQuery] = useState('');
   const results = useFlexSearch(searchQuery, data.localSearchPages.index, data.localSearchPages.store);
   
   const [filter, setFilter] = useState("")
