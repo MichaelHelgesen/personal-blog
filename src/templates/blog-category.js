@@ -55,9 +55,9 @@ const BlogCategory = ({ data, pageContext }) => {
   const lastUrl = url.substr(url.lastIndexOf('/') + 1);
   const lastWordInUrl = lastUrl.charAt(0).toUpperCase() + lastUrl.slice(1)
   
-  const { search } = window.location;
-  const query = new URLSearchParams(search).get('s')
-  const [searchQuery, setSearchQuery] = useState(query || '');
+  //const { search } = window.location;
+  //const query = new URLSearchParams(search).get('s')
+  const [searchQuery, setSearchQuery] = useState('');
   const results = useFlexSearch(searchQuery, data.localSearchPages.index, data.localSearchPages.store);
   
   const [filter, setFilter] = useState("")
