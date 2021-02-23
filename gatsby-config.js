@@ -83,6 +83,38 @@ module.exports = {
           },
         ],
       },
-    }
+    },
+    {
+      resolve: 'gatsby-plugin-local-search',
+      options: {
+          name: 'pages',
+          engine: 'flexsearch',
+          query: `query {
+            allContentfulBlogPost (
+              sort: {
+                fields:publishedDate,
+                order: DESC
+              }
+            ) { 
+              edges { 
+                node { 
+                   title
+                   slug
+                   category {categoryName}
+              }
+            }
+          }
+          }`,
+          ref: 'slug',
+          index: ['title'],
+          store: ['title', 'slug', 'category'],
+          normalizer: ({ data }) =>
+          data.allContentfulBlogPost.edges.map(nodes => ({
+              title: nodes.node.title,
+              slug: nodes.node.slug,
+              category: nodes.node.category
+          })),
+      }
+  }
   ],
 }

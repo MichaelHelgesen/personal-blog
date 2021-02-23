@@ -41,10 +41,10 @@
     display: inline-block;
     margin-right: .5em;
     margin-bottom: .5em;
-    font-size: .85em;
+    font-size: .75em;
     color: white;
     text-decoration: none;
-    padding: .5em 1.5em;
+    padding: .1em 1.1em;
     background-color: #0E6BA8;
     border-radius: 3px;
     font-weight: 600;
@@ -53,11 +53,21 @@
     a:hover {
         background: #E8AEB7;
         color: #0E6BA8;
+        cursor: pointer;
     }
     .activecategory {
         background: rgb(16, 55, 80);
      }
+     .active {
+        background: rgb(16, 55, 80);
+     }
+     h2 {
+         text-align: center;
+     }
+     
 }
+
+
 
 .posts {
     list-style-type: none;
@@ -157,6 +167,14 @@
         padding-top: 0;
     }
 }
+.post:first-of-type {
+    border-top: none;
+}
+.post:last-of-type {
+    border-bottom: none;
+}
+
+
 
 @media only screen and (min-width: 550px) {
 

@@ -4,78 +4,151 @@ import { Link, graphql } from "gatsby";
 import Breadcrumbs from "../components/breadcrumb";
 import blogStyles from "../pages/blog.module.scss";
 import Head from "../components/head";
+import Search from '../components/search';
+import { useFlexSearch } from 'react-use-flexsearch';
+import BlogContent from "../components/blogcontent";
+import Categories from "../components/createcategory";
+import FilterButton from "../components/filterbutton";
 
 const BlogPostList = ({ data, pageContext }) => {
+  const { allContentfulBlogPost } = data;
 
 
-  const { allContentfulBlogPost } = data
+
+  const unFlattenResults = results =>
+    results.map(post => {
+      const { slug, title, category } = post;
+      return { node: { slug, title, category } };
+    });
+
+  const { search } = window.location;
+  const query = new URLSearchParams(search).get('s')
+  const [searchQuery, setSearchQuery] = useState(query || '');
+  const results = useFlexSearch(searchQuery, data.localSearchPages.index, data.localSearchPages.store);
+  
+  const [filter, setFilter] = useState("")
+
+  const [blogPosts, setBlogPosts] = useState(allContentfulBlogPost.edges)
+  const [searchedPosts, setSearchedPosts] = useState(unFlattenResults(results))
+
+  let posts = searchQuery ? (searchedPosts.length ? searchedPosts : unFlattenResults(results)) : blogPosts;
+
+
+  function getCategories(blogPosts) {
+    const uniqueCategories = new Set()
+    // Iterate over all articles
+    blogPosts.edges.forEach(({ node }) => {
+      // Iterate over each category in an article
+      if (node.category) {
+          node.category.forEach(categoryName => {
+          uniqueCategories.add(categoryName["categoryName"]);
+        })
+      }
+    })
+    // Create new array with duplicates removed
+    return Array.from(uniqueCategories)
+  }
+
+  let categories = getCategories(allContentfulBlogPost);
+
 
   return (
     <Layout>
-    <Head title="Blogg" />
-    
-    <div className={blogStyles.wrapper}>
-    <div className={blogStyles.wrapperInner}>
-        <Breadcrumbs crumbs={ [ '/', 'Blogg' ] } />
-        <h1 className={blogStyles.header}>Blogg</h1>
+      <Head title="Blogg" />
 
-    <div>
-    <ol className={blogStyles.posts}>
-      {allContentfulBlogPost.edges.map(({ node }, index) => {
-        return (
-                  <li className={blogStyles.post}>
-                      <Link className={blogStyles.bloglink} to={`blogg/${node.slug}`}> 
-                          
-                          <div>
-                              <h2>
-                              {node.title}
-                          </h2>   
-                          <p className={blogStyles.date}>{node.publishedDate}
-                              
-                              
-                              
-                              {node.category ? "  " : null }
-    
-                               {node.category ? 
-                                
-                                node.category.map((cat, index, arr) => (
-                                  index === arr.length - 1 ? <Link to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>{"#" + cat["categoryName"]}</Link> : <span><Link to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>#{cat["categoryName"]}</Link>, </span>
-                              ))
-                                :
-                              null
-                              }
-                                                            
-                                  </p>
-                          </div>
-                      </Link>    
-                  </li>
-        )
-      })}
-      </ol>
-      <ul className={blogStyles.pagination}>
-                {Array.from({ length: pageContext.numPages }).map((item, i) => {
-                  const index = i + 1
-                  const link = index === 1 ? '/blogg' : `/blogg/side/${index}`
-                  return (
-                    <li>
-                      {pageContext.currentPage === index ? (
-                        <span>{index}</span>
-                      ) : (
-                        <Link to={link}>{index}</Link>
-                      )}
-                    </li>
-                  )
-                })}
-              </ul>
-    </div>
-    </div>
-    </div>
+      <div className={blogStyles.wrapper}>
+        <div className={blogStyles.wrapperInner}>
+          <Breadcrumbs crumbs={['/', 'Blogg']} />
+          <h1 className={blogStyles.header}>Blogg</h1>
+
+          <Search
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            setCategories={(searchQuery)}
+            posts={posts}
+            blogPosts={blogPosts}
+            setBlogPosts={setBlogPosts}
+            results={results}
+            unFlattenResults={unFlattenResults}
+            allBlogs={allContentfulBlogPost.edges}
+            setSearchedPosts={setSearchedPosts}
+            searchedPosts = {searchedPosts}
+            filter={filter}
+            setFilter={setFilter}
+          />
+
+          <FilterButton 
+          setBlogPosts={setBlogPosts}
+          searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            setCategories={(searchQuery)}
+            posts={posts}
+            searchQuery={searchQuery}
+            blogPosts={blogPosts}
+            setBlogPosts={setBlogPosts}
+            results={results}
+            unFlattenResults={unFlattenResults}
+            allBlogs={allContentfulBlogPost.edges}
+            setSearchedPosts={setSearchedPosts}
+            searchedPosts = {searchedPosts}
+            filter={filter}
+            setFilter={setFilter}
+          />
+
+<div>
+            <ol className={blogStyles.posts}>
+            <BlogContent test={(posts)}/>
+            </ol>
+            </div>
+          
+        </div>
+      </div>
     </Layout>
   )
 }
+
+
+
 export default BlogPostList
 export const query = graphql`
+  query blogPostsList {
+    localSearchPages {
+      index
+      store
+    }
+    allContentfulBlogPost (
+      sort: {
+        fields:publishedDate,
+        order: DESC
+      }
+      
+    ) { 
+      edges { 
+        node { 
+           title
+           slug
+           publishedDate (formatString:"DD.MM.YY,")
+           category {categoryName}
+           featureImage {
+            file {
+                url
+            }
+          }
+      }
+    }
+  }
+  }
+`
+
+
+/*
+
+export const query = graphql`
   query blogPostsList($skip: Int!, $limit: Int!) {
+    localSearchPages {
+      index
+      store
+    }
     allContentfulBlogPost (
       sort: {
         fields:publishedDate,
@@ -102,118 +175,22 @@ export const query = graphql`
 `
 
 
+          
 
-/*
-
-            <div>
-            {node.category ? 
-              node.category.map((cat, index, arr) => (
-              
-                <Link to={`/blog/category/${cat["categoryName"].toLowerCase()}`}>{cat["categoryName"]}</Link>
-              
-            ))
-              :
-            null
-            }
-            
-            </div>
-
-
-
-import React from "react";
-import Layout from "../components/layout";
-import { Link, graphql, useStaticQuery} from "gatsby";
-import Breadcrumbs from "../components/breadcrumb";
-import blogStyles from "../pages/blog.module.scss";
-import Head from "../components/head";
-import Pagination from "../components/pagination"
-
-const BlogPage = ({ pageContext }) => {
-
-console.log(pageContext)
-    const blogData = useStaticQuery(graphql`
-    query  { 
-        allContentfulCodingLog (
-         sort: {
-           fields:publishedDate,
-           order: DESC
-         }
-         
-       ){ 
-           edges { 
-             node { 
-                title
-                slug
-                publishedDate (formatString:"MMMM Do, YYYY")
-           }
-         }
-       }
-       }
-    `);
-  
-
-    return (
-        <Layout>
-            <Head title="Bloger" />
-            <div className={blogStyles.wrapper}>
-            <div className={blogStyles.wrapperInner}>
-                <Breadcrumbs crumbs={ [ '/', 'Bloger' ] } />
-                <h1 className={blogStyles.header}>Blog</h1>
-                
-
-                <div>  
-                {blogData.allContentfulCodingLog.edges.map(({ node }) => {
-                    return (
-                      <div>
-                        <Link to={node.slug}>
-                          <h1>{node.title}</h1>
-                        </Link>
-                        <p>{node.publishedDate}</p>
-                      </div>
-                    )
-                  })}
-                  
-                </div>
-                <ul>
-                {Array.from({ length: pageContext.numPages }).map((item, i) => {
-                  const index = i + 1
-                  const link = index === 1 ? '/blogger' : `/blogger/page/${index}`
-                  return (
-                    <li>
-                      {pageContext.currentPage === index ? (
-                        <span>{index}</span>
-                      ) : (
-                        <a href={link}>{index}</a>
+            <ul className={blogStyles.pagination}>
+              {Array.from({ length: pageContext.numPages }).map((item, i) => {
+                const index = i + 1
+                const link = index === 1 ? '/blogg' : `/blogg/side/${index}`
+                return (
+                  <li>
+                    {pageContext.currentPage === index ? (
+                      <span>{index}</span>
+                    ) : (
+                        <Link to={link}>{index}</Link>
                       )}
-                    </li>
-                  )
-                })}
-              </ul>
-
-
-
-
-            </div>
-             </div>
-        </Layout>
+                  </li>
+                )
+              })}
+            </ul>
         
-    )
-}
-
-export default BlogPage;
-
-*/
-
-
-/*
-{node.featuredImages ? null : null }
-                          
-                          {featuredImages[index] ? <div className={blogStyles.featuredImage} style={{
-                              height: "250px",
-                              background: "url(" + featuredImages[index]["file"]["url"] + ") no-repeat center center",
-                              '-webkit-background-size': "cover",
-                              '-moz-background-size': "cover",
-                              '-o-background-size': "cover",
-                              'background-size': "cover"
-                          }}></div> : null }
 */ 

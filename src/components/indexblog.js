@@ -55,6 +55,22 @@ const IndexBlogData = () => {
         return false;
       })
 
+      const numberOfCategories = function (cat) {
+        let num = 0;
+        const array = blogData.allContentfulBlogPost.edges;
+        array.forEach(({node}) => {
+          if(node.category) {
+            node.category.forEach(catname => {
+              if (catname.categoryName === cat) {
+                num ++
+              }
+            })
+            
+          }
+        })
+        return num;
+      };
+
 
     const Blogdata = () => {
 
@@ -64,7 +80,7 @@ const IndexBlogData = () => {
                 {categories.map((category, index) => (
                     
                     <div className={blogStyles.section} key={index}>
-                    <h2>#{category}</h2>
+                    <h2>#{category} ({numberOfCategories(category)})</h2>
 
                         <ol className={blogStyles.list}>
 
@@ -92,7 +108,7 @@ const IndexBlogData = () => {
                         </li>
                          }).slice(0,3)}                       
 
-                         <li className={blogStyles.readmore}><Link to={`blogg/kategori/${category.toLowerCase()}`}>Mer i {category} 
+                         <li className={blogStyles.readmore}><Link to={`blogg/kategori/${category.toLowerCase()}`}>Mer i {category.toLowerCase()} 
                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 100">
                          <defs>
                            <marker id="arrowhead" markerWidth="10" markerHeight="7" 

@@ -18,7 +18,6 @@ const path = require("path");
 module.exports.createPages = async ({ graphql, actions}) => {
     const { createPage } = actions;
     const blogTemplate = path.resolve("./src/templates/blog.js");
-    const codeTemplate = path.resolve("./src/templates/coding-log.js");
     const blogCategoryLayout = path.resolve("./src/templates/blog-category.js");
     const blogListLayout = path.resolve(`./src/templates/blog-list.js`);
     
@@ -35,18 +34,6 @@ module.exports.createPages = async ({ graphql, actions}) => {
         }
     `)
 
-    const code = await graphql(`
-        query {
-            allContentfulCodingLog {
-                edges {
-                    node {
-                        slug
-                    }
-                }
-            }
-        }
-    `)
-
     res.data.allContentfulBlogPost.edges.forEach((edge) => {
             createPage({
                 component: blogTemplate,
@@ -55,16 +42,6 @@ module.exports.createPages = async ({ graphql, actions}) => {
                     slug: edge.node.slug
                 }
             })
-    })
-
-    code.data.allContentfulCodingLog.edges.forEach((edge) => {
-        createPage({
-            component: codeTemplate,
-            path: `/coding_log/${edge.node.slug}`,
-            context: {
-                slug: edge.node.slug
-            }
-        })
     })
 
 
@@ -130,7 +107,5 @@ module.exports.createPages = async ({ graphql, actions}) => {
           })
         })
       })
-
-
 }
 
