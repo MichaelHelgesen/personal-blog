@@ -6,7 +6,7 @@ import Head from "../components/head";
 import Breadcrumbs from "../components/breadcrumb";
 import CategorySearch from '../components/categorySearch.js';
 import { useFlexSearch } from 'react-use-flexsearch';
-
+import BlogContent from "../components/blogcontent";
 
 
 const BlogCategory = ({ data, pageContext }) => {
@@ -67,8 +67,6 @@ const BlogCategory = ({ data, pageContext }) => {
 
   let posts = searchQuery ? sortResults(unFlattenResults(results)) : blogPosts;
 
- 
-
   const numberOfCategories = function (cat) {
     let num = 0;
     const array = allPosts.edges;
@@ -114,44 +112,13 @@ const BlogCategory = ({ data, pageContext }) => {
 
           <div className={blogStyles.categorylist}>
             <Link className="blogg" to={`/blogg`}>Alle</Link>
-            {pageContext["allCategories"].map(cat => (
-
-              cat === lastWordInUrl ? <Link className={blogStyles.activecategory} to={`/blogg/kategori/${cat.toLowerCase()}`}>{cat} ({numberOfCategories(cat)})</Link> : <Link to={`/blogg/kategori/${cat.toLowerCase()}`}>{cat} ({numberOfCategories(cat)})</Link>
-
+            {pageContext["allCategories"].map((cat,index) => (
+              cat === lastWordInUrl ? <Link key={index} className={blogStyles.activecategory} to={`/blogg/kategori/${cat.toLowerCase()}`}>{cat} ({numberOfCategories(cat)})</Link> : <Link key={index} to={`/blogg/kategori/${cat.toLowerCase()}`}>{cat} ({numberOfCategories(cat)})</Link>
             ))}
           </div>
           <div>
             <ol className={blogStyles.posts}>
-              {posts.map(({ node }, index) => {
-                return (
-                  <li className={blogStyles.post}>
-                    <Link className={blogStyles.bloglink} to={`/blogg/${node.slug}`}>
-
-                      <div>
-                        <h2>
-                          {node.title}
-                        </h2>
-                        <p className={blogStyles.date}>{node.publishedDate},
-
-
-
-                            {node.category ? " " : null}
-
-                          {node.category ?
-
-                            node.category.map((cat, index, arr) => (
-                              index === arr.length - 1 ? <Link to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>#{cat["categoryName"]}</Link> : <span><Link to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>#{cat["categoryName"]}</Link> </span>
-                            ))
-                            :
-                            null
-                          }
-
-                        </p>
-                      </div>
-                    </Link>
-                  </li>
-                )
-              })}
+            <BlogContent test={(posts)}/>
             </ol>
             
           </div>
@@ -179,7 +146,7 @@ export const query = graphql`
         node { 
            title
            slug
-           publishedDate (formatString:"DD.MM.YY")
+           publishedDate (formatString:"DD.MM.YY, ")
            category {categoryName}
            featureImage {
             file {

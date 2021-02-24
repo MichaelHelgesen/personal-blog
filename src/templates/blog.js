@@ -65,7 +65,7 @@ const Blog = (props) => {
           <p className={layoutStyles.date}>{props.data.contentfulBlogPost.publishedDate}, {props.data.contentfulBlogPost.category ? 
            <span>
              {props.data.contentfulBlogPost.category.map((cat, index, arr) => (
-              index === arr.length - 1 ? <Link to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>#{cat["categoryName"]}</Link> : <span><Link to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>#{cat["categoryName"]}</Link> </span> 
+              index === arr.length - 1 ? <Link key={index} to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>#{cat["categoryName"]}</Link> : <span key={index}><Link to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>#{cat["categoryName"]}</Link> </span> 
               
           ))}
           </span>

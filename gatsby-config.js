@@ -101,18 +101,20 @@ module.exports = {
                    title
                    slug
                    category {categoryName}
+                   publishedDate (formatString:"DD.MM.YY, ")
               }
             }
           }
           }`,
           ref: 'slug',
           index: ['title'],
-          store: ['title', 'slug', 'category'],
+          store: ['title', 'slug', 'category', 'publishedDate'],
           normalizer: ({ data }) =>
           data.allContentfulBlogPost.edges.map(nodes => ({
               title: nodes.node.title,
               slug: nodes.node.slug,
-              category: nodes.node.category
+              category: nodes.node.category,
+              publishedDate: nodes.node.publishedDate
           })),
       }
   }

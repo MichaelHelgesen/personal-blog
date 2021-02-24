@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from "gatsby";
+import React from 'react';
 import blogStyles from "../pages/blog.module.scss";
 
-const FilterButton = ({ category, posts, blogPosts, filter, setFilter, setBlogPosts, setSearchedPosts, allBlogs, searchedPosts, searchQuery, results, unFlattenResults }) => {
+const FilterButton = ({ filter, setFilter, setBlogPosts, setSearchedPosts, allBlogs, searchQuery, results, unFlattenResults }) => {
     
     
 
@@ -80,15 +79,15 @@ const FilterButton = ({ category, posts, blogPosts, filter, setFilter, setBlogPo
 
 
       const categories = getCategories((searchQuery ? unFlattenResults(results) : allBlogs));
-      console.log("CATEGORIES", categories)
-      if (categories.length != 0) {
+      if (categories.length !== 0) {
         return (
             <div className={blogStyles.categorylist}>
                 {categories.map((category, index) => (
-                  <a 
+                  <button 
+                  key={index}
                   onClick={handleClick}
                   className={isActive(category)}
-                  >{category + " (" + numberOfCategories(category) + ")"}</a>
+                  >{category + " (" + numberOfCategories(category) + ")"}</button>
           ))}
               </div>
         )

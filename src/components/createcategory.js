@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "gatsby";
 import blogStyles from "../pages/blog.module.scss";
 
 const Categories = ({blogPosts}) => {
@@ -23,11 +22,11 @@ const Categories = ({blogPosts}) => {
       const categories = getCategories(blogPosts);
       console.log(categories.length);
       
-      if (categories.length != 0) {
+      if (categories.length !== 0) {
         return (
             <div className={blogStyles.categorylist}>
                 {categories.map((category, index) => (
-                  <a>{category}</a>
+                  <button>{category}</button>
           ))}
               </div>
         )

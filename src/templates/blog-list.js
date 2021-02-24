@@ -1,24 +1,23 @@
 import Layout from "../components/layout";
 import React, { useState } from 'react';
-import { Link, graphql } from "gatsby";
+import { graphql } from "gatsby";
 import Breadcrumbs from "../components/breadcrumb";
 import blogStyles from "../pages/blog.module.scss";
 import Head from "../components/head";
 import Search from '../components/search';
 import { useFlexSearch } from 'react-use-flexsearch';
 import BlogContent from "../components/blogcontent";
-import Categories from "../components/createcategory";
 import FilterButton from "../components/filterbutton";
 
-const BlogPostList = ({ data, pageContext }) => {
+const BlogPostList = ({ data }) => {
   const { allContentfulBlogPost } = data;
-
-
+  console.log(data)
+console.log(allContentfulBlogPost)
 
   const unFlattenResults = results =>
     results.map(post => {
-      const { slug, title, category } = post;
-      return { node: { slug, title, category } };
+      const { slug, title, category, publishedDate } = post;
+      return { node: { slug, title, category, publishedDate } };
     });
 
   //const { search } = window.location;
@@ -33,7 +32,7 @@ const BlogPostList = ({ data, pageContext }) => {
 
   let posts = searchQuery ? (searchedPosts.length ? searchedPosts : unFlattenResults(results)) : blogPosts;
 
-
+/*
   function getCategories(blogPosts) {
     const uniqueCategories = new Set()
     // Iterate over all articles
@@ -48,8 +47,8 @@ const BlogPostList = ({ data, pageContext }) => {
     // Create new array with duplicates removed
     return Array.from(uniqueCategories)
   }
-
-  let categories = getCategories(allContentfulBlogPost);
+*/
+//  let categories = getCategories(allContentfulBlogPost);
 
 
   return (
@@ -83,9 +82,7 @@ const BlogPostList = ({ data, pageContext }) => {
             setSearchQuery={setSearchQuery}
             setCategories={(searchQuery)}
             posts={posts}
-            searchQuery={searchQuery}
             blogPosts={blogPosts}
-            setBlogPosts={setBlogPosts}
             results={results}
             unFlattenResults={unFlattenResults}
             allBlogs={allContentfulBlogPost.edges}
