@@ -11,7 +11,7 @@ const IndexPage = () => {
 
     return (
         <Layout>
-            <Head title="Hjem" />
+            <Head title="Hjem" description="En personlig blogg om læring og programmering."/>
             <div className={"wrapper"}>
             <Hero />
             <div className={"innerWrapper"}>

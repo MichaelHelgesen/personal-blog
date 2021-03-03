@@ -86,7 +86,7 @@ class PageWithComments extends React.Component {
     return (
         <Layout>
           <SimpleReactLightbox>
-          <Head title={props.data.contentfulBlogginnlegg.title}/>
+          <Head title={props.data.contentfulBlogginnlegg.title} description="df"/>
           <div className={layoutStyles.contentWrapper}>
           <div className={layoutStyles.contentInner}>
           <Breadcrumbs crumbs={ [ '/', 'Blogg', props.data.contentfulBlogginnlegg.title ] } />
