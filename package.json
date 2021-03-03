@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "14.1.2",
+    "commentbox.io": "^2.0.0",
     "flexsearch": "^0.6.32",
     "gatsby": "^2.18.12",
     "gatsby-cli": "^2.19.1",

@@ -1,4 +1,5 @@
 import React from "react";
+import commentBox from 'commentbox.io';
 import { Link,  graphql } from "gatsby";
 import { BLOCKS } from '@contentful/rich-text-types';
 import Layout from "../components/layout"
@@ -60,6 +61,25 @@ const ingressOptions = {
   }
 };
 
+class PageWithComments extends React.Component {
+
+  componentDidMount() {
+  
+      this.removeCommentBox = commentBox('my-project-id');
+  }
+  
+  componentWillUnmount() {
+  
+      this.removeCommentBox();
+  }
+  
+  render() {
+  
+      return (
+          <div className="commentbox" />
+      );
+  }
+  }
   
 
 
@@ -90,9 +110,12 @@ const ingressOptions = {
             props.data.contentfulBlogginnlegg.body.json, options
           )}
           {props.data.contentfulBlogginnlegg.codeBlock2 != null && <div dangerouslySetInnerHTML={{ __html: props.data.contentfulBlogginnlegg.codeBlock2.childMarkdownRemark.html }} /> }
+
           </SRLWrapper>
+          <PageWithComments/>
           </div>
           </div>
+          
           </SimpleReactLightbox>
         </Layout>
     )

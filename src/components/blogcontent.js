@@ -7,7 +7,7 @@ const BlogContent = ({test}) => {
         test.map(({ node }, index) => {
             return (
                     <li className={blogStyles.post} key={index}>
-                        <Link as={Link} className={blogStyles.bloglink} to={`/blogg/${node.slug}`}> 
+                        <Link className={blogStyles.bloglink} to={`/blogg/${node.slug}`}> 
                             
                             <div>
                                 <h2>
