@@ -8,7 +8,7 @@ const BlogListData = () => {
 
     const blogData = useStaticQuery(graphql`
     query { 
-        allContentfulCodingLog (
+      allContentfulBlogginnlegg (
          sort: {
            fields:publishedDate,
            order: DESC
@@ -45,7 +45,7 @@ const BlogListData = () => {
 
           <div>  
           
-            {blogData.allContentfulCodingLog.edges.map(({ node }) => {
+            {blogData.allContentfulBlogginnlegg.edges.map(({ node }) => {
                 return (
                   <div>
                     <Link to={node.slug}>

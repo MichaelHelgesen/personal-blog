@@ -59,6 +59,43 @@ img:hover {
     cursor: pointer;
 }
 
+.ingress {
+    font-weight: 700;
+}
+
+blockquote {
+    border-left: 3px solid #103750;
+    p:first-of-type {
+        
+        font-family: 'Roboto Slab';
+        font-style: italic;
+        font-size: 1.2em;
+        padding-left: 10px;
+        margin-bottom: 15px;
+        color: #103750;
+        line-height: 1.4!important;
+    }
+    i::before {
+            content: "– ";
+        }
+
+        i {
+            font-weight: 600;
+            padding-left: 13px;
+            color: #e1909c;
+            font-size: .9em;
+            display: block;
+            line-height: 1.4em;
+        }
+
+}
+
+ul {
+    li {
+        margin-bottom: calc(1rem / 2);
+    }
+}
+
 @media only screen and (min-width: 500px) {
     .contentWrapper {
         h1 {

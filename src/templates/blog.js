@@ -1,5 +1,6 @@
 import React from "react";
 import { Link,  graphql } from "gatsby";
+import { BLOCKS } from '@contentful/rich-text-types';
 import Layout from "../components/layout"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import Head from "../components/head";
@@ -7,33 +8,18 @@ import layoutStyles from "../components/layout.module.scss";
 import Breadcrumbs from "../components/breadcrumb";
 import SimpleReactLightbox from 'simple-react-lightbox';
 import { SRLWrapper } from "simple-react-lightbox";
-// export const query = graphql`
-// query (
-//     $slug: String!
-//   ) {
-//     markdownRemark (
-//       fields: {
-//         slug: {
-//           eq: $slug
-//         }
-//       }
-//     ) {
-//       frontmatter {
-//         title
-//         date
-//         }
-//         html
-//       }
-//     }
-// `
+
 
 export const query = graphql`
   query ($slug: String!) {
-    contentfulBlogPost(slug: {eq: $slug}) {
+    contentfulBlogginnlegg(slug: {eq: $slug}) {
       title
       category {categoryName}
       publishedDate(formatString: "DD.MM.YY")
       body {
+        json
+      }
+      ingress {
         json
       }
       codeBlock2{childMarkdownRemark {html}}
@@ -51,30 +37,59 @@ const Blog = (props) => {
       }
     }
   }
+/*
+  const ingressOptions = {
+    renderNode: {
+      "document": (node) => {
+      return <p className={layoutStyles.ingress}>{node.content[0].content[0].value}</p>
+      }
+    }
+  }
+  */
 
+ const CustomComponent = ({ text }) => (
+    <p className={layoutStyles.ingress}>{text}</p>
+);
+ 
+const ingressOptions = {
+  renderNode: {
+    [BLOCKS.DOCUMENT]: (node) => {
+      const text = node.content[0].content[0].value;
+      return <CustomComponent text={text} />
+    }
+  }
+};
+
+  
 
 
     return (
         <Layout>
           <SimpleReactLightbox>
-          <Head title={props.data.contentfulBlogPost.title}/>
+          <Head title={props.data.contentfulBlogginnlegg.title}/>
           <div className={layoutStyles.contentWrapper}>
           <div className={layoutStyles.contentInner}>
-          <Breadcrumbs crumbs={ [ '/', 'Blogg', props.data.contentfulBlogPost.title ] } />
-          <h1>{props.data.contentfulBlogPost.title}</h1>
-          <p className={layoutStyles.date}>{props.data.contentfulBlogPost.publishedDate}, {props.data.contentfulBlogPost.category ? 
+          <Breadcrumbs crumbs={ [ '/', 'Blogg', props.data.contentfulBlogginnlegg.title ] } />
+          <h1>{props.data.contentfulBlogginnlegg.title}</h1>
+          <p className={layoutStyles.date}>{props.data.contentfulBlogginnlegg.publishedDate}, {props.data.contentfulBlogginnlegg.category ? 
            <span>
-             {props.data.contentfulBlogPost.category.map((cat, index, arr) => (
+             {props.data.contentfulBlogginnlegg.category.map((cat, index, arr) => (
               index === arr.length - 1 ? <Link key={index} to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>#{cat["categoryName"]}</Link> : <span key={index}><Link to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>#{cat["categoryName"]}</Link> </span> 
               
           ))}
           </span>
              : null}</p>
           <SRLWrapper>
+              {props.data.contentfulBlogginnlegg.ingress != null && 
+              documentToReactComponents(
+                props.data.contentfulBlogginnlegg.ingress.json, ingressOptions
+              )
+              }
+          
           {documentToReactComponents(
-            props.data.contentfulBlogPost.body.json, options
+            props.data.contentfulBlogginnlegg.body.json, options
           )}
-          {props.data.contentfulBlogPost.codeBlock2 != null && <div dangerouslySetInnerHTML={{ __html: props.data.contentfulBlogPost.codeBlock2.childMarkdownRemark.html }} /> }
+          {props.data.contentfulBlogginnlegg.codeBlock2 != null && <div dangerouslySetInnerHTML={{ __html: props.data.contentfulBlogginnlegg.codeBlock2.childMarkdownRemark.html }} /> }
           </SRLWrapper>
           </div>
           </div>

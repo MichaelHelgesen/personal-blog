@@ -21,7 +21,6 @@ const Footer = () => {
         <div className={footerStyles.footerwrapper}>
         <Location>
             {({ location }) => {
-            console.log(location.pathname)
             return  location.pathname !== "/" ? 
             <div className={footerStyles.description}>
                     <p>Omprogrammerer selvet ved å lese, lære, og skrive. <br />

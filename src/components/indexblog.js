@@ -8,7 +8,7 @@ const IndexBlogData = () => {
 
     const blogData = useStaticQuery(graphql`
     query { 
-        allContentfulBlogPost (
+      allContentfulBlogginnlegg (
          sort: {
            fields:publishedDate,
            order: DESC
@@ -46,9 +46,9 @@ const IndexBlogData = () => {
         return Array.from(uniqueCategories)
       }
 
-      const categories = getCategories(blogData.allContentfulBlogPost);
+      const categories = getCategories(blogData.allContentfulBlogginnlegg);
 
-      const filterCategories = blogData.allContentfulBlogPost.edges.filter(function(item) {
+      const filterCategories = blogData.allContentfulBlogginnlegg.edges.filter(function(item) {
         if (item.node.category) {
           return true; // skip
         }
@@ -57,7 +57,7 @@ const IndexBlogData = () => {
 
       const numberOfCategories = function (cat) {
         let num = 0;
-        const array = blogData.allContentfulBlogPost.edges;
+        const array = blogData.allContentfulBlogginnlegg.edges;
         array.forEach(({node}) => {
           if(node.category) {
             node.category.forEach(catname => {
@@ -90,7 +90,7 @@ const IndexBlogData = () => {
                             if (cat["categoryName"] === category) {
                               testing = true
                             }
-                             
+                             return null;
                           })
                           return testing
                          }).map(function(post, index) {

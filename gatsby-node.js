@@ -1,29 +1,15 @@
 const path = require("path");
 
-// module.exports.onCreateNode = ({ node, actions }) => {
-//     const { createNodeField } = actions
-
-//     if (node.internal.type === "MarkdownRemark") {
-//         const slug = path.basename(node.fileAbsolutePath, ".md")
-        
-//         createNodeField({
-//             node,
-//             name: "slug",
-//             value: slug
-//         })
-//     }
-
-// }
-
 module.exports.createPages = async ({ graphql, actions}) => {
     const { createPage } = actions;
     const blogTemplate = path.resolve("./src/templates/blog.js");
     const blogCategoryLayout = path.resolve("./src/templates/blog-category.js");
     const blogListLayout = path.resolve(`./src/templates/blog-list.js`);
+    const blogPage = path.resolve(`./src/templates/page.js`);
     
     const res = await graphql(`
         query {
-            allContentfulBlogPost {
+          blogg: allContentfulBlogginnlegg {
                 edges {
                     node {
                         slug
@@ -31,10 +17,18 @@ module.exports.createPages = async ({ graphql, actions}) => {
                     }
                 }
             }
+            sider: allContentfulSider {
+              edges {
+                  node {
+                      tittel
+                      slug
+                  }
+              }
+          }
         }
     `)
 
-    res.data.allContentfulBlogPost.edges.forEach((edge) => {
+    res.data.blogg.edges.forEach((edge) => {
             createPage({
                 component: blogTemplate,
                 path: `/blogg/${edge.node.slug}`,
@@ -48,7 +42,8 @@ module.exports.createPages = async ({ graphql, actions}) => {
 
 
     const postsPerPage = 10;
-    const posts = res.data.allContentfulBlogPost.edges;
+    const posts = res.data.blogg.edges;
+    const pages = res.data.sider.edges;
     const postsWithoutFeatured = posts;
     const numPages = Math.ceil(postsWithoutFeatured.length / postsPerPage)
 
@@ -66,6 +61,7 @@ module.exports.createPages = async ({ graphql, actions}) => {
       })
 
       const categories = []
+
       posts.forEach(({ node }, index) => {
         if (node.category) {
             node.category.forEach(cat => categories.push(cat["categoryName"]))
@@ -80,6 +76,19 @@ module.exports.createPages = async ({ graphql, actions}) => {
         }
         
       })
+
+      pages.forEach(({ node }, index) => {
+            createPage({
+              path: `/${node.slug}`,
+              component: blogPage,
+              context: {
+                slug: node.slug,
+                title: node.tittel,
+              },
+            })
+        }
+        
+      )
 
       const countCategories = categories.reduce((prev, curr) => {
         prev[curr] = (prev[curr] || 0) + 1

@@ -1,4 +1,5 @@
 import React from "react";
+import { graphql, useStaticQuery} from "gatsby";
 import { Link } from "gatsby";
 import headerStyles from "./header.module.scss";
 
@@ -6,6 +7,32 @@ import headerStyles from "./header.module.scss";
 
 const HeaderComponent = () => {
 
+    const codeData = useStaticQuery(graphql`
+    query {
+        allContentfulSider (
+            sort: {
+         fields:rekkefolge,
+         order: ASC
+       }
+          ) {
+            edges {
+                node {
+                    tittel
+                    slug
+                  rekkefolge
+                }
+            }
+        }
+      }
+    `);
+
+/*
+const pageMenu = codeData.allSitePage.edges.filter((item) => {
+    if (!item.node.isCreatedByStatefulCreatePages && !item.node.path.includes("/blogg")) {
+        return item
+    }
+})
+*/
 
 
 const openMenu = () => {
@@ -41,8 +68,8 @@ const closeMenu = () => {
                     </svg>
                     
                     <ul className={headerStyles.navList} id="nav">
-                        <li id="exit-btn" onClick={closeMenu}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="48.968" height="48.968" viewBox="0 0 48.968 48.968">
+                        <li>
+                            <svg id="exit-btn" onClick={closeMenu} onKeyDown={closeMenu} xmlns="http://www.w3.org/2000/svg" width="48.968" height="48.968" viewBox="0 0 48.968 48.968">
                                 <g transform="translate(-378.092 -80.939)">
                                     <path id="Path_21" data-name="Path 21" d="M383,82l-46.847,46.847" transform="translate(43)" fill="none" stroke="#000" strokeWidth="3"/>
                                     <path id="Path_22" data-name="Path 22" d="M336.153,82l46.673,46.673" transform="translate(43)" fill="none" stroke="#000" strokeWidth="3"/>
@@ -55,12 +82,12 @@ const closeMenu = () => {
                         <li>
                         <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/blogg" partiallyActive={true}>Blogg</Link>
                     </li>
-                        <li>
-                            <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/om">Om Mikke</Link>
-                        </li>
-                        <li>
-                            <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/kontakt">Kontakt</Link>
-                        </li>
+                    {
+                            codeData.allContentfulSider.edges.map(function (element, index) {
+                                  return  (<li key={index}><Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to={`/${element.node.slug}`}>{element.node.tittel}</Link></li>)
+                                
+                            })
+                        }
                     </ul>
                 </nav>
                 
@@ -73,5 +100,10 @@ const closeMenu = () => {
     
 
 };
+
+/*
+
+*/
+
 
 export default HeaderComponent;

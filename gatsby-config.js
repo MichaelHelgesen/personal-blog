@@ -90,7 +90,7 @@ module.exports = {
           name: 'pages',
           engine: 'flexsearch',
           query: `query {
-            allContentfulBlogPost (
+            allContentfulBlogginnlegg (
               sort: {
                 fields:publishedDate,
                 order: DESC
@@ -110,7 +110,7 @@ module.exports = {
           index: ['title'],
           store: ['title', 'slug', 'category', 'publishedDate'],
           normalizer: ({ data }) =>
-          data.allContentfulBlogPost.edges.map(nodes => ({
+          data.allContentfulBlogginnlegg.edges.map(nodes => ({
               title: nodes.node.title,
               slug: nodes.node.slug,
               category: nodes.node.category,

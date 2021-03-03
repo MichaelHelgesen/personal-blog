@@ -12,7 +12,6 @@ import BlogContent from "../components/blogcontent";
 const BlogCategory = ({ data, pageContext }) => {
   const { categories } = data
   const { allPosts } = data
-
   
   const unFlattenResults = results =>
   results.map(post => {
@@ -29,8 +28,10 @@ const BlogCategory = ({ data, pageContext }) => {
           if(element["categoryName"] === lastWordInUrl) {
             newArr.push(item);
           }
+          return null
         });
       }
+      return null
     })
     return newArr;
   }
@@ -134,7 +135,7 @@ export const query = graphql`
       index
       store
     }
-    categories: allContentfulBlogPost (
+    categories: allContentfulBlogginnlegg (
       sort: {
         fields:publishedDate,
         order: DESC
@@ -156,7 +157,7 @@ export const query = graphql`
       }
     }
   }
-  allPosts: allContentfulBlogPost (
+  allPosts: allContentfulBlogginnlegg (
     sort: {
       fields:publishedDate,
       order: DESC

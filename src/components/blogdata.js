@@ -7,7 +7,7 @@ const BlogData = () => {
 
     const blogData = useStaticQuery(graphql`
     query { 
-        allContentfulBlogPost (
+        allContentfulBlogginnlegg (
          sort: {
            fields:publishedDate,
            order: DESC
@@ -23,6 +23,7 @@ const BlogData = () => {
                     file {
                         url
                     }
+                    
                   }
            }
          }
@@ -31,7 +32,7 @@ const BlogData = () => {
     `);
 
 
-    const featuredImages = blogData.allContentfulBlogPost.edges.map((item) => 
+    const featuredImages = blogData.allContentfulBlogginnlegg.edges.map((item) => 
         item.node.featureImage
     )
 
@@ -61,7 +62,7 @@ const BlogData = () => {
         
         return (
             <ol className={blogStyles.posts}>
-                {blogData.allContentfulBlogPost.edges.map((item, index) => (    
+                {blogData.allContentfulBlogginnlegg.edges.map((item, index) => (    
                         <li className={blogStyles.post}>
                             <Link to={`blogg/${item.node.slug}`}> 
                                 {item.node.featuredImages ? null : null }

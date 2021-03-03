@@ -10,9 +10,8 @@ import BlogContent from "../components/blogcontent";
 import FilterButton from "../components/filterbutton";
 
 const BlogPostList = ({ data }) => {
-  const { allContentfulBlogPost } = data;
-  console.log(data)
-console.log(allContentfulBlogPost)
+  const { allContentfulBlogginnlegg } = data;
+
 
   const unFlattenResults = results =>
     results.map(post => {
@@ -27,7 +26,7 @@ console.log(allContentfulBlogPost)
   
   const [filter, setFilter] = useState("")
 
-  const [blogPosts, setBlogPosts] = useState(allContentfulBlogPost.edges)
+  const [blogPosts, setBlogPosts] = useState(allContentfulBlogginnlegg.edges)
   const [searchedPosts, setSearchedPosts] = useState(unFlattenResults(results))
 
   let posts = searchQuery ? (searchedPosts.length ? searchedPosts : unFlattenResults(results)) : blogPosts;
@@ -69,7 +68,7 @@ console.log(allContentfulBlogPost)
             setBlogPosts={setBlogPosts}
             results={results}
             unFlattenResults={unFlattenResults}
-            allBlogs={allContentfulBlogPost.edges}
+            allBlogs={allContentfulBlogginnlegg.edges}
             setSearchedPosts={setSearchedPosts}
             searchedPosts = {searchedPosts}
             filter={filter}
@@ -85,7 +84,7 @@ console.log(allContentfulBlogPost)
             blogPosts={blogPosts}
             results={results}
             unFlattenResults={unFlattenResults}
-            allBlogs={allContentfulBlogPost.edges}
+            allBlogs={allContentfulBlogginnlegg.edges}
             setSearchedPosts={setSearchedPosts}
             searchedPosts = {searchedPosts}
             filter={filter}
@@ -113,7 +112,7 @@ export const query = graphql`
       index
       store
     }
-    allContentfulBlogPost (
+    allContentfulBlogginnlegg (
       sort: {
         fields:publishedDate,
         order: DESC

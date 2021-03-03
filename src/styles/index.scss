@@ -651,14 +651,14 @@ html {
   display: grid;
 }
 
-li#exit-btn {
+#exit-btn {
   position: absolute;
   top: 20px;
   right: 20px;
   cursor: pointer;
 }
 
-li#exit-btn svg {
+#exit-btn svg {
   height:40px;
 }
 

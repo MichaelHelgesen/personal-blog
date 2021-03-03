@@ -9,7 +9,7 @@ const CategoryPage = () => {
 
     const codeData = useStaticQuery(graphql`
     query { 
-        allContentfulCodingLog (
+        allContentfulBlogginnlegg (
          sort: {
            fields:publishedDate,
            order: DESC

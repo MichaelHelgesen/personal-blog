@@ -20,7 +20,6 @@ const Categories = ({blogPosts}) => {
       }
     
       const categories = getCategories(blogPosts);
-      console.log(categories.length);
       
       if (categories.length !== 0) {
         return (
