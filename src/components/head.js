@@ -21,7 +21,7 @@ const Head = ({ title }) => {
         <Helmet htmlAttributes={{ lang : "no" }}>
                 <title>{`${title} | ${data.site.siteMetadata.title}`}</title>
                 <link rel="canonical" href="https://mikkesblogg.no" />
-                < meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" charSet="utf-8"/>
+                < meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" charSet="utf-8"/>
             </Helmet>
         
     )
