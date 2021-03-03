@@ -112,10 +112,9 @@ class PageWithComments extends React.Component {
           {props.data.contentfulBlogginnlegg.codeBlock2 != null && <div dangerouslySetInnerHTML={{ __html: props.data.contentfulBlogginnlegg.codeBlock2.childMarkdownRemark.html }} /> }
 
           </SRLWrapper>
+          </div>
+          </div>
           <PageWithComments/>
-          </div>
-          </div>
-          
           </SimpleReactLightbox>
         </Layout>
     )
