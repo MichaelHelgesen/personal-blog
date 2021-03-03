@@ -10,6 +10,15 @@ module.exports = {
     author: "Mikke"
   },
   plugins: [
+    `gatsby-plugin-sitemap`,
+    {
+    resolve: 'gatsby-plugin-robots-txt',
+    options: {
+      host: 'https://www.mikkesblogg.no',
+      sitemap: 'https://www.mikkesblogg.no',
+      policy: [{ userAgent: '*', allow: '/' }]
+    }
+  },
     "gatsby-plugin-react-helmet",
   {
     resolve: "gatsby-source-contentful",
