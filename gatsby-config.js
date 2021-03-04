@@ -16,18 +16,18 @@ module.exports = {
       resolve: `gatsby-plugin-sitemap`,
       options: {
         query: `
-          {
-            wp {
-              generalSettings {
-                siteUrl
-              }
+        {
+          site {
+            siteMetadata {
+              siteUrl
             }
-  
-            allSitePage {
-              nodes {
-                path
-              }
-            }
+          }
+          
+                    allSitePage {
+                      nodes {
+                        path
+                      }
+                    }
         }`,
         resolveSiteUrl: ({site, allSitePage}) => {
           //Alternatively, you may also pass in an environment variable (or any location) at the beginning of your `gatsby-config.js`.
