@@ -4,10 +4,10 @@ import Layout from "../components/layout";
 import Head from "../components/head";
 import Breadcrumbs from "../components/breadcrumb";
 import blogStyles from "../pages/blog.module.scss";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import SimpleReactLightbox from 'simple-react-lightbox';
 import { SRLWrapper } from "simple-react-lightbox";
 import commentBox from 'commentbox.io';
+import ReactMarkdown from 'react-markdown'
 
 export const query = graphql`
   query ($slug: String!) {
@@ -17,7 +17,7 @@ export const query = graphql`
         ingress
       }
       brodtekst {
-        json
+        brodtekst
       }
     }
   }
@@ -47,17 +47,6 @@ const Page = (props, {pageContext}) => {
         );
     }
     }
-
-  const options = {
-    renderNode: {
-      "embedded-asset-block": (node) => {
-        const alt = node.data.target.fields.title["en-US"]
-        const url = node.data.target.fields.file["en-US"].url
-        return <img alt={alt} src={url} />
-      }
-    }
-  }
-
   
   return (
       <Layout>
@@ -72,9 +61,9 @@ const Page = (props, {pageContext}) => {
           </p>
           <SimpleReactLightbox>
           <SRLWrapper>
-          {documentToReactComponents(
-            props.data.contentfulSider.brodtekst.json, options
-          )}
+          <ReactMarkdown>
+            {props.data.contentfulSider.brodtekst.brodtekst}
+            </ReactMarkdown>
           </SRLWrapper>
           </SimpleReactLightbox>
           <PageWithComments/>

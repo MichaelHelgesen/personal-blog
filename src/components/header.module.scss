@@ -92,6 +92,7 @@ nav {
 
 .nav-item:hover {
     color: #E8AEB7;
+    text-decoration: underline;
 }
 
 .active-nav-item {
@@ -153,7 +154,8 @@ nav {
     }
 
     .active-nav-item {
-        color: #103750
+        color: #103750;
+        text-decoration: underline;
     }
 
     .nav-list li:last-of-type .nav-item {
@@ -259,7 +261,7 @@ nav {
     
 
     .active-nav-item {
-        color: #103750
+        color: #E8AEB7;
     }
     .logoSvg {
         padding: 3px;
