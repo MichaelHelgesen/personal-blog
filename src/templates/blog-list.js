@@ -37,27 +37,8 @@ const BlogPostList = ({ data }) => {
       item.node.category = []
          item.node.category.push({categoryName:"Ukategorisert"})
     }
+    return null
   })
-
-  console.log("POSTS", posts)
-/*
-  function getCategories(blogPosts) {
-    const uniqueCategories = new Set()
-    // Iterate over all articles
-    blogPosts.edges.forEach(({ node }) => {
-      // Iterate over each category in an article
-      if (node.category) {
-          node.category.forEach(categoryName => {
-          uniqueCategories.add(categoryName["categoryName"]);
-        })
-      }
-    })
-    // Create new array with duplicates removed
-    return Array.from(uniqueCategories)
-  }
-*/
-//  let categories = getCategories(allContentfulBlogPost);
-
 
   return (
     <Layout>

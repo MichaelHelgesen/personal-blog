@@ -7,6 +7,7 @@ import blogStyles from "../pages/blog.module.scss";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import SimpleReactLightbox from 'simple-react-lightbox';
 import { SRLWrapper } from "simple-react-lightbox";
+import commentBox from 'commentbox.io';
 
 export const query = graphql`
   query ($slug: String!) {
@@ -26,6 +27,26 @@ export const query = graphql`
 
 
 const Page = (props, {pageContext}) => {
+
+  class PageWithComments extends React.Component {
+
+    componentDidMount() {
+    
+        this.removeCommentBox = commentBox('my-project-id');
+    }
+    
+    componentWillUnmount() {
+    
+        this.removeCommentBox();
+    }
+    
+    render() {
+    
+        return (
+            <div className="commentbox" />
+        );
+    }
+    }
 
   const options = {
     renderNode: {
@@ -56,6 +77,7 @@ const Page = (props, {pageContext}) => {
           )}
           </SRLWrapper>
           </SimpleReactLightbox>
+          <PageWithComments/>
           </div>
           </div>
       </Layout>

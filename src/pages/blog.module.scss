@@ -71,7 +71,7 @@
         }
         button:hover {
             background: #E8AEB7;
-            color: #0E6BA8;
+            color: #103750;
             cursor: pointer;
         }
         button:focus { outline: none; }
@@ -136,6 +136,7 @@
 
     a:hover h2 {
         color: #D7707F;
+        text-decoration: underline;
     }
 
     h2 {

@@ -55,8 +55,9 @@ const FilterButton = ({ filter, setFilter, setBlogPosts, setSearchedPosts, allBl
                       match = item
                     } 
                 });
-                return match; 
+                 
             } 
+            return match;
           })
           setBlogPosts(test)
           setSearchedPosts(test)
