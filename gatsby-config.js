@@ -10,7 +10,9 @@ module.exports = {
     author: "Mikke"
   },
   plugins: [
-    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-sitemap`,
+  },
     "gatsby-plugin-react-helmet",
   {
     resolve: "gatsby-source-contentful",
