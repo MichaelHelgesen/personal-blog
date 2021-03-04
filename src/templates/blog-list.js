@@ -11,6 +11,7 @@ import FilterButton from "../components/filterbutton";
 
 const BlogPostList = ({ data }) => {
   const { allContentfulBlogginnlegg } = data;
+  
 
 
   const unFlattenResults = results =>
@@ -23,7 +24,6 @@ const BlogPostList = ({ data }) => {
   //const query = new URLSearchParams(search).get('s')
   const [searchQuery, setSearchQuery] = useState('');
   const results = useFlexSearch(searchQuery, data.localSearchPages.index, data.localSearchPages.store);
-  
   const [filter, setFilter] = useState("")
 
   const [blogPosts, setBlogPosts] = useState(allContentfulBlogginnlegg.edges)
@@ -31,6 +31,15 @@ const BlogPostList = ({ data }) => {
 
   let posts = searchQuery ? (searchedPosts.length ? searchedPosts : unFlattenResults(results)) : blogPosts;
 
+
+  posts.map(function (item) {
+    if (!item.node.category) {
+      item.node.category = []
+         item.node.category.push({categoryName:"Ukategorisert"})
+    }
+  })
+
+  console.log("POSTS", posts)
 /*
   function getCategories(blogPosts) {
     const uniqueCategories = new Set()

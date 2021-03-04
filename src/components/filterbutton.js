@@ -15,15 +15,23 @@ const FilterButton = ({ filter, setFilter, setBlogPosts, setSearchedPosts, allBl
               uniqueCategories.add(categoryName["categoryName"]);
             })
           }
+          else {
+            node.category = []
+            node.category.push({categoryName:"Ukategorisert"})
+            if (node.category) {
+              node.category.forEach(categoryName => {
+              uniqueCategories.add(categoryName["categoryName"]);
+            })
+          }
+          }
         })
         // Create new array with duplicates removed
         return Array.from(uniqueCategories)
       }
-    
+
         function handleClick(e) {
             
           e.preventDefault();
-
           const array = (searchQuery ? unFlattenResults(results) : allBlogs);
 
             if(e.target.classList.contains(blogStyles.active)){
@@ -32,21 +40,24 @@ const FilterButton = ({ filter, setFilter, setBlogPosts, setSearchedPosts, allBl
                 setBlogPosts(allBlogs)
                 setSearchedPosts(unFlattenResults(results))
                 setFilter("");
-          isActive(filter)
+                isActive(filter)
             } else {
                
           const test = array.filter(function(item) {
               let match = "";
+              if(!item.node.category) {
+                item.node.category = []
+            item.node.category.push({categoryName:"Ukategorisert"})
+              }
             if (item.node.category) {
                  item.node.category.forEach(el => {
                     if(el["categoryName"] === e.target.innerText.substr(0,e.target.innerText.indexOf(' '))) {
-                        match = item
+                      match = item
                     } 
                 });
-            }
-            return match;
+                return match; 
+            } 
           })
-          
           setBlogPosts(test)
           setSearchedPosts(test)
           setFilter(e.target.innerText.substr(0,e.target.innerText.indexOf(' ')));
@@ -65,13 +76,16 @@ const FilterButton = ({ filter, setFilter, setBlogPosts, setSearchedPosts, allBl
             let num = 0;
             const array = (searchQuery ? unFlattenResults(results) : allBlogs);
             array.forEach(({node}) => {
+              if(!node.category) {
+                node.category = []
+            node.category.push({categoryName:"Ukategorisert"})
+              }
               if(node.category) {
                 node.category.forEach(catname => {
                   if (catname.categoryName === cat) {
                     num ++
                   }
                 })
-                
               }
             })
             return num;

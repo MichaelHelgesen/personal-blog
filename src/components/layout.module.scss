@@ -64,10 +64,10 @@ img:hover {
 }
 
 blockquote {
-    border-left: 3px solid #103750;
+    border-left: 3px solid #E8AEB7;
     p:first-of-type {
         
-        font-family: 'Roboto Slab';
+        font-family: 'Roboto';
         font-style: italic;
         font-size: 1.2em;
         padding-left: 10px;
@@ -81,8 +81,9 @@ blockquote {
 
         i {
             font-weight: 600;
+            font-family:"Roboto Slab",serif;
             padding-left: 13px;
-            color: #e1909c;
+            color: #0d6ba8;
             font-size: .9em;
             display: block;
             line-height: 1.4em;
