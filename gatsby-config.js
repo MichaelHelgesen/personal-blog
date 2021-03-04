@@ -7,7 +7,9 @@
 module.exports = {
   siteMetadata: {
     title: "Mikkes blogg",
-    author: "Mikke"
+    author: "Mikke",
+    description: "Blogg",
+    siteUrl: "https://www.mikkesblogg.no"
   },
   plugins: [
     {
