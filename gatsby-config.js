@@ -35,7 +35,7 @@ module.exports = {
         },
         serialize: ({ site, allSitePage }) =>
           allSitePage.nodes.map(node => {
-            if (node.path.startsWidth("/blogg")) {
+            if (node.path.startsWith("/blogg")) {
               return {
                 url: `${site.siteMetadata.siteUrl}${node.path}`,
                 changefreq: `never`,
