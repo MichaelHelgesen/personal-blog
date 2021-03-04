@@ -52,6 +52,7 @@ module.exports = {
           })
       }
     },
+    'gatsby-plugin-robots-txt',
     "gatsby-plugin-react-helmet",
   {
     resolve: "gatsby-source-contentful",
