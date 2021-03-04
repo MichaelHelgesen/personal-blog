@@ -52,7 +52,14 @@ module.exports = {
           })
       }
     },
-    'gatsby-plugin-robots-txt',
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: 'https://www.mikkesblogg.no',
+        sitemap: 'https://www.mikkesblogg.no/sitemap.xml',
+        policy: [{ userAgent: '*', allow: '/' }]
+      }
+    },
     "gatsby-plugin-react-helmet",
   {
     resolve: "gatsby-source-contentful",
