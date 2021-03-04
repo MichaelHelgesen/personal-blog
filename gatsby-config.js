@@ -35,10 +35,19 @@ module.exports = {
         },
         serialize: ({ site, allSitePage }) =>
           allSitePage.nodes.map(node => {
-            return {
-              url: `${site.siteMetadata.siteUrl}${node.path}`,
-              changefreq: `never`,
-              priority: 0.7,
+            if (node.path.startsWidth("/blogg")) {
+              return {
+                url: `${site.siteMetadata.siteUrl}${node.path}`,
+                changefreq: `never`,
+                priority: 0.5,
+              }
+            }
+            else {
+              return {
+                url: `${site.siteMetadata.siteUrl}${node.path}`,
+                changefreq: `weekly`,
+                priority: 0.7,
+              }
             }
           })
       }
