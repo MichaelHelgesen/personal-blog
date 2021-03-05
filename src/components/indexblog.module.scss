@@ -109,6 +109,26 @@ display: inline-block;
     border-top: 1px solid #dbdbdb;
 }
 
+.buttonlink {
+        font-size: .9em;
+        color: #0E6BA8;
+        text-decoration: none;
+        display: inline-block;
+        padding: .8em 2em;
+        margin-top: 1.2em;
+        background: #0E6BA8;
+        transition: all 0.2s ease;
+        color: white;
+        border-radius: 4px;
+        font-weight: 600;
+        margin-right: 10px;
+}
+
+.buttonlink:hover {
+    background: #E8AEB7;
+    color: #103750;
+}
+
 
 
 @media only screen and (min-width: 1000px) {

@@ -135,33 +135,12 @@ const IndexBlogData = () => {
         )
     }
     return (
+            <div>
             <Blogdata />    
-        
+            <Link className={blogStyles.buttonlink} to={"/blogg"}>Se alle blogginnlegg</Link>
+            </div>
     )
 
 }
 
 export default IndexBlogData;
-
-
-/*
-
-{blogData.allContentfulBlogPost.edges.map(function(item, index) {    
-                          
-                          if (item.node.category) {
-                            
-                            item.node.category.map(function(cat) {
-                              if ((cat["categoryName"] === category)) {
-                                  return <li><Link to={`blog/${item.node.slug}`}><h2>{item.node.title}</h2></Link></li>
-                              }
-                             
-                            }) 
-
-                          }
-                          
-                          
-                           
-
-                        })} 
-
-*/
