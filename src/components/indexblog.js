@@ -79,6 +79,9 @@ const IndexBlogData = () => {
         
 
             <div>
+
+<p className={blogStyles.introtext}>Siste blogginnlegg</p>
+
                 {categories.map((category, index) => (
                     
                     <div className={blogStyles.section} key={index}>
