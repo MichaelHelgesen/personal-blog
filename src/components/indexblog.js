@@ -76,6 +76,8 @@ const IndexBlogData = () => {
 
       return (
             
+        
+
             <div>
                 {categories.map((category, index) => (
                     
