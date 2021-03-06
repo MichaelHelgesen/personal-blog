@@ -137,7 +137,9 @@ const IndexBlogData = () => {
     return (
             <div>
             <Blogdata />    
+            <div className={blogStyles.linkwrap}>
             <Link className={blogStyles.buttonlink} to={"/blogg"}>Se alle blogginnlegg</Link>
+            </div>
             </div>
     )
 

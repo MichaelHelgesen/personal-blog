@@ -720,6 +720,15 @@ html {
   margin-top: 50px;
 }
 
+@media only screen and (min-width: 570px) {
+  .colorchange {
+    transition: color .2s ease;
+    color: white;
+  }
+}
+
+
+
 @media only screen and (min-width: 1000px) {
   .wrapper {
       margin-left: 220px;
