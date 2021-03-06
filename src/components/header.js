@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { graphql, useStaticQuery} from "gatsby";
 import { Link } from "gatsby";
 import headerStyles from "./header.module.scss";
@@ -35,21 +35,29 @@ const pageMenu = codeData.allSitePage.edges.filter((item) => {
 */
 
 
-const openMenu = () => {
+//() => showNav(!nav)
+/*
+<svg className={headerStyles.menuBtn} onClick={openMenu}  id="menu-btn" viewBox="0 0 27.329 17">
+                        <g transform="translate(-415.671 -19)">
+                            <line  x1="24.329" transform="translate(417.171 34.5)" fill="none" stroke="#000" strokeLinecap="round" strokeWidth="3"/>
+                            <line x1="24.329" transform="translate(417.171 27.5)" fill="none" stroke="#000" strokeLinecap="round" strokeWidth="3"/>
+                            <line x1="17" transform="translate(424.5 20.5)" fill="none" stroke="#000" strokeLinecap="round" strokeWidth="3"/>
+                        </g>
+                    </svg>*/
+
+
+
+const [nav, showNav] = useState(false);
+
+const openNav = function() {
+    showNav(!nav);
     const get = element => document.getElementById(element);
-    let nav = get("nav");
-    nav.classList.add('open-nav');
+    let navi = get("nav");
+    navi.classList.toggle('open-nav');
 }
-
-const closeMenu = () => {
-    const get = element => document.getElementById(element);
-    let nav = get("nav");
-    nav.classList.remove('open-nav');
-}
-
-
+ 
     return (
-        <header className={headerStyles.header}>
+        <header id="header" className={headerStyles.header}>
         
                 <Link className={headerStyles.title} to="/">
                 <span className={headerStyles.logowrapper}>
@@ -57,25 +65,17 @@ const closeMenu = () => {
                     </span>
                     <span className={headerStyles.logo}><span className={headerStyles.logofirst}>Mikkes</span><br/><span className={headerStyles.logosecond}>Blogg</span></span>
                 </Link>
+
+                
+                
                 <nav>
-                     
-                    <svg className={headerStyles.menuBtn} onClick={openMenu}  id="menu-btn" viewBox="0 0 27.329 17">
-                        <g transform="translate(-415.671 -19)">
-                            <line  x1="24.329" transform="translate(417.171 34.5)" fill="none" stroke="#000" strokeLinecap="round" strokeWidth="3"/>
-                            <line x1="24.329" transform="translate(417.171 27.5)" fill="none" stroke="#000" strokeLinecap="round" strokeWidth="3"/>
-                            <line x1="17" transform="translate(424.5 20.5)" fill="none" stroke="#000" strokeLinecap="round" strokeWidth="3"/>
-                        </g>
-                    </svg>
-                    
-                    <ul className={headerStyles.navList} id="nav">
-                        <li>
-                            <svg id="exit-btn" onClick={closeMenu} onKeyDown={closeMenu} xmlns="http://www.w3.org/2000/svg" width="48.968" height="48.968" viewBox="0 0 48.968 48.968">
-                                <g transform="translate(-378.092 -80.939)">
-                                    <path id="Path_21" data-name="Path 21" d="M383,82l-46.847,46.847" transform="translate(43)" fill="none" stroke="#000" strokeWidth="3"/>
-                                    <path id="Path_22" data-name="Path 22" d="M336.153,82l46.673,46.673" transform="translate(43)" fill="none" stroke="#000" strokeWidth="3"/>
-                                </g>
-                            </svg>
-                        </li>
+                <div type="text" tabIndex={0} role="button" aria-label="Toggle menu" className={headerStyles.menuicon}  onClick={openNav} onKeyDown={openNav}>
+                         <div className={nav ? headerStyles.test1 : headerStyles.test}></div>
+                         <div className={nav ? headerStyles.test2 : headerStyles.test}></div>
+                         <div className={nav ? headerStyles.test3 : headerStyles.test}></div>
+                     </div>
+
+                    <ul className={headerStyles.navList} id="nav"> 
                         <li>
                             <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/">Hjem</Link>
                         </li>

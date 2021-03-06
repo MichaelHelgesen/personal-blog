@@ -2,6 +2,8 @@ import React from "react";
 import { Link, graphql, useStaticQuery } from "gatsby";
 import footerStyles from "./footer.module.scss"
 import { Location } from '@reach/router'
+import scrollTo from 'gatsby-plugin-smoothscroll';
+
 const Footer = () => {
 
     
@@ -19,6 +21,7 @@ const Footer = () => {
     return (
         <footer className={footerStyles.footer}>
         <div className={footerStyles.footerwrapper}>
+        <button aria-label="Scroll to top" className={footerStyles.totop} onClick={() => scrollTo('#gatsby-focus-wrapper')}></button>
         <Location>
             {({ location }) => {
             return  location.pathname !== "/" ? 
@@ -36,6 +39,7 @@ const Footer = () => {
             : false;
             }}
         </Location>
+        
             <p className={footerStyles.author}>Utviklet av <Link to={"/om"}>{data.site.siteMetadata.author}</Link></p>
         </div>
         </footer>

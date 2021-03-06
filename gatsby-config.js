@@ -12,6 +12,7 @@ module.exports = {
     siteUrl: "https://www.mikkesblogg.no"
   },
   plugins: [
+    "gatsby-plugin-smoothscroll",
     {
       resolve: `gatsby-plugin-sitemap`,
       options: {

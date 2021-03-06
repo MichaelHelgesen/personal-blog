@@ -647,7 +647,13 @@ html {
 }
 
 .open-nav {
-  display: grid;
+  right: -1px;
+}
+
+.open-nav li {
+  transition: all 1s ease;
+  transform: scale(1);
+  opacity: 1;
 }
 
 #exit-btn {
