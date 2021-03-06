@@ -15,6 +15,7 @@
     padding-left: 50px;
     font-family: 'Roboto Slab';
     text-transform: uppercase;
+    z-index: 999;
 }
 
 .title:hover .logoSvg {
@@ -42,6 +43,7 @@
 .logofirst {
     font-weight: 100;
     color: white;
+    transition: color .2s ease;
 }
 
 .logosecond {
@@ -49,6 +51,8 @@
     color: #E8AEB7;
     margin-left: 5px;
 }
+
+
 
 .menuicon {
 position: relative;
@@ -66,28 +70,33 @@ position: relative;
     div {
         width: 1.5rem;
         height: 3px;
-        background-color: black;
+        background-color: #0A2239;
         border-radius: 5px;
         transform-origin: 1px;
         position: relative;
         transition: opacity 300ms, transform 300ms;
+        transition: background-color, .2s ease;
     }
 }
 
-.test{
-color: red;
+.menuicon:hover div {
+    background-color: black;
 }
 
-.test1{
+.navbar{
+display: unset;
+}
+
+.navbar1{
     transform: rotate(45deg);
     width: 1rem;
 }
 
-.test2{
+.navbar2{
     opacity: 0;
 }
 
-.test3{
+.navbar3{
     transform: rotate(-45deg);
     width: 1rem;
 }
@@ -162,7 +171,7 @@ nav {
 
 
   @media only screen and (min-width: 570px) {
-    .menuBtn {
+    .menuicon {
         display: none;
     }
   
