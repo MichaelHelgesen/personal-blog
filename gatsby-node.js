@@ -61,9 +61,10 @@ module.exports.createPages = async ({ graphql, actions}) => {
       })
 
       const categories = []
-
+      categories.push("Ukategorisert");
       posts.forEach(({ node }, index) => {
         if (node.category) {
+
             node.category.forEach(cat => categories.push(cat["categoryName"]))
         
             createPage({

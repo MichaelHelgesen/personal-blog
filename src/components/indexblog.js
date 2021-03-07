@@ -31,6 +31,16 @@ const IndexBlogData = () => {
        }
     `);
 
+
+    blogData.allContentfulBlogginnlegg.edges.map(function (item) {
+        if (!item.node.category) {
+          item.node.category = []
+             item.node.category.push({categoryName:"Ukategorisert"})
+        }
+        return null
+      })
+
+
     function getCategories(blogPosts) {
         const uniqueCategories = new Set()
         // Iterate over all articles

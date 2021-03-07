@@ -81,7 +81,12 @@ class PageWithComments extends React.Component {
   }
   }
   
+  if(!props.data.contentfulBlogginnlegg.category) {
+    props.data.contentfulBlogginnlegg.category = [];
+    props.data.contentfulBlogginnlegg.category.push({categoryName: "Ukategorisert"})
+  }
 
+console.log(props.data.contentfulBlogginnlegg)
 
     return (
         <Layout>

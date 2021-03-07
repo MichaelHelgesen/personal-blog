@@ -20,10 +20,11 @@ const BlogCategory = ({ data, pageContext }) => {
   });
 
 
-  function sortResults (arr) {
+  function sortResults (arr, uncat) {
     const newArr = [];
+    const newArr2 = [];
     arr.map(function(item){
-      if(item.node.category) {
+      if(item.node.category && !uncat) {
         item.node.category.map(function(element) {
           if(element["categoryName"] === lastWordInUrl) {
             newArr.push(item);
@@ -31,26 +32,20 @@ const BlogCategory = ({ data, pageContext }) => {
           return null
         });
       }
+      else {
+        newArr2.push(item);
+      }
       return null
     })
-    return newArr;
+    if (uncat) {
+      return newArr2; 
+    } else {
+      return newArr;  
+    }
+    
   }
     
-  /*
-    const unFlattenResults = results =>
-  results.filter(post => {
-    if(post.category) {
-      post.category.filter(element => {
-        if(element["categoryName"] === lastWordInUrl) {
-          console.log("SAME CAT")
-          const { slug, title, category } = post;
-          console.log(post)
-          return { node: { slug, title, category } };
-        }
-      });
-    }
-  });
-  */
+
 
   const url = `${typeof window !== 'undefined' ? window.location.href : ''}`
   const lastUrl = url.substr(url.lastIndexOf('/') + 1);
@@ -67,6 +62,22 @@ const BlogCategory = ({ data, pageContext }) => {
   const [searchedPosts, setSearchedPosts] = useState(unFlattenResults(results))
 
   let posts = searchQuery ? sortResults(unFlattenResults(results)) : blogPosts;
+
+  allPosts.edges.map(function (item) {
+    if (!item.node.category) {
+      item.node.category = []
+         item.node.category.push({categoryName:"Ukategorisert"})
+    }
+    return null
+  })
+
+
+
+
+console.log(pageContext["allCategories"])
+console.log(allPosts)
+
+
 
   const numberOfCategories = function (cat) {
     let num = 0;
@@ -119,7 +130,7 @@ const BlogCategory = ({ data, pageContext }) => {
           </div>
           <div>
             <ol className={blogStyles.posts}>
-            <BlogContent test={(posts)}/>
+            {lastWordInUrl === "Ukategorisert" ? <BlogContent test={sortResults((allPosts.edges))}/> : <BlogContent test={(posts)}/>}
             </ol>
             
           </div>
