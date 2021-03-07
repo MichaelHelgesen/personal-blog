@@ -66,7 +66,8 @@
 .totop {
     width: 40px;
     height: 40px;
-    background: #d8cd8a;
+    background: #dbdbdb;
+    /*background: #d8cd8a;*/
     display: inline-block;
     border-radius: 50%;
     position: relative;
@@ -78,10 +79,8 @@
 }
 
 .totop:hover {
-    background:#113750;
-    .totop:before {
-        border-bottom: 10px solid red;
-    }
+    background:#E8AEB7;
+
 }
 
 
@@ -94,15 +93,20 @@
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
   }
+
+  .totop:hover:after {
+    border-bottom: 7px solid #E8AEB7;
+  }
   
   .totop:after {
     content: '';
     position: absolute;
     left: 13px;
     top: 16px;
-    border-bottom: 7px solid #d8cd8a;
+    border-bottom: 7px solid #dbdbdb;
     border-left: 7px solid transparent;
     border-right: 7px solid transparent;
+    transition: all .2s ease;
   }
 
 @media only screen and (min-width: 1000px) {
