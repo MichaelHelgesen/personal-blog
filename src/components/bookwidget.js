@@ -61,7 +61,9 @@ const BookWidget = ({ bookdetails, sort, sortOrder, bloggkort }) => {
     }
 
     // Listen for all clicks on the document
-    document.addEventListener('click', function (event) {
+    const site = document.querySelector("body");
+    console.log("site", site)
+    site.addEventListener('click', function (event) {
 
 
         // If the click happened inside the the container, bail
