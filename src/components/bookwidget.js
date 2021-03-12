@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Link } from "gatsby";
 import styles from "./bookwidget.module.scss";
 import ReactMarkdown from 'react-markdown'
@@ -60,9 +60,14 @@ const BookWidget = ({ bookdetails, sort, sortOrder, bloggkort }) => {
         sortedBookArray.reverse();
     }
 
-    // Listen for all clicks on the document
+
+    const [hasNavTag, setHasNavTag] = useState(false);
+
+    useEffect(() => setHasNavTag(document.querySelector("body") != null), [] );
+    
+    if (hasNavTag) {
+        // Listen for all clicks on the document
     const site = document.querySelector("body");
-    console.log("site", site)
     site.addEventListener('click', function (event) {
 
 
@@ -81,6 +86,13 @@ const BookWidget = ({ bookdetails, sort, sortOrder, bloggkort }) => {
             com.classList.add(`${styles.close_comment}`);
         })
     }, false);
+    }
+console.log(hasNavTag)
+
+
+
+    
+
 
 
     const showComment = (e) => {
@@ -107,6 +119,7 @@ const BookWidget = ({ bookdetails, sort, sortOrder, bloggkort }) => {
         comments.classList.remove(`${styles.open_comment}`);
         comments.classList.add(`${styles.close_comment}`);
     }
+
 
     return (
         sortedBookArray.map(({ node }, index) => {
