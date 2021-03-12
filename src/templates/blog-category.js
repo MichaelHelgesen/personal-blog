@@ -72,13 +72,6 @@ const BlogCategory = ({ data, pageContext }) => {
   })
 
 
-
-
-console.log(pageContext["allCategories"])
-console.log(allPosts)
-
-
-
   const numberOfCategories = function (cat) {
     let num = 0;
     const array = allPosts.edges;

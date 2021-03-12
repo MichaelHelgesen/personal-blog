@@ -9,6 +9,7 @@ import layoutStyles from "../components/layout.module.scss";
 import Breadcrumbs from "../components/breadcrumb";
 import SimpleReactLightbox from 'simple-react-lightbox';
 import { SRLWrapper } from "simple-react-lightbox";
+import BookWidget from "../components/bookwidget"
 
 
 export const query = graphql`
@@ -24,11 +25,36 @@ export const query = graphql`
         json
       }
       codeBlock2{childMarkdownRemark {html}}
+      bokomtale {
+        boktittel
+        forfatter
+        kategori
+        sidetall
+        publisert
+        niv
+        evaluering
+        lest(formatString: "DD.MM.YY")
+        oppsummering {
+          oppsummering
+        }
+        link
+        bilde {
+          file {
+            url
+          }
+        }
+      }
     }
   }
 `
 
 const Blog = (props) => {
+  
+
+
+
+  console.log("bok", props.data.contentfulBlogginnlegg.bokomtale);
+  
   const options = {
     renderNode: {
       "embedded-asset-block": (node) => {
@@ -105,6 +131,7 @@ console.log(props.data.contentfulBlogginnlegg)
           </span>
              : null}</p>
           <SRLWrapper>
+            {props.data.contentfulBlogginnlegg.bokomtale ? <BookWidget bookdetails={props.data.contentfulBlogginnlegg} bloggkort={true} /> : null}
               {props.data.contentfulBlogginnlegg.ingress != null && 
               documentToReactComponents(
                 props.data.contentfulBlogginnlegg.ingress.json, ingressOptions

@@ -22,6 +22,7 @@ const BlogPostList = ({ data }) => {
 
   //const { search } = window.location;
   //const query = new URLSearchParams(search).get('s')
+  
   const [searchQuery, setSearchQuery] = useState('');
   const results = useFlexSearch(searchQuery, data.localSearchPages.index, data.localSearchPages.store);
   const [filter, setFilter] = useState("")
@@ -96,6 +97,7 @@ const BlogPostList = ({ data }) => {
 
 
 export default BlogPostList
+
 export const query = graphql`
   query blogPostsList {
     localSearchPages {

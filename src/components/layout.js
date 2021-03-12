@@ -7,7 +7,7 @@ import layoutStyles from "./layout.module.scss";
 
 const Layout = (props) => {
     
-    
+    console.log(props)
     return (
         <div className={layoutStyles.container}>
         <div className={layoutStyles.content}>
@@ -15,7 +15,7 @@ const Layout = (props) => {
                 {props.children}
             </div>
             
-            <Footer />
+            <Footer custom={props.customFooter ? "custom" : null}/>
             
         </div>
     )

@@ -4,9 +4,9 @@ import footerStyles from "./footer.module.scss"
 import { Location } from '@reach/router'
 import scrollTo from 'gatsby-plugin-smoothscroll';
 
-const Footer = () => {
+const Footer = (props) => {
 
-    
+    console.log("footer", props)
 
     const data = useStaticQuery(graphql`
         query {
@@ -20,7 +20,7 @@ const Footer = () => {
 
     return (
         <footer className={footerStyles.footer}>
-        <div className={footerStyles.footerwrapper}>
+        <div className={props.custom ? footerStyles.footerwrapper_fullwidth : footerStyles.footerwrapper}>
         <button aria-label="Scroll to top" className={footerStyles.totop} onClick={() => scrollTo('#gatsby-focus-wrapper')}></button>
         <Location>
             {({ location }) => {
