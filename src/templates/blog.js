@@ -1,16 +1,22 @@
 import React from "react";
-import commentBox from 'commentbox.io';
-import { Link,  graphql } from "gatsby";
-import { BLOCKS } from '@contentful/rich-text-types';
-import Layout from "../components/layout"
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
-import Head from "../components/head";
-import layoutStyles from "../components/layout.module.scss";
+
+import * as layoutStyles from "../components/layout.module.scss";
+import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
+import BookWidget from "../components/bookwidget";
 import Breadcrumbs from "../components/breadcrumb";
+import commentBox from 'commentbox.io';
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import Head from "../components/head";
+import Img from "gatsby-image";
+import { renderRichText } from "gatsby-source-contentful/rich-text"
+import Layout from "../components/layout"
+import { Link, graphql } from "gatsby";
 import SimpleReactLightbox from 'simple-react-lightbox';
 import { SRLWrapper } from "simple-react-lightbox";
-import BookWidget from "../components/bookwidget"
-
+import Prism from "prismjs";
+import { PrismCode } from "../components/prism";
+import style from "react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark";
 
 export const query = graphql`
   query ($slug: String!) {
@@ -19,12 +25,67 @@ export const query = graphql`
       category {categoryName}
       publishedDate(formatString: "DD.MM.YY")
       body {
-        json
+        raw
+        references {
+          ... on ContentfulAsset {
+            contentful_id
+            __typename
+            fixed(width:750) {
+              src
+            }
+            fluid(maxWidth: 1000) {
+              src
+              srcWebp
+              srcSet
+              sizes
+            }
+            description
+            resize (quality:1) {
+              width
+              height
+            }
+          }
+          ... on ContentfulBlogginnlegg {
+            contentful_id
+            title
+            __typename
+            slug
+            body {
+              raw
+            }
+          }
+          ... on ContentfulSider {
+            contentful_id
+            __typename
+            id
+            tittel
+            slug
+          }
+          ... on ContentfulKode {
+            contentful_id
+            id
+            __typename
+            childContentfulKodeKodeTextNode {
+              kode
+            }
+            programmeringssprk
+          }
+          ... on ContentfulProgrammeringsord {
+            __typename
+            id
+            contentful_id
+            tittel
+            betydning
+          beskrivelse {
+            raw
+          }
+          }
+        }
       }
       ingress {
-        json
+        raw
       }
-      codeBlock2{childMarkdownRemark {html}}
+      codeBlock2{childMarkdownRemark {rawMarkdownBody}}
       bokomtale {
         boktittel
         forfatter
@@ -39,6 +100,7 @@ export const query = graphql`
         }
         link
         bilde {
+
           file {
             url
           }
@@ -48,109 +110,313 @@ export const query = graphql`
   }
 `
 
+
+
+
+const Bold = ({ children }) => <span className="bold">{children}</span>
+const Text = ({ children }) => <p className="align-center">{children}</p>
+const Hyperlink = function (id, { children }) {
+  return <Link to={"/blogg/"}>{children}</Link>
+}
+
 const Blog = (props) => {
-  
 
+  //setTimeout(() => Prism.highlightAll(), 0)
 
+  console.log("REFERATER", props.data)
 
-  console.log("bok", props.data.contentfulBlogginnlegg.bokomtale);
-  
+  if (props.data.contentfulBlogginnlegg.codeBlock2) {
+    console.log("MARKDOWN", props.data.contentfulBlogginnlegg.codeBlock2.childMarkdownRemark.rawMarkdownBody)
+  }
+
   const options = {
     renderNode: {
       "embedded-asset-block": (node) => {
+        console.log("RENDERNODE", node)
         const alt = node.data.target.fields.title["en-US"]
         const url = node.data.target.fields.file["en-US"].url
-        return <img alt={alt} src={url} />
+        const image = getImage(node.data.target.fields.file["en-US"])
+        console.log("IMAGE", image)
+        return <GatsbyImage image={image} alt={alt} />
       }
     }
   }
-/*
+
+  const options2 = {
+    renderNode: {
+      // eslint-disable-next-line react/display-name
+      [BLOCKS.EMBEDDED_ASSET]: (node) => {
+        console.log(props.data.contentfulBlogginnlegg.body.references[0].contentful_id)
+        const id = node.data.target.sys.id
+        let image
+        let sizes
+        let srcSet
+        let srcWebp
+        let width
+        let description
+        let height
+        props.data.contentfulBlogginnlegg.body.references.map(el => {
+          if (el.contentful_id === id) {
+            image = el;
+            sizes = el.fluid.sizes
+            srcSet = el.fluid.srcSet
+            srcWebp = el.fluid.srcWebp
+            width = el.resize.width
+            description = el.description
+            height = el.resize.height
+            console.log("image", image)
+          } return
+        })
+        return <Img width={width} fluid={{
+          aspectRatio: width / height,
+          src: image.fluid.src + '?w=630&q=80',
+          srcSet: ` 
+              ${image.fluid.src}?w=${width / 4}&&q=80 ${width / 4}w,
+              ${image.fluid.src}?w=${width / 2}&&q=80 ${width / 2}w,
+              ${image.fluid.src}?w=${width}&&q=80 ${width}w,
+              ${image.fluid.src}?w=${width * 1.5}&&q=80 ${width * 1.5}w,
+              ${image.fluid.src}?w=1000&&q=80 1000w,
+          `,
+          sizes: '(max-width: 630px) 100vw, 630px'
+        }} />
+      }
+    }
+  }
+
+
+  const options4 = {
+    renderMark: {
+      [MARKS.BOLD]: text => <Bold>{text}</Bold>,
+      [MARKS.CODE]: (text) => {
+        return (
+          <PrismCode
+            code={text}
+            language="js"
+            plugins={["line-numbers", "show-language"]}
+          />
+        );
+      },
+    },
+    renderNode: {
+      [BLOCKS.PARAGRAPH]: (node, children) => {
+        if (
+          node.content.length === 1 &&
+          node.content[0].marks.find((x) => x.type === "code")
+        ) {
+          return <div>{children}</div>;
+        } else {
+          return <Text>{children}</Text>
+        }
+      },
+      [INLINES.EMBEDDED_ENTRY]: (node, children) => {
+        const id = node.data.target.sys.id
+        let entry
+
+        props.data.contentfulBlogginnlegg.body.references.map(el => {
+          if (el.contentful_id === id && el.__typename === "ContentfulProgrammeringsord") {
+            entry = <a href={`/programmeringsordbok/#${el.tittel}`}>{el.tittel}</a>
+          } 
+          if (el.contentful_id === id && el.__typename === "ContentfulKode") {
+            entry = <PrismCode
+            code={el.childContentfulKodeKodeTextNode.kode}
+            language={el.programmeringssprk}
+            plugins={["line-numbers", "show-language"]}
+          />
+          }
+          if (el.contentful_id === id && el.__typename === "ContentfulBlogginnlegg") {
+            entry = <a href={`/blogg/${el.slug}`}>{el.title}</a>
+          } 
+          
+        })
+        return entry
+      },
+      [INLINES.ASSET_HYPERLINK]: (node, children) => {
+        let id = node.data.target.sys.id
+        let entry
+        props.data.contentfulBlogginnlegg.body.references.map(el => {
+          if (el.contentful_id === node.data.target.sys.id) {
+            entry = <a href={el.fixed.src}>{el.description}</a>
+        }
+        })
+        return entry
+      },
+      [INLINES.ENTRY_HYPERLINK]: (function (id, children) {
+        let linkId = id.data.target.sys.id
+        let hyperLink
+        let typeName
+        let title
+        props.data.contentfulBlogginnlegg.body.references.map(function (el) {
+          if (el.contentful_id === id.data.target.sys.id) {
+            hyperLink = el.slug
+            typeName = el.__typename
+            title = el.tittel
+          }
+        })
+        //<Link to={`/blogg/${id.data.target.sys.id}`}>{children}</Link>
+        if (typeName === "ContentfulBlogginnlegg") return <Link to={`/blogg/${hyperLink}`}>{children}</Link>
+        if (typeName === "ContentfulProgrammeringsord") return <Link to={`/programmeringsordbok/#${title}`}>{children}</Link>
+      }),
+      [BLOCKS.EMBEDDED_ENTRY]: (node, children) => {
+        const id = node.data.target.sys.id
+        let entry
+
+        props.data.contentfulBlogginnlegg.body.references.map(el => {
+          if (el.contentful_id === id && el.__typename === "ContentfulProgrammeringsord") {
+            entry = <p className={layoutStyles.orddefinisjon}>
+            {el.tittel}
+            {el.betydning}
+            <a href={`/programmeringsordbok/#${el.tittel}`}>Se i ordlisten</a>
+            </p>
+          } 
+          if (el.contentful_id === id && el.__typename === "ContentfulKode") {
+            entry = <PrismCode
+            code={el.childContentfulKodeKodeTextNode.kode}
+            language={el.programmeringssprk}
+            plugins={["line-numbers", "show-language"]}
+          />
+          }
+          if (el.contentful_id === id && el.__typename === "ContentfulBlogginnlegg") {
+            entry = <p className={layoutStyles.orddefinisjon}>
+            {el.title}
+            {el.ingress}
+            <a href={`/blogg/${el.slug}`}>Se blogginnlegg</a>
+            </p>
+          } 
+        })
+        return entry
+      },
+      [BLOCKS.EMBEDDED_ASSET]: (node) => {
+        console.log("EMBEDDED ASSET", node.data.target.sys.id)
+        console.log(props.data.contentfulBlogginnlegg.body.references[0].contentful_id)
+        const id = node.data.target.sys.id
+        let image
+        let sizes
+        let srcSet
+        let srcWebp
+        let width
+        let description
+        let height
+        props.data.contentfulBlogginnlegg.body.references.map(el => {
+          if (el.contentful_id === id) {
+            image = el;
+            sizes = el.fluid.sizes
+            srcSet = el.fluid.srcSet
+            srcWebp = el.fluid.srcWebp
+            width = el.resize.width
+            description = el.description
+            height = el.resize.height
+            console.log("image", image)
+          } return
+        })
+        return <Img width={width} fluid={{
+          aspectRatio: width / height,
+          src: image.fluid.src + '?w=630&q=80',
+          srcSet: ` 
+                ${image.fluid.src}?w=${width / 4}&&q=80 ${width / 4}w,
+                ${image.fluid.src}?w=${width / 2}&&q=80 ${width / 2}w,
+                ${image.fluid.src}?w=${width}&&q=80 ${width}w,
+                ${image.fluid.src}?w=${width * 1.5}&&q=80 ${width * 1.5}w,
+                ${image.fluid.src}?w=1000&&q=80 1000w,
+            `,
+          sizes: '(max-width: 630px) 100vw, 630px'
+        }} />
+      },
+    },
+  }
+
+
+
+  const CustomComponent = ({ text }) => (
+    <p className={layoutStyles.ingress}>{text}</p>
+  );
+
   const ingressOptions = {
     renderNode: {
-      "document": (node) => {
-      return <p className={layoutStyles.ingress}>{node.content[0].content[0].value}</p>
+      [BLOCKS.DOCUMENT]: (node) => {
+        const text = node.content[0].content[0].value;
+        console.log("TEXT", text)
+        return <CustomComponent text={text} />
       }
     }
-  }
-  */
+  };
 
- const CustomComponent = ({ text }) => (
-    <p className={layoutStyles.ingress}>{text}</p>
-);
- 
-const ingressOptions = {
-  renderNode: {
-    [BLOCKS.DOCUMENT]: (node) => {
-      const text = node.content[0].content[0].value;
-      return <CustomComponent text={text} />
+  class PageWithComments extends React.Component {
+
+    componentDidMount() {
+
+      this.removeCommentBox = commentBox('my-project-id');
+    }
+
+    componentWillUnmount() {
+
+      this.removeCommentBox();
+    }
+
+    render() {
+
+      return (
+        <div className="commentbox" />
+      );
     }
   }
+
+  if (!props.data.contentfulBlogginnlegg.category) {
+    props.data.contentfulBlogginnlegg.category = [];
+    props.data.contentfulBlogginnlegg.category.push({ categoryName: "Ukategorisert" })
+  }
+
+
+  return (
+    <Layout>
+      <SimpleReactLightbox>
+        <Head title={props.data.contentfulBlogginnlegg.title} description="df" />
+        <div className={layoutStyles.contentWrapper}>
+          <div className={layoutStyles.contentInner}>
+            <Breadcrumbs crumbs={['/', 'Blogg', props.data.contentfulBlogginnlegg.title]} />
+            <h1>{props.data.contentfulBlogginnlegg.title}</h1>
+            <p className={layoutStyles.date}>{props.data.contentfulBlogginnlegg.publishedDate}, {props.data.contentfulBlogginnlegg.category ?
+              <span>
+                {props.data.contentfulBlogginnlegg.category.map((cat, index, arr) => (
+                  index === arr.length - 1 ? <Link key={index} to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>#{cat["categoryName"]}</Link> : <span key={index}><Link to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>#{cat["categoryName"]}</Link> </span>
+
+                ))}
+              </span>
+              : null}</p>
+            <SRLWrapper>
+              {props.data.contentfulBlogginnlegg.bokomtale ? <BookWidget bookdetails={props.data.contentfulBlogginnlegg} bloggkort={true} /> : null}
+
+
+              <div>{props.data.contentfulBlogginnlegg.ingress != null &&
+                documentToReactComponents(
+                  JSON.parse(props.data.contentfulBlogginnlegg.ingress.raw), ingressOptions
+                )}</div>
+
+              {documentToReactComponents(
+                JSON.parse(props.data.contentfulBlogginnlegg.body.raw), options4
+              )}
+
+
+
+            </SRLWrapper>
+            <PageWithComments />
+          </div>
+        </div>
+
+      </SimpleReactLightbox>
+    </Layout>
+  )
 };
 
-class PageWithComments extends React.Component {
+export default Blog;
 
-  componentDidMount() {
-  
-      this.removeCommentBox = commentBox('my-project-id');
-  }
-  
-  componentWillUnmount() {
-  
-      this.removeCommentBox();
-  }
-  
-  render() {
-  
-      return (
-          <div className="commentbox" />
-      );
-  }
-  }
-  
-  if(!props.data.contentfulBlogginnlegg.category) {
-    props.data.contentfulBlogginnlegg.category = [];
-    props.data.contentfulBlogginnlegg.category.push({categoryName: "Ukategorisert"})
-  }
-
-console.log(props.data.contentfulBlogginnlegg)
-
-    return (
-        <Layout>
-          <SimpleReactLightbox>
-          <Head title={props.data.contentfulBlogginnlegg.title} description="df"/>
-          <div className={layoutStyles.contentWrapper}>
-          <div className={layoutStyles.contentInner}>
-          <Breadcrumbs crumbs={ [ '/', 'Blogg', props.data.contentfulBlogginnlegg.title ] } />
-          <h1>{props.data.contentfulBlogginnlegg.title}</h1>
-          <p className={layoutStyles.date}>{props.data.contentfulBlogginnlegg.publishedDate}, {props.data.contentfulBlogginnlegg.category ? 
-           <span>
-             {props.data.contentfulBlogginnlegg.category.map((cat, index, arr) => (
-              index === arr.length - 1 ? <Link key={index} to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>#{cat["categoryName"]}</Link> : <span key={index}><Link to={`/blogg/kategori/${cat["categoryName"].toLowerCase()}`}>#{cat["categoryName"]}</Link> </span> 
-              
-          ))}
-          </span>
-             : null}</p>
-          <SRLWrapper>
-            {props.data.contentfulBlogginnlegg.bokomtale ? <BookWidget bookdetails={props.data.contentfulBlogginnlegg} bloggkort={true} /> : null}
-              {props.data.contentfulBlogginnlegg.ingress != null && 
+/*
+{props.data.contentfulBlogginnlegg.ingress != null &&
               documentToReactComponents(
                 props.data.contentfulBlogginnlegg.ingress.json, ingressOptions
               )
               }
-          
-          {documentToReactComponents(
-            props.data.contentfulBlogginnlegg.body.json, options
-          )}
-          {props.data.contentfulBlogginnlegg.codeBlock2 != null && <div dangerouslySetInnerHTML={{ __html: props.data.contentfulBlogginnlegg.codeBlock2.childMarkdownRemark.html }} /> }
 
-          </SRLWrapper>
-          <PageWithComments/>
-          </div>
-          </div>
-          
-          </SimpleReactLightbox>
-        </Layout>
-    )
-};
 
-export default Blog;
+{props.data.contentfulBlogginnlegg.codeBlock2 != null && <div><ReactMarkdown>{props.data.contentfulBlogginnlegg.codeBlock2.childMarkdownRemark.rawMarkdownBody}</ReactMarkdown> </div>}
+
+*/

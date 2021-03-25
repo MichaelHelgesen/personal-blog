@@ -1,7 +1,12 @@
 import React, {useState} from "react";
+
+import * as headerStyles from "./header.module.scss";
 import { graphql, useStaticQuery} from "gatsby";
 import { Link } from "gatsby";
-import headerStyles from "./header.module.scss";
+
+
+
+
 
 
 

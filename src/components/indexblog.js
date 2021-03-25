@@ -1,6 +1,8 @@
 import React from "react";
+
+import * as blogStyles from "../components/indexblog.module.scss";
 import { Link, graphql, useStaticQuery} from "gatsby";
-import blogStyles from "../components/indexblog.module.scss";
+
 
 
 
@@ -117,7 +119,7 @@ const IndexBlogData = () => {
                                     <h3>
                                         {post.node.title}
                                     </h3>   
-                                    <p className={blogStyles.date}>{post.node.publishedDate}</p>
+                                    <p>{post.node.publishedDate}</p>
                                 </div>
                             </Link>    
                         </li>

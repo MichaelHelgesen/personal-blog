@@ -1,0 +1,68 @@
+/*.container {
+    column-count: 3;
+    column-gap: 10px;
+}
+
+.container figure {
+    margin: 0;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    margin-bottom: 10px;
+    break-inside: avoid;
+}
+*/
+.container img {
+  /*  grid-row: 1 / -1;
+    grid-column: 1;*/
+    margin: 0;
+    width: 100%;
+    margin-bottom: -7px;
+}
+
+@keyframes comeIn {
+    0% { transform: scale(0) }
+    75% { transform: scale(1.03) }
+    100% { transform: scale(1) }
+}
+
+.xmasonry .xblock {
+    animation: comeIn ease 0.5s;
+    animation-iteration-count: 1;
+    transition: left .3s ease, top .3s ease;
+}
+
+.card {
+    margin: 7px;
+    /*padding: 5px;*/
+    border-radius: 3px;
+    box-shadow: 0 1px 3px darkgray;
+}
+
+.xmasonry-static {
+    text-align: center;
+    overflow: auto;
+}
+
+.xblock-static {
+    float: left;
+    text-align: left;
+}
+
+
+.my_masonry_grid {
+    display: -webkit-box; /* Not needed if autoprefixing */
+    display: -ms-flexbox; /* Not needed if autoprefixing */
+    display: flex;
+    margin-left: -20px; /* gutter size offset */
+    width: auto;
+  }
+  .my_masonry_grid_column {
+    padding-left: 20px; /* gutter size */
+    background-clip: padding-box;
+  }
+   
+  /* Style your items */
+  .my_masonry_grid_column > div { /* change div to reference your elements you put in <Masonry> */
+    background: grey;
+    margin-bottom: 20px;
+  }

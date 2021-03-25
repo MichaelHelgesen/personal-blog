@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
-import { graphql } from "gatsby";
-import Layout from "../components/layout";
-import Head from "../components/head";
+
+import * as blogStyles from "../pages/blog.module.scss";
+import BookWidget from '../components/bookwidget';
 import Breadcrumbs from "../components/breadcrumb";
-import blogStyles from "../pages/blog.module.scss";
+import { graphql } from "gatsby";
+import Head from "../components/head";
+import Layout from "../components/layout";
 import SimpleReactLightbox from 'simple-react-lightbox';
 import { SRLWrapper } from "simple-react-lightbox";
-import BookWidget from '../components/bookwidget';
+
 
 
 
@@ -28,7 +30,24 @@ console.log(categories)
         // Create new array with duplicates removed
         return Array.from(uniqueCategories)
       }
+      const books = categories.edges;
+      const totalNumberOfBooks = books.length;
+      const incNumber = 3;
+      const [numberOfBooks, setNumberOfBooks] = useState(incNumber);
+      
+      const numberBooks = numberOfBooks;
 
+      console.log("number", numberBooks)
+
+      const upDateNumber = () => {
+        if(numberOfBooks + incNumber <= totalNumberOfBooks) {
+            setNumberOfBooks(numberOfBooks + incNumber)
+        }  else {
+            setNumberOfBooks(totalNumberOfBooks);
+        }
+        
+      }
+console.log("Updatenumber", numberOfBooks)
 const allCategories = getCategories(categories)
 console.log(allCategories)
 
@@ -48,8 +67,10 @@ const [sortIndex, setSortIndex] = useState("asc")
 //const [sortOrder, setSortOrder] = useState(categories.edges)
 
 
-const books = categories.edges;
-console.log("books", books)
+
+
+
+console.log("books", books.length)
 
     return (
         <Layout>
@@ -85,11 +106,11 @@ console.log("books", books)
             <SimpleReactLightbox>
             <SRLWrapper>
               <div className={blogStyles.library_wrapper}>
-              <BookWidget bookdetails={books} sort={sortBy} sortOrder={sortIndex} />
+              <BookWidget bookdetails={books} sort={sortBy} sortOrder={sortIndex} numberOfBooks={numberOfBooks} />
         </div>
             </SRLWrapper>
             </SimpleReactLightbox>
-            <button className={blogStyles.showMore}>Show</button>
+            {numberOfBooks < totalNumberOfBooks ? <button onClick={upDateNumber}>Se flere {totalNumberOfBooks - numberOfBooks}</button> : null}
             </div>
             </div>
         </Layout>
@@ -99,7 +120,7 @@ console.log("books", books)
 
 
   export default BookLibrary;
-
+const ele = "Bokomtale"
 
   export const query = graphql`
   query blogPostsListByCategory2($category: String = "Bokomtale") {

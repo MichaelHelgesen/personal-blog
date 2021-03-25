@@ -1,7 +1,10 @@
 import React from "react";
-import Header from "../components/header";
+
+import * as layoutStyles from "./layout.module.scss";
 import Footer from "../components/footer";
-import layoutStyles from "./layout.module.scss";
+import Header from "../components/header";
+
+
 
 
 

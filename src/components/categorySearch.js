@@ -1,5 +1,5 @@
 import React from 'react';
-import searchStyles from "../components/search.module.scss";
+import * as searchStyles from "../components/search.module.scss";
 
 const SearchBar = ({ searchQuery, category, setSearchQuery, setBlogPosts, allBlogs }) => {
 

@@ -1,6 +1,8 @@
 import React from "react";
+
+import * as heroStyles from "./hero.module.scss";
 import { Link } from "gatsby";
-import heroStyles from "./hero.module.scss";
+
 
 
 const HeroComponent = () => {

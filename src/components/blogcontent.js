@@ -1,19 +1,21 @@
 import React from "react";
+
+import * as blogStyles from "../pages/blog.module.scss";
 import { Link } from "gatsby";
-import blogStyles from "../pages/blog.module.scss";
+
 
 const BlogContent = ({test}) => {    
     return (
         test.map(({ node }, index) => {
             return (
                     <li className={blogStyles.post} key={index}>
-                        <Link className={blogStyles.bloglink} to={`/blogg/${node.slug}`}> 
+                        <Link to={`/blogg/${node.slug}`}> 
                             
                             <div>
                                 <h2>
                                 {node.title}
                             </h2>   
-                            <p className={blogStyles.date}>{node.publishedDate}
+                            <p>{node.publishedDate}
                                 
                                 {node.category ? "  " : null }
 

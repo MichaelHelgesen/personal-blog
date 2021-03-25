@@ -1,12 +1,14 @@
-import Layout from "../components/layout";
 import React, {useState} from 'react';
-import { Link, graphql } from "gatsby";
-import blogStyles from "../pages/blog.module.scss";
-import Head from "../components/head";
+
+import * as blogStyles from "../pages/blog.module.scss";
+import BlogContent from "../components/blogcontent";
 import Breadcrumbs from "../components/breadcrumb";
 import CategorySearch from '../components/categorySearch.js';
+import Head from "../components/head";
+import Layout from "../components/layout";
+import { Link, graphql } from "gatsby";
 import { useFlexSearch } from 'react-use-flexsearch';
-import BlogContent from "../components/blogcontent";
+
 
 
 const BlogCategory = ({ data, pageContext }) => {

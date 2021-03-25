@@ -1,5 +1,5 @@
 import React from 'react';
-import blogStyles from "../pages/blog.module.scss";
+import * as blogStyles from "../pages/blog.module.scss";
 
 const FilterButton = ({ filter, setFilter, setBlogPosts, setSearchedPosts, allBlogs, searchQuery, results, unFlattenResults }) => {
     

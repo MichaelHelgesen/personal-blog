@@ -1,6 +1,7 @@
 import React from "react";
+
+import * as footerStyles from "./footer.module.scss"
 import { Link, graphql, useStaticQuery } from "gatsby";
-import footerStyles from "./footer.module.scss"
 import { Location } from '@reach/router'
 import scrollTo from 'gatsby-plugin-smoothscroll';
 

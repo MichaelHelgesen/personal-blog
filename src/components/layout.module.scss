@@ -102,6 +102,15 @@ ul {
     margin-top: 20px;
 }
 
+.orddefinisjon {
+    background: rgb(253, 160, 241);
+    color: blue;
+    padding: 10px;
+    a {
+        display: block;
+    }
+}
+
 @media only screen and (min-width: 500px) {
     .contentWrapper {
         h1 {

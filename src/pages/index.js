@@ -1,9 +1,11 @@
 import React from "react";
-import Layout from "../components/layout"
+
 import "../styles/index.scss"
 import Head from "../components/head";
 import Hero from "../components/hero";
 import IndexBlogData from "../components/indexblog";
+import Layout from "../components/layout"
+
 
 
 const IndexPage = () => {

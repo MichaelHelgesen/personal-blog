@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from "react";
-import { Link } from "gatsby";
-import styles from "./bookwidget.module.scss";
-import ReactMarkdown from 'react-markdown'
 
-const BookWidget = ({ bookdetails, sort, sortOrder, bloggkort }) => {
+import { Link } from "gatsby";
+import ReactMarkdown from 'react-markdown'
+import * as styles from "./bookwidget.module.scss";
+
+const BookWidget = ({ bookdetails, sort, sortOrder, bloggkort, numberOfBooks }) => {
+console.log("bookwidget", numberOfBooks)
 
     const formatBookItem = (item) => {
         if (!item.length) return [{ node: { ...item } }]
@@ -32,7 +34,6 @@ const BookWidget = ({ bookdetails, sort, sortOrder, bloggkort }) => {
             sort = newDate
             sortOrderIsLest = true;
         }
-
         return i;
     }).sort(function (a, b) {
         if (sortOrder === "asc") {
@@ -54,7 +55,7 @@ const BookWidget = ({ bookdetails, sort, sortOrder, bloggkort }) => {
             return -1;
         return 0;
 
-    });
+    }).slice(0,numberOfBooks);
 
     if (sortOrder === "desc" && sortOrderIsLest) {
         sortedBookArray.reverse();
@@ -63,8 +64,10 @@ const BookWidget = ({ bookdetails, sort, sortOrder, bloggkort }) => {
 
     const [hasNavTag, setHasNavTag] = useState(false);
 
+
     useEffect(() => setHasNavTag(document.querySelector("body") != null), [] );
     
+
     if (hasNavTag) {
         // Listen for all clicks on the document
     const site = document.querySelector("body");
@@ -87,13 +90,6 @@ const BookWidget = ({ bookdetails, sort, sortOrder, bloggkort }) => {
         })
     }, false);
     }
-console.log(hasNavTag)
-
-
-
-    
-
-
 
     const showComment = (e) => {
         const openComments = document.querySelectorAll(`.${styles.open_comment}`)
@@ -119,10 +115,10 @@ console.log(hasNavTag)
         comments.classList.remove(`${styles.open_comment}`);
         comments.classList.add(`${styles.close_comment}`);
     }
-
-
+console.log(sortedBookArray);
     return (
         sortedBookArray.map(({ node }, index) => {
+
             return (
 
                 <div className={styles.book__item} key={index}>
@@ -138,37 +134,37 @@ console.log(hasNavTag)
                             <div className={styles.book__title}>
                                 <h3>{node.bokomtale.boktittel}</h3>
                                 <div className={styles.book__author}>
-                                    <span className={styles.span__by}>av</span>  <span className={styles.span__author}> {node.bokomtale.forfatter}</span>
+                                    <span className={styles.span__by}>av</span>  <span> {node.bokomtale.forfatter}</span>
                                 </div>
                             </div>
                         </div>
 
                         <div className={styles.data}>
-                            kategori<span className={styles.span__category}>{node.bokomtale.kategori}</span>
+                            kategori<span>{node.bokomtale.kategori}</span>
                         </div>
                         <div className={styles.data}>
-                            publisert<span className={styles.span__released}>{node.bokomtale.publisert}</span>
+                            publisert<span>{node.bokomtale.publisert}</span>
                         </div>
                         <div className={styles.data}>
-                            sider<span className={styles.span__pages}>{node.bokomtale.sidetall}</span></div>
+                            sider<span>{node.bokomtale.sidetall}</span></div>
                         <div className={styles.data}>
-                            nivå<span className={styles.span__level}>{node.bokomtale.niv}</span>
+                            nivå<span>{node.bokomtale.niv}</span>
                         </div>
                         <div className={styles.data}>
-                            score<span className={styles.span__score}>{node.bokomtale.evaluering}</span>
+                            score<span>{node.bokomtale.evaluering}</span>
                         </div>
                         <div className={`${styles.data} ${styles.book__registered}`}>
-                            lest<span className={styles.span__registered}>{node.bokomtale.lest}</span>
+                            lest<span>{node.bokomtale.lest}</span>
                         </div>
                         <Link to={bloggkort ? `/book-library` : `/blogg/${node.slug}`}>
                         <div className={`${styles.data} ${styles.book__link}`}>
 
-                            <span className={styles.span__link}>{bloggkort ? "Se bibliotek" : "Omtale"}</span>
+                            <span>{bloggkort ? "Se bibliotek" : "Omtale"}</span>
                         </div></Link>
                         
                         <div className={`${styles.data} ${styles.book__comment_btn} comment-btn`} onClick={showComment} onKeyDown={showComment} role="button" tabIndex="-1">
 
-                            <span className={styles.span__comments}>Sammendrag</span>
+                            <span>Sammendrag</span>
                         </div>
                         
                         <div className={`${styles.comment__wrapper} comment`}>
@@ -177,7 +173,7 @@ console.log(hasNavTag)
                                 <ReactMarkdown>{node.bokomtale.oppsummering.oppsummering}</ReactMarkdown>
 
                             </div>
-                            <button className={styles.btn__close_comment} onClick={closeComment}>CLOSE</button>
+                            <button className={styles.btn__close_comment} onClick={closeComment}>Lukk</button>
                         </div>
 
                     </div>
@@ -185,6 +181,7 @@ console.log(hasNavTag)
                 </div>
 
             )
+            
         }))
 }
 

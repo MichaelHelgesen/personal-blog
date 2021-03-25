@@ -1,0 +1,62 @@
+.tittel {
+    display: inline;
+}
+
+
+
+.ordwrapper > div {
+    margin-bottom: 1.45rem;
+}
+
+.ordwrapper > div a {
+    font-weight:600;
+}
+
+.ordwrapper > div p {
+    margin: .5rem 0 .5rem .6rem;
+}
+
+.ordwrapper > div img {
+    margin: 0 0 0 .6rem;
+}
+
+.embedded {
+    margin: 0 0 0 .6rem;
+    background-color: brown;
+    color: white;
+}
+
+.kode {
+    margin: 0 0 0 .6rem;
+}
+
+.fremmhevet {
+    background-color: brown;
+    color: white;
+    padding: 10px;
+    a {
+        display: block;
+    }
+}
+
+.indeks {
+    font-size: .9em;
+    a {
+        margin-right: 7px;
+        background-color: #0E6BA8;
+        color: white;
+        display: inline-block;
+        padding: 0 5px;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: all .2s ease;
+    }
+    a:hover {
+        background:#E8AEB7;
+        color: #103750;
+    }
+}
+
+.betydning {
+    font-style: italic;
+}

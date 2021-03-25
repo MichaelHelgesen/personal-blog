@@ -1,6 +1,8 @@
 import React from "react"
+
+import * as breadcrumbStyles from "./breadcrumb.module.scss"
 import { Link } from "gatsby"
-import breadcrumbStyles from "./breadcrumb.module.scss"
+
 
 
 export default props => {
