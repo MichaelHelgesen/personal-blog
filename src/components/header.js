@@ -64,6 +64,27 @@ const openNav = function() {
     bod.classList.toggle("opennav")
     title.classList.toggle("colorchange");
 }
+
+const closeNav = function() {
+    showNav(false);
+    const get = element => document.getElementById(element);
+    let navi = get("nav");
+    let title = get("first-title");
+    navi.classList.remove('open-nav');
+    const bod = document.body;
+    bod.classList.remove("opennav")
+    title.classList.remove("colorchange");
+}
+const reportWindowSize = () => {
+    if(window.innerWidth > 570) {
+        closeNav();
+    }
+}
+
+window.addEventListener('resize', reportWindowSize)
+
+
+
  
     return (
         <header id="header" className={headerStyles.header}>
@@ -86,14 +107,14 @@ const openNav = function() {
 
                     <ul className={headerStyles.navList} id="nav"> 
                         <li>
-                            <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/">Hjem</Link>
+                            <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/" onClick={closeNav} onKeyDown={closeNav}>Hjem</Link>
                         </li>
                         <li>
-                        <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/blogg" partiallyActive={true}>Blogg</Link>
+                        <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/blogg" partiallyActive={true} onClick={closeNav} onKeyDown={closeNav}>Blogg</Link>
                     </li>
                     {
                             codeData.allContentfulSider.edges.map(function (element, index) {
-                                  return  (<li key={index}><Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to={`/${element.node.slug}`}>{element.node.tittel}</Link></li>)
+                                  return  (<li key={index}><Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to={`/${element.node.slug}`} onClick={closeNav} onKeyDown={closeNav}>{element.node.tittel}</Link></li>)
                                 
                             })
                         }
