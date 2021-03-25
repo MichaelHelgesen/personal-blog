@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import * as blogStyles from "../pages/blog.module.scss";
 import * as galleryStyles from "../pages/gallery.module.scss";

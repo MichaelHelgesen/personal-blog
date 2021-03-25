@@ -9,14 +9,11 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Head from "../components/head";
 import Img from "gatsby-image";
-import { renderRichText } from "gatsby-source-contentful/rich-text"
 import Layout from "../components/layout"
 import { Link, graphql } from "gatsby";
 import SimpleReactLightbox from 'simple-react-lightbox';
 import { SRLWrapper } from "simple-react-lightbox";
-import Prism from "prismjs";
 import { PrismCode } from "../components/prism";
-import style from "react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark";
 
 export const query = graphql`
   query ($slug: String!) {

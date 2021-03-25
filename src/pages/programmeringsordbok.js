@@ -3,7 +3,6 @@ import React, { useState, useStaticQuery } from 'react';
 import * as blogStyles from "../pages/blog.module.scss";
 import * as styles from "../pages/programmeringsordbok.module.scss";
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
-import BookWidget from "../components/bookwidget";
 import Breadcrumbs from "../components/breadcrumb";
 import commentBox from 'commentbox.io';
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
