@@ -1,4 +1,4 @@
-import React, { useState, useStaticQuery } from 'react';
+import React, { useState } from 'react';
 
 import * as blogStyles from "../pages/blog.module.scss";
 import * as styles from "../pages/programmeringsordbok.module.scss";
@@ -13,12 +13,8 @@ import Layout from "../components/layout"
 import { Link, graphql } from "gatsby";
 import SimpleReactLightbox from 'simple-react-lightbox';
 import { SRLWrapper } from "simple-react-lightbox";
-
-//import Prism from "prismjs";
 import { PrismCode } from "../components/prism";
-
 import Search from "../components/searchList";
-import style from 'react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark';
 
 
 
@@ -31,26 +27,33 @@ const Text = ({ children }) => {
 
 const ProgrammeringsOrdliste = ({ data }) => {
 
+console.log("DATA", data.allContentfulProgrammeringsord.edges)
+
     //setTimeout(() => Prism.highlightAll(), 0)
-    const { ord } = data;
-    const { assets } = data;
-    const { pages } = data;
-    const { blogs } = data;
+   // const { allContentfulProgrammeringsord } = data;
+   // const { assets } = data;
+   // const { pages } = data;
+   // const { blogs } = data;
 
+   
 
-    const [ordListe, setOrdListe] = useState(ord.edges)
+    const [ordListe, setOrdListe] = useState(data.allContentfulProgrammeringsord.edges)
     const [searchQuery, setSearchQuery] = useState("")
 
 
     const filterWords = (arr, query) => {
-        return arr.filter(item => item.node.tittel.toLowerCase().includes(query.toLowerCase()));
+        return arr.filter(item => {
+            const word = item.node.tittel + " " + item.node.betydning;
+            console.log("WORD", word)
+            return word.toLowerCase().includes(query.toLowerCase())
+        });
     }
 
 
 
-    let posts = searchQuery ? filterWords(ord.edges, searchQuery) : ordListe
+    let posts = searchQuery ? filterWords(data.allContentfulProgrammeringsord.edges, searchQuery) : ordListe
 
-    console.log("ORDLISTE", ordListe)
+   
 
 
     const findLetters = (arr) => {
@@ -64,7 +67,7 @@ const ProgrammeringsOrdliste = ({ data }) => {
         return newArr
     }
 
-    let letters = searchQuery ? findLetters(filterWords(ord.edges, searchQuery)) : findLetters(ordListe)
+    let letters = searchQuery ? findLetters(filterWords(data.allContentfulProgrammeringsord.edges, searchQuery)) : findLetters(ordListe)
 
 console.log("LETTER", letters)
 /*
@@ -98,7 +101,7 @@ console.log("LETTERMENU", letterMenu);*/
 
     const newArr2 = []
 
-    ord.edges.map((item) => {
+    data.allContentfulProgrammeringsord.edges.map((item) => {
         const index = newArr2.findIndex((e) => e.letter === item.node.tittel.slice(0, 1));
         if (index === -1) {
             newArr2.push({ letter: item.node.tittel.slice(0, 1), tittel: item.node.tittel });
@@ -140,38 +143,61 @@ console.log("LETTERMENU", letterMenu);*/
                 }
             },
             [BLOCKS.EMBEDDED_ENTRY]: (node, children) => {
+                console.log(node)
+                console.log(children)
                 let url
                 let title
-                blogs.edges.map(el => {
-                    if (el.node.contentful_id === node.data.target.sys.id) {
-                        url = el.node.slug
-                        title = el.node.title
-                    } return
+                let type
+                data.allContentfulProgrammeringsord.edges.map(item => {
+                    item.node.beskrivelse.references.map(el => {
+                        if (el.contentful_id === node.data.target.sys.id) {
+                            url = el.slug
+                            if (el.tittel) {
+                                title = el.tittel
+                                type = el.__typename
+                            } else {
+                                title = el.title
+                                type = el.__typename
+                            }
+                        } return
+                    })
+                    return
                 })
                 return (<p className={styles.fremmhevet}>
                         {title}
-                    <Link to={`/blogg/${url}`}>Les blogginnlegget</Link></p>)
+                        {type === "ContentfulBlogginnlegg" ?
+                        <Link to={`/blogg/${url}`}>Les blogginnlegget</Link> :
+                        <Link to={`/${url}`}>Gå til siden</Link> }
+                    </p>)
             },
             [BLOCKS.EMBEDDED_ASSET]: (node, children) => {
                 let src
                 let title
-                assets.edges.map(el => {
-                    if (el.node.contentful_id === node.data.target.sys.id) {
-                        src = el.node.fluid.src
-                        //title = el.node.title
-                    } return
+                data.allContentfulProgrammeringsord.edges.map(item => {
+                    item.node.beskrivelse.references.map(el => {
+                        if (el.contentful_id === node.data.target.sys.id) {
+                            src = el.fluid.src
+                            //title = el.node.title
+                        } return
+                    })
+                    return
                 })
                 return (<img src={src} />)
             },
             [INLINES.EMBEDDED_ENTRY]: (node, children) => {
+                console.log(node)
+                console.log(children)
                 let url
                 let title
                 //const { title, siteUrl } = useSiteMetadata(node.data.target.sys.id);
-                blogs.edges.map(el => {
-                    if (el.node.contentful_id === node.data.target.sys.id) {
-                        url = el.node.slug
-                        title = el.node.title
-                    } return
+                data.allContentfulProgrammeringsord.edges.map(item => {
+                    item.node.beskrivelse.references.map(el => {
+                        if (el.contentful_id === node.data.target.sys.id) {
+                            url = el.slug
+                            title = el.title
+                        } return
+                    })
+                    return
                 })
                 return (<Link to={`/blogg/${url}`}>{title}</Link>)
             },
@@ -219,7 +245,7 @@ console.log("LETTERMENU", letterMenu);*/
                     <div className={styles.ordwrapper}>
                         <Search
                             setOrdliste={setOrdListe}
-                            ordListe={ord}
+                            ordListe={data.allContentfulProgrammeringsord}
                             setSearchQuery={setSearchQuery}
                             searchQuery={searchQuery}
                         />
@@ -266,8 +292,71 @@ console.log("LETTERMENU", letterMenu);*/
 export default ProgrammeringsOrdliste;
 
 
+
+
 export const query = graphql`
-  query  AllAssets {
+query {
+    allContentfulProgrammeringsord (sort: {
+         fields: tittel,
+         order: ASC
+       }) {
+         edges {
+           node {
+             id
+           tittel
+           betydning
+           beskrivelse {
+             raw
+             references {
+                ... on ContentfulBlogginnlegg {
+                  contentful_id
+              title
+              __typename
+              slug
+              body {
+                raw
+              }
+                }
+                ... on ContentfulAsset {
+                  contentful_id
+              __typename
+              fixed(width:750) {
+                src
+              }
+              fluid(maxWidth: 1000) {
+                src
+                srcWebp
+                srcSet
+                sizes
+              }
+              description
+              resize (quality:1) {
+                width
+                height
+              }
+                }
+                ... on ContentfulEntry {
+                  __typename
+                }
+                
+                          ... on ContentfulSider {
+                contentful_id
+              __typename
+              id
+              tittel
+              slug
+              }
+              }
+           }
+           }
+         }
+     }
+ }
+`
+
+/*
+export const query = graphql`
+query  AllAssets {
     ord: allContentfulProgrammeringsord (sort: {
         fields: tittel,
         order: ASC
@@ -316,3 +405,4 @@ export const query = graphql`
       }
 }
 `
+*/

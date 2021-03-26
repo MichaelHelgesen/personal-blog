@@ -120,7 +120,7 @@ console.log("books", books.length)
 
 
   export default BookLibrary;
-const ele = "Bokomtale"
+
 
   export const query = graphql`
   query blogPostsListByCategory2($category: String = "Bokomtale") {
@@ -158,6 +158,9 @@ const ele = "Bokomtale"
             link
             bilde {
                 title
+                resize (quality:50 width:1000 jpegProgressive:true) {
+                  src
+                }
               file {
                 url
               }

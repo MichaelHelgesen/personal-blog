@@ -125,7 +125,7 @@ console.log(sortedBookArray);
 
                     <div className={styles.book__image}>
                         <span className={styles.helper}></span>
-                        <img src={node.bokomtale.bilde.file.url} alt={node.bokomtale.bilde.title} />
+                        <img src={node.bokomtale.bilde.resize.src} alt={node.bokomtale.bilde.title} />
                     </div>
 
                     <div className={styles.book__data}>
