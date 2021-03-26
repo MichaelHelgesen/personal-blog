@@ -76,7 +76,7 @@ const closeNav = function() {
     title.classList.remove("colorchange");
 }
 
-
+/*
 const reportWindowSize = () => {
     if(window.innerWidth > 570) {
         closeNav();
@@ -90,7 +90,7 @@ const windowEl = () => (
 
 
 windowEl();
-
+*/
  
     return (
         <header id="header" className={headerStyles.header}>
