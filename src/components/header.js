@@ -77,18 +77,19 @@ const closeNav = function() {
 }
 
 
-
-
-/*
 const reportWindowSize = () => {
     if(window.innerWidth > 570) {
         closeNav();
     }
 }
 
-window.addEventListener('resize', reportWindowSize)
+const windowEl = () => (
+    window.addEventListener('resize', reportWindowSize)
+)
 
-*/
+
+
+windowEl();
 
  
     return (
