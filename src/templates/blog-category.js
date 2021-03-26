@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 
-import * as blogStyles from "../pages/blog.module.scss";
 import BlogContent from "../components/blogcontent";
 import Breadcrumbs from "../components/breadcrumb";
 import CategorySearch from '../components/categorySearch.js';
@@ -8,7 +7,7 @@ import Head from "../components/head";
 import Layout from "../components/layout";
 import { Link, graphql } from "gatsby";
 import { useFlexSearch } from 'react-use-flexsearch';
-
+import * as blogStyles from "../pages/blog.module.scss";
 
 
 const BlogCategory = ({ data, pageContext }) => {

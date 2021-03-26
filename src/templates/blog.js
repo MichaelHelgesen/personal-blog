@@ -6,7 +6,6 @@ import BookWidget from "../components/bookwidget";
 import Breadcrumbs from "../components/breadcrumb";
 import commentBox from 'commentbox.io';
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import Head from "../components/head";
 import Img from "gatsby-image";
 import Layout from "../components/layout"
@@ -112,9 +111,7 @@ export const query = graphql`
 
 const Bold = ({ children }) => <span className="bold">{children}</span>
 const Text = ({ children }) => <p className="align-center">{children}</p>
-const Hyperlink = function (id, { children }) {
-  return <Link to={"/blogg/"}>{children}</Link>
-}
+
 
 const Blog = (props) => {
 
@@ -125,61 +122,6 @@ const Blog = (props) => {
   if (props.data.contentfulBlogginnlegg.codeBlock2) {
     console.log("MARKDOWN", props.data.contentfulBlogginnlegg.codeBlock2.childMarkdownRemark.rawMarkdownBody)
   }
-
-  const options = {
-    renderNode: {
-      "embedded-asset-block": (node) => {
-        console.log("RENDERNODE", node)
-        const alt = node.data.target.fields.title["en-US"]
-        const url = node.data.target.fields.file["en-US"].url
-        const image = getImage(node.data.target.fields.file["en-US"])
-        console.log("IMAGE", image)
-        return <GatsbyImage image={image} alt={alt} />
-      }
-    }
-  }
-
-  const options2 = {
-    renderNode: {
-      // eslint-disable-next-line react/display-name
-      [BLOCKS.EMBEDDED_ASSET]: (node) => {
-        console.log(props.data.contentfulBlogginnlegg.body.references[0].contentful_id)
-        const id = node.data.target.sys.id
-        let image
-        let sizes
-        let srcSet
-        let srcWebp
-        let width
-        let description
-        let height
-        props.data.contentfulBlogginnlegg.body.references.map(el => {
-          if (el.contentful_id === id) {
-            image = el;
-            sizes = el.fluid.sizes
-            srcSet = el.fluid.srcSet
-            srcWebp = el.fluid.srcWebp
-            width = el.resize.width
-            description = el.description
-            height = el.resize.height
-            console.log("image", image)
-          } return
-        })
-        return <Img width={width} fluid={{
-          aspectRatio: width / height,
-          src: image.fluid.src + '?w=630&q=80',
-          srcSet: ` 
-              ${image.fluid.src}?w=${width / 4}&&q=80 ${width / 4}w,
-              ${image.fluid.src}?w=${width / 2}&&q=80 ${width / 2}w,
-              ${image.fluid.src}?w=${width}&&q=80 ${width}w,
-              ${image.fluid.src}?w=${width * 1.5}&&q=80 ${width * 1.5}w,
-              ${image.fluid.src}?w=1000&&q=80 1000w,
-          `,
-          sizes: '(max-width: 630px) 100vw, 630px'
-        }} />
-      }
-    }
-  }
-
 
   const options4 = {
     renderMark: {
@@ -209,7 +151,7 @@ const Blog = (props) => {
         const id = node.data.target.sys.id
         let entry
 
-        props.data.contentfulBlogginnlegg.body.references.map(el => {
+        props.data.contentfulBlogginnlegg.body.references.forEach(el => {
           if (el.contentful_id === id && el.__typename === "ContentfulProgrammeringsord") {
             entry = <a href={`/programmeringsordbok/#${el.tittel}`}>{el.tittel}</a>
           } 
@@ -228,9 +170,8 @@ const Blog = (props) => {
         return entry
       },
       [INLINES.ASSET_HYPERLINK]: (node, children) => {
-        let id = node.data.target.sys.id
         let entry
-        props.data.contentfulBlogginnlegg.body.references.map(el => {
+        props.data.contentfulBlogginnlegg.body.references.forEach(el => {
           if (el.contentful_id === node.data.target.sys.id) {
             entry = <a href={el.fixed.src}>{el.description}</a>
         }
@@ -238,11 +179,11 @@ const Blog = (props) => {
         return entry
       },
       [INLINES.ENTRY_HYPERLINK]: (function (id, children) {
-        let linkId = id.data.target.sys.id
+        //let linkId = id.data.target.sys.id
         let hyperLink
         let typeName
         let title
-        props.data.contentfulBlogginnlegg.body.references.map(function (el) {
+        props.data.contentfulBlogginnlegg.body.references.forEach(function (el) {
           if (el.contentful_id === id.data.target.sys.id) {
             hyperLink = el.slug
             typeName = el.__typename
@@ -257,7 +198,7 @@ const Blog = (props) => {
         const id = node.data.target.sys.id
         let entry
 
-        props.data.contentfulBlogginnlegg.body.references.map(el => {
+        props.data.contentfulBlogginnlegg.body.references.forEach(el => {
           if (el.contentful_id === id && el.__typename === "ContentfulProgrammeringsord") {
             entry = <p className={layoutStyles.orddefinisjon}>
             {el.tittel}
@@ -287,23 +228,15 @@ const Blog = (props) => {
         console.log(props.data.contentfulBlogginnlegg.body.references[0].contentful_id)
         const id = node.data.target.sys.id
         let image
-        let sizes
-        let srcSet
-        let srcWebp
         let width
-        let description
         let height
-        props.data.contentfulBlogginnlegg.body.references.map(el => {
+        props.data.contentfulBlogginnlegg.body.references.forEach(el => {
           if (el.contentful_id === id) {
             image = el;
-            sizes = el.fluid.sizes
-            srcSet = el.fluid.srcSet
-            srcWebp = el.fluid.srcWebp
             width = el.resize.width
-            description = el.description
             height = el.resize.height
             console.log("image", image)
-          } return
+          } 
         })
         return <Img width={width} fluid={{
           aspectRatio: width / height,

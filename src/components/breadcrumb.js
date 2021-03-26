@@ -4,8 +4,7 @@ import * as breadcrumbStyles from "./breadcrumb.module.scss"
 import { Link } from "gatsby"
 
 
-
-export default props => {
+const Breadcrumbs = (props) => {
     return (
         <div className={breadcrumbStyles.breadcrumb}>
             <ul>
@@ -17,4 +16,6 @@ export default props => {
         </div>
         
     )
-}
+} 
+
+export default Breadcrumbs;

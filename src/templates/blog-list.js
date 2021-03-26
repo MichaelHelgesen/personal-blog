@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import * as blogStyles from "../pages/blog.module.scss";
+
 import BlogContent from "../components/blogcontent";
 import Breadcrumbs from "../components/breadcrumb";
 import FilterButton from "../components/filterbutton";
@@ -9,7 +9,7 @@ import Head from "../components/head";
 import Layout from "../components/layout";
 import Search from '../components/search';
 import { useFlexSearch } from 'react-use-flexsearch';
-
+import * as blogStyles from "../pages/blog.module.scss";
 
 const BlogPostList = ({ data }) => {
   const { allContentfulBlogginnlegg } = data;

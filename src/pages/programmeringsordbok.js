@@ -2,19 +2,17 @@ import React, { useState } from 'react';
 
 import * as blogStyles from "../pages/blog.module.scss";
 import * as styles from "../pages/programmeringsordbok.module.scss";
-import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
-import Breadcrumbs from "../components/breadcrumb";
-import commentBox from 'commentbox.io';
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import Head from "../components/head";
-import Img from "gatsby-image";
+
 import Layout from "../components/layout"
-import { Link, graphql } from "gatsby";
 import SimpleReactLightbox from 'simple-react-lightbox';
 import { SRLWrapper } from "simple-react-lightbox";
-import { PrismCode } from "../components/prism";
+import Head from "../components/head";
+import Breadcrumbs from "../components/breadcrumb";
 import Search from "../components/searchList";
+import { Link, graphql } from "gatsby";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
+import { PrismCode } from "../components/prism";
 
 
 
@@ -58,7 +56,7 @@ console.log("DATA", data.allContentfulProgrammeringsord.edges)
 
     const findLetters = (arr) => {
         let newArr = []
-        arr.map((item) => {
+        arr.forEach((item) => {
             const index = newArr.findIndex((e) => e.letter === item.node.tittel.slice(0, 1));
             if (index === -1) {
                 newArr.push({ letter: item.node.tittel.slice(0, 1), tittel: item.node.tittel });
@@ -101,7 +99,7 @@ console.log("LETTERMENU", letterMenu);*/
 
     const newArr2 = []
 
-    data.allContentfulProgrammeringsord.edges.map((item) => {
+    data.allContentfulProgrammeringsord.edges.forEach((item) => {
         const index = newArr2.findIndex((e) => e.letter === item.node.tittel.slice(0, 1));
         if (index === -1) {
             newArr2.push({ letter: item.node.tittel.slice(0, 1), tittel: item.node.tittel });
@@ -148,8 +146,8 @@ console.log("LETTERMENU", letterMenu);*/
                 let url
                 let title
                 let type
-                data.allContentfulProgrammeringsord.edges.map(item => {
-                    item.node.beskrivelse.references.map(el => {
+                data.allContentfulProgrammeringsord.edges.forEach(item => {
+                    item.node.beskrivelse.references.forEach(el => {
                         if (el.contentful_id === node.data.target.sys.id) {
                             url = el.slug
                             if (el.tittel) {
@@ -159,9 +157,9 @@ console.log("LETTERMENU", letterMenu);*/
                                 title = el.title
                                 type = el.__typename
                             }
-                        } return
+                        } 
                     })
-                    return
+                    
                 })
                 return (<p className={styles.fremmhevet}>
                         {title}
@@ -172,17 +170,16 @@ console.log("LETTERMENU", letterMenu);*/
             },
             [BLOCKS.EMBEDDED_ASSET]: (node, children) => {
                 let src
-                let title
-                data.allContentfulProgrammeringsord.edges.map(item => {
-                    item.node.beskrivelse.references.map(el => {
+                data.allContentfulProgrammeringsord.edges.forEach(item => {
+                    item.node.beskrivelse.references.forEach(el => {
                         if (el.contentful_id === node.data.target.sys.id) {
                             src = el.fluid.src
                             //title = el.node.title
-                        } return
+                        } 
                     })
-                    return
+                    
                 })
-                return (<img src={src} />)
+                return (<img src={src} alt={"#"} />)
             },
             [INLINES.EMBEDDED_ENTRY]: (node, children) => {
                 console.log(node)
@@ -190,14 +187,14 @@ console.log("LETTERMENU", letterMenu);*/
                 let url
                 let title
                 //const { title, siteUrl } = useSiteMetadata(node.data.target.sys.id);
-                data.allContentfulProgrammeringsord.edges.map(item => {
-                    item.node.beskrivelse.references.map(el => {
+                data.allContentfulProgrammeringsord.edges.forEach(item => {
+                    item.node.beskrivelse.references.forEach(el => {
                         if (el.contentful_id === node.data.target.sys.id) {
                             url = el.slug
                             title = el.title
-                        } return
+                        } 
                     })
-                    return
+                    
                 })
                 return (<Link to={`/blogg/${url}`}>{title}</Link>)
             },
@@ -216,8 +213,7 @@ console.log("LETTERMENU", letterMenu);*/
             [BLOCKS.HYPERLINK]: (id, children) => {
 
                 //let linkId = id.data.target.sys.id
-                let hyperLink
-                let typeName
+               
                 //<Link to={`/blogg/${id.data.target.sys.id}`}>{children}</Link>
                 return <p>BLOCK HYPERLINK</p>
             }
@@ -266,7 +262,7 @@ console.log("LETTERMENU", letterMenu);*/
 
                                 <div key={index}>
 
-                                    <a className={styles.tittel} name={node.node.tittel}>{node.node.tittel}: </a>
+                                    <a className={styles.tittel} href={`#${node.node.tittel}`} name={node.node.tittel}>{node.node.tittel}: </a>
                                     <span className={styles.betydning}>{node.node.betydning}</span>
                                     {documentToReactComponents(
                                         JSON.parse(node.node.beskrivelse.raw), options
