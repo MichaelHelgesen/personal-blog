@@ -116,16 +116,18 @@ console.log("bookwidget", numberOfBooks)
         comments.classList.add(`${styles.close_comment}`);
     }
 console.log(sortedBookArray);
+
     return (
         sortedBookArray.map(({ node }, index) => {
-
+            console.log("NOOOOOOOODDDDEEEE", node)
             return (
 
                 <div className={styles.book__item} key={index}>
 
                     <div className={styles.book__image}>
                         <span className={styles.helper}></span>
-                        <img src={node.bokomtale.bilde.resize.src} alt={node.bokomtale.bilde.title} />
+                    
+                        <img src={node.bokomtale.bilde.file.url} alt={node.bokomtale.bilde.title} />
                     </div>
 
                     <div className={styles.book__data}>
