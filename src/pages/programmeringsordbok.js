@@ -261,21 +261,7 @@ console.log("LETTERMENU", letterMenu);*/
                         </p>
 
                        
-                        {posts.length ?
-                            posts.map((node, index) => (
-
-                                <div key={index}>
-
-                                    <a className={styles.tittel} href={`#${node.node.tittel}`} name={node.node.tittel}>{node.node.tittel}: </a>
-                                    <span className={styles.betydning}>{node.node.betydning}</span>
-                                    {documentToReactComponents(
-                                        JSON.parse(node.node.beskrivelse.raw), options
-                                    )}
-                                </div>
-
-
-                            ))
-                            : <h2>Beklager, ingen treff</h2>}
+                        
 
                     </div>
 
@@ -290,6 +276,27 @@ console.log("LETTERMENU", letterMenu);*/
 
 
 export default ProgrammeringsOrdliste;
+
+
+/*
+{posts.length ?
+                            posts.map((node, index) => (
+
+                                <div key={index}>
+
+                                    <a className={styles.tittel} href={`#${node.node.tittel}`} name={node.node.tittel}>{node.node.tittel}: </a>
+                                    <span className={styles.betydning}>{node.node.betydning}</span>
+                                    {documentToReactComponents(
+                                        JSON.parse(node.node.beskrivelse.raw), options
+                                    )}
+                                </div>
+
+
+                            ))
+                            : <h2>Beklager, ingen treff</h2>}
+*/
+
+
 
 
 
