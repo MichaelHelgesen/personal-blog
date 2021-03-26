@@ -261,25 +261,7 @@ console.log("LETTERMENU", letterMenu);*/
                         </p>
 
                        
-                        
-
-                    </div>
-
-                </div>
-            </div>
-            </SRLWrapper>
-            </SimpleReactLightbox>
-        </Layout>
-
-    )
-};
-
-
-export default ProgrammeringsOrdliste;
-
-
-/*
-{posts.length ?
+                        {posts.length ?
                             posts.map((node, index) => (
 
                                 <div key={index}>
@@ -294,9 +276,20 @@ export default ProgrammeringsOrdliste;
 
                             ))
                             : <h2>Beklager, ingen treff</h2>}
-*/
+
+                    </div>
+
+                </div>
+            </div>
+            </SRLWrapper>
+            </SimpleReactLightbox>
+        </Layout>
+
+    )
+};
 
 
+export default ProgrammeringsOrdliste;
 
 
 
