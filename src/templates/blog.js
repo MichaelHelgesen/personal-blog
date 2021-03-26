@@ -313,7 +313,7 @@ const Blog = (props) => {
               </span>
               : null}</p>
             <SRLWrapper>
-              
+              {props.data.contentfulBlogginnlegg.bokomtale ? <BookWidget bookdetails={props.data.contentfulBlogginnlegg} bloggkort={true} /> : null}
 
 
               <div>{props.data.contentfulBlogginnlegg.ingress != null &&
