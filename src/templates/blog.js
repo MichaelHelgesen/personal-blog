@@ -312,6 +312,22 @@ const Blog = (props) => {
                 ))}
               </span>
               : null}</p>
+
+            <PageWithComments />
+          </div>
+        </div>
+
+      </SimpleReactLightbox>
+    </Layout>
+  )
+};
+
+export default Blog;
+
+/*
+
+
+
             <SRLWrapper>
               {props.data.contentfulBlogginnlegg.bokomtale ? <BookWidget bookdetails={props.data.contentfulBlogginnlegg} bloggkort={true} /> : null}
 
@@ -328,18 +344,8 @@ const Blog = (props) => {
 
 
             </SRLWrapper>
-            <PageWithComments />
-          </div>
-        </div>
 
-      </SimpleReactLightbox>
-    </Layout>
-  )
-};
 
-export default Blog;
-
-/*
 {props.data.contentfulBlogginnlegg.ingress != null &&
               documentToReactComponents(
                 props.data.contentfulBlogginnlegg.ingress.json, ingressOptions
