@@ -315,6 +315,12 @@ const Blog = (props) => {
             <SRLWrapper>
               
 
+
+              <div>{props.data.contentfulBlogginnlegg.ingress != null &&
+                documentToReactComponents(
+                  JSON.parse(props.data.contentfulBlogginnlegg.ingress.raw), ingressOptions
+                )}</div>
+
               {documentToReactComponents(
                 JSON.parse(props.data.contentfulBlogginnlegg.body.raw), options4
               )}
