@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-import * as blogStyles from "../pages/blog.module.scss";
-import * as styles from "../pages/programmeringsordbok.module.scss";
+
 
 import Layout from "../components/layout"
 import SimpleReactLightbox from 'simple-react-lightbox';
@@ -12,7 +11,12 @@ import Search from "../components/searchList";
 import { Link, graphql } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
+
+import * as blogStyles from "../pages/blog.module.scss";
+import * as styles from "../pages/programmeringsordbok.module.scss";
+
 import { PrismCode } from "../components/prism";
+
 
 
 

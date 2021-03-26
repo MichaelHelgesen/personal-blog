@@ -34,10 +34,6 @@
     margin-top: 10px;
 }
 
-.breadcrumb {
-    text-align: center;
-}
-
 
 
 .list {
@@ -260,13 +256,6 @@
     font-weight: 700;
 }
 
-@media only screen and (min-width: 550px) {
-
-    
-    .breadcrumb {
-        text-align: left;
-    }  
-}
 
 @media only screen and (min-width: 1000px) {
     .wrapper {

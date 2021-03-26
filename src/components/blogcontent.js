@@ -1,8 +1,6 @@
 import React from "react";
-
-import * as blogStyles from "../pages/blog.module.scss";
 import { Link } from "gatsby";
-
+import * as blogStyles from "../components/blogcontent.module.scss";
 
 const BlogContent = ({test}) => {    
     return (

@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 
-
-import BlogContent from "../components/blogcontent";
-import Breadcrumbs from "../components/breadcrumb";
-import FilterButton from "../components/filterbutton";
-import { graphql } from "gatsby";
-import Head from "../components/head";
-import Layout from "../components/layout";
-import Search from '../components/search';
 import { useFlexSearch } from 'react-use-flexsearch';
+import Layout from "../components/layout";
+import Head from "../components/head";
+import Breadcrumbs from "../components/breadcrumb";
+import Search from '../components/search';
+import FilterButton from "../components/filterbutton";
+import BlogContent from "../components/blogcontent";
+
+import { graphql } from "gatsby";
+
 import * as blogStyles from "../pages/blog.module.scss";
 
 const BlogPostList = ({ data }) => {

@@ -1,16 +1,17 @@
 import React from 'react';
+import { graphql } from "gatsby";
+
+import Layout from "../components/layout";
+import Head from "../components/head";
+import Breadcrumbs from "../components/breadcrumb";
+import SimpleReactLightbox from 'simple-react-lightbox';
+import { SRLWrapper } from "simple-react-lightbox";
+import Masonry from 'react-masonry-css';
+
+
 
 import * as blogStyles from "../pages/blog.module.scss";
 import * as galleryStyles from "../pages/gallery.module.scss";
-import Masonry from 'react-masonry-css';
-import Breadcrumbs from "../components/breadcrumb";
-import { graphql } from "gatsby";
-import Head from "../components/head";
-import Layout from "../components/layout";
-import SimpleReactLightbox from 'simple-react-lightbox';
-import { SRLWrapper } from "simple-react-lightbox";
-
-
 
 
 

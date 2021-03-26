@@ -1,13 +1,17 @@
 import React, {useState} from 'react';
 
-import * as blogStyles from "../pages/blog.module.scss";
-import BookWidget from '../components/bookwidget';
-import Breadcrumbs from "../components/breadcrumb";
-import { graphql } from "gatsby";
-import Head from "../components/head";
+
 import Layout from "../components/layout";
+import Head from "../components/head";
+import Breadcrumbs from "../components/breadcrumb";
+import BookWidget from '../components/bookwidget';
 import SimpleReactLightbox from 'simple-react-lightbox';
 import { SRLWrapper } from "simple-react-lightbox";
+
+
+import { graphql } from "gatsby";
+
+import * as blogStyles from "../pages/blog.module.scss";
 
 
 

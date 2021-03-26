@@ -1,14 +1,17 @@
 import React from "react";
 
-import * as blogStyles from "../pages/blog.module.scss";
-import Breadcrumbs from "../components/breadcrumb";
-import commentBox from 'commentbox.io';
-import { graphql} from "gatsby";
-import Head from "../components/head";
 import Layout from "../components/layout";
-import ReactMarkdown from 'react-markdown'
-import SimpleReactLightbox from 'simple-react-lightbox';
+import Head from "../components/head";
+import Breadcrumbs from "../components/breadcrumb";
 import { SRLWrapper } from "simple-react-lightbox";
+import SimpleReactLightbox from 'simple-react-lightbox';
+import commentBox from 'commentbox.io';
+
+import { graphql} from "gatsby";
+import ReactMarkdown from 'react-markdown'
+
+import * as blogStyles from "../pages/blog.module.scss";
+
 
 export const query = graphql`
   query ($slug: String!) {

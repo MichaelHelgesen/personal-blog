@@ -1,18 +1,18 @@
 import React from "react";
 
-import * as layoutStyles from "../components/layout.module.scss";
-import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
-import BookWidget from "../components/bookwidget";
-import Breadcrumbs from "../components/breadcrumb";
-import commentBox from 'commentbox.io';
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import Head from "../components/head";
-import Img from "gatsby-image";
 import Layout from "../components/layout"
-import { Link, graphql } from "gatsby";
+import Head from "../components/head";
+import Breadcrumbs from "../components/breadcrumb";
 import SimpleReactLightbox from 'simple-react-lightbox';
 import { SRLWrapper } from "simple-react-lightbox";
+import { Link, graphql } from "gatsby";
+import BookWidget from "../components/bookwidget";
+import commentBox from 'commentbox.io';
+import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import Img from "gatsby-image";
 import { PrismCode } from "../components/prism";
+import * as layoutStyles from "../components/layout.module.scss";
 
 export const query = graphql`
   query ($slug: String!) {

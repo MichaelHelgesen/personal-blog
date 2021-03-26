@@ -6787,10 +6787,10 @@ gatsby-page-utils@^1.1.0:
     lodash "^4.17.21"
     micromatch "^4.0.2"
 
-gatsby-plugin-breadcrumb@12.0.0:
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-breadcrumb/-/gatsby-plugin-breadcrumb-12.0.0.tgz#3f2f025f324e451adc62dd617fb4e3cb76aec650"
-  integrity sha512-9mJL151Qvz9F66wERxCcO7ZPTMgusVoIWlnMwjvM7Wqom7ehTNvmac4ww3nJ3Q2Uwmg5sW3Cn0MNhPR3/JiPLA==
+gatsby-plugin-breadcrumb@^12.1.0:
+  version "12.1.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-breadcrumb/-/gatsby-plugin-breadcrumb-12.1.0.tgz#8b8a42b5bb3c41fb5010cfa05de45363027d0101"
+  integrity sha512-fFk2I+Sq9Nk7pY4s0oWvqJ/x53M0kUnF87C8CUOEhV/3117w/Qm6BDJqHf4GL1cevmYNiQyNrVYP7kbYTFVzOg==
   dependencies:
     "@babel/runtime" "^7.3.4"
     babel-jest "^26.0.0"
