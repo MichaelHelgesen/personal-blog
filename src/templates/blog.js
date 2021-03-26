@@ -312,7 +312,20 @@ const Blog = (props) => {
                 ))}
               </span>
               : null}</p>
+            <SRLWrapper>
+              {props.data.contentfulBlogginnlegg.bokomtale ? <BookWidget bookdetails={props.data.contentfulBlogginnlegg} bloggkort={true} /> : null}
 
+
+              <div>{props.data.contentfulBlogginnlegg.ingress != null &&
+                documentToReactComponents(
+                  JSON.parse(props.data.contentfulBlogginnlegg.ingress.raw), ingressOptions
+                )}</div>
+
+              
+
+
+
+            </SRLWrapper>
             <PageWithComments />
           </div>
         </div>
@@ -325,27 +338,6 @@ const Blog = (props) => {
 export default Blog;
 
 /*
-
-
-
-            <SRLWrapper>
-              {props.data.contentfulBlogginnlegg.bokomtale ? <BookWidget bookdetails={props.data.contentfulBlogginnlegg} bloggkort={true} /> : null}
-
-
-              <div>{props.data.contentfulBlogginnlegg.ingress != null &&
-                documentToReactComponents(
-                  JSON.parse(props.data.contentfulBlogginnlegg.ingress.raw), ingressOptions
-                )}</div>
-
-              {documentToReactComponents(
-                JSON.parse(props.data.contentfulBlogginnlegg.body.raw), options4
-              )}
-
-
-
-            </SRLWrapper>
-
-
 {props.data.contentfulBlogginnlegg.ingress != null &&
               documentToReactComponents(
                 props.data.contentfulBlogginnlegg.ingress.json, ingressOptions
