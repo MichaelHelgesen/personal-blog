@@ -75,6 +75,9 @@ const closeNav = function() {
     bod.classList.remove("opennav")
     title.classList.remove("colorchange");
 }
+
+
+/*
 const reportWindowSize = () => {
     if(window.innerWidth > 570) {
         closeNav();
@@ -82,7 +85,7 @@ const reportWindowSize = () => {
 }
 
 window.addEventListener('resize', reportWindowSize)
-
+*/
 
 
  
