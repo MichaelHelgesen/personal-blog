@@ -48,7 +48,7 @@ module.exports = {
                       }
                     }
         }`,
-        resolveSiteUrl: ({site, allSitePage}) => {
+        resolveSiteUrl: ({ site, allSitePage }) => {
           //Alternatively, you may also pass in an environment variable (or any location) at the beginning of your `gatsby-config.js`.
           return site.siteMetadata.siteUrl
         },
@@ -80,13 +80,13 @@ module.exports = {
       }
     },
     "gatsby-plugin-react-helmet",
-  {
-    resolve: "gatsby-source-contentful",
-    options: {
-      spaceId: process.env.CONTENTFUL_SPACE_ID,
-      accessToken: process.env.CONTENTFUL_ACCESS_TOKEN
-    }
-  },
+    {
+      resolve: "gatsby-source-contentful",
+      options: {
+        spaceId: process.env.CONTENTFUL_SPACE_ID,
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN
+      }
+    },
     "gatsby-plugin-sass",
     {
       resolve: "gatsby-source-filesystem",
@@ -128,7 +128,7 @@ module.exports = {
             },
             options: {
               maxWidth: 750,
-              quality: 1,
+              quality: 50,
               linkImagesToOriginal: false
             }
           },
@@ -174,15 +174,16 @@ module.exports = {
               useAutoGen: true,
             }
           },
+          `gatsby-remark-lazy-load`,
         ],
       },
     },
     {
       resolve: 'gatsby-plugin-local-search',
       options: {
-          name: 'pages',
-          engine: 'flexsearch',
-          query: `query {
+        name: 'pages',
+        engine: 'flexsearch',
+        query: `query {
             allContentfulBlogginnlegg (
               sort: {
                 fields:publishedDate,
@@ -199,17 +200,17 @@ module.exports = {
             }
           }
           }`,
-          ref: 'slug',
-          index: ['title'],
-          store: ['title', 'slug', 'category', 'publishedDate'],
-          normalizer: ({ data }) =>
+        ref: 'slug',
+        index: ['title'],
+        store: ['title', 'slug', 'category', 'publishedDate'],
+        normalizer: ({ data }) =>
           data.allContentfulBlogginnlegg.edges.map(nodes => ({
-              title: nodes.node.title,
-              slug: nodes.node.slug,
-              category: nodes.node.category,
-              publishedDate: nodes.node.publishedDate
+            title: nodes.node.title,
+            slug: nodes.node.slug,
+            category: nodes.node.category,
+            publishedDate: nodes.node.publishedDate
           })),
       }
-  }
+    }
   ],
 }

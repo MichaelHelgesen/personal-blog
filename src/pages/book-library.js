@@ -162,7 +162,7 @@ console.log("books", books.length)
             link
             bilde {
                 title
-                resize (quality:50 width:1000 jpegProgressive:true) {
+                fluid (quality:50 maxWidth:1000) {
                   src
                 }
               file {

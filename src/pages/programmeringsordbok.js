@@ -8,6 +8,7 @@ import { SRLWrapper } from "simple-react-lightbox";
 import Head from "../components/head";
 import Breadcrumbs from "../components/breadcrumb";
 import Search from "../components/searchList";
+import Img from "gatsby-image";
 import { Link, graphql } from "gatsby";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
@@ -29,15 +30,15 @@ const Text = ({ children }) => {
 
 const ProgrammeringsOrdliste = ({ data }) => {
 
-console.log("DATA", data.allContentfulProgrammeringsord.edges)
+    console.log("DATA", data.allContentfulProgrammeringsord.edges)
 
     //setTimeout(() => Prism.highlightAll(), 0)
-   // const { allContentfulProgrammeringsord } = data;
-   // const { assets } = data;
-   // const { pages } = data;
-   // const { blogs } = data;
+    // const { allContentfulProgrammeringsord } = data;
+    // const { assets } = data;
+    // const { pages } = data;
+    // const { blogs } = data;
 
-   
+
 
     const [ordListe, setOrdListe] = useState(data.allContentfulProgrammeringsord.edges)
     const [searchQuery, setSearchQuery] = useState("")
@@ -46,7 +47,6 @@ console.log("DATA", data.allContentfulProgrammeringsord.edges)
     const filterWords = (arr, query) => {
         return arr.filter(item => {
             const word = item.node.tittel + " " + item.node.betydning;
-            console.log("WORD", word)
             return word.toLowerCase().includes(query.toLowerCase())
         });
     }
@@ -55,7 +55,7 @@ console.log("DATA", data.allContentfulProgrammeringsord.edges)
 
     let posts = searchQuery ? filterWords(data.allContentfulProgrammeringsord.edges, searchQuery) : ordListe
 
-   
+
 
 
     const findLetters = (arr) => {
@@ -71,21 +71,21 @@ console.log("DATA", data.allContentfulProgrammeringsord.edges)
 
     let letters = searchQuery ? findLetters(filterWords(data.allContentfulProgrammeringsord.edges, searchQuery)) : findLetters(ordListe)
 
-console.log("LETTER", letters)
-/*
-    function getLetters(blogPosts) {
-        const uniqueLetters = new Set()
-        // Iterate over all articles
-        blogPosts.forEach(({ node }, index) => {
-            // Iterate over each category in an article
-            uniqueLetters.add({ letter: node.tittel.slice(0, 1), tittel: node.tittel })
-        })
-        // Create new array with duplicates removed
-        return Array.from(uniqueLetters)
-    }
-
-    let letterMenu = searchQuery ? getLetters(searchQuery) : getLetters(ordListe);
-console.log("LETTERMENU", letterMenu);*/
+    console.log("LETTER", letters)
+    /*
+        function getLetters(blogPosts) {
+            const uniqueLetters = new Set()
+            // Iterate over all articles
+            blogPosts.forEach(({ node }, index) => {
+                // Iterate over each category in an article
+                uniqueLetters.add({ letter: node.tittel.slice(0, 1), tittel: node.tittel })
+            })
+            // Create new array with duplicates removed
+            return Array.from(uniqueLetters)
+        }
+    
+        let letterMenu = searchQuery ? getLetters(searchQuery) : getLetters(ordListe);
+    console.log("LETTERMENU", letterMenu);*/
     /*
           function pushToArray(arr, obj) {
             const index = arr.findIndex((e) => e.letter === obj.letter);
@@ -96,10 +96,10 @@ console.log("LETTERMENU", letterMenu);*/
         }*/
 
     //const newArr = []
-    
-    
 
-//console.log("dsfsdfsdfs", findLetters(ord))
+
+
+    //console.log("dsfsdfsdfs", findLetters(ord))
 
     const newArr2 = []
 
@@ -114,8 +114,7 @@ console.log("LETTERMENU", letterMenu);*/
         pushToArray(newArr, item)
       })*/
 
-    
-    console.log("NEWARR2", newArr2);
+
 
 
     //console.log("GET LETTERS", getLetters(ord));
@@ -161,29 +160,47 @@ console.log("LETTERMENU", letterMenu);*/
                                 title = el.title
                                 type = el.__typename
                             }
-                        } 
+                        }
                     })
-                    
+
                 })
                 return (<p className={styles.fremmhevet}>
-                        {title}
-                        {type === "ContentfulBlogginnlegg" ?
+                    {title}
+                    {type === "ContentfulBlogginnlegg" ?
                         <Link to={`/blogg/${url}`}>Les blogginnlegget</Link> :
-                        <Link to={`/${url}`}>Gå til siden</Link> }
-                    </p>)
+                        <Link to={`/${url}`}>Gå til siden</Link>}
+                </p>)
             },
             [BLOCKS.EMBEDDED_ASSET]: (node, children) => {
-                let src
+                let source
+                let width
+                let height
                 data.allContentfulProgrammeringsord.edges.forEach(item => {
                     item.node.beskrivelse.references.forEach(el => {
                         if (el.contentful_id === node.data.target.sys.id) {
-                            src = el.fluid.src
+                            source = el.fluid.src
+                            width = el.fixed.width
+                            height = el.fixed.height
+                            console.log("source", source)
+                            console.log("width", width)
+                            console.log("height", height)
                             //title = el.node.title
-                        } 
+                        }
                     })
-                    
+
                 })
-                return (<img src={src} alt={"#"} />)
+                return (<Img width={width} fluid={{
+                    aspectRatio: width / height,
+                    src: source + '?w=630&q=80',
+                    srcSet: ` 
+          ${source}?w=${Math.floor(width / 4)}&&q=80 ${Math.floor(width / 4)}w,
+          ${source}?w=${width / 2}&&q=80 ${width / 2}w,
+          ${source}?w=${width}&&q=80 ${width}w,
+          ${source}?w=${width * 1.5}&&q=80 ${width * 1.5}w,
+          ${source}?w=1000&&q=80 1000w,
+      `,
+                    sizes: '(max-width: 630px) 100vw, 630px'
+                }} />)
             },
             [INLINES.EMBEDDED_ENTRY]: (node, children) => {
                 console.log(node)
@@ -196,9 +213,9 @@ console.log("LETTERMENU", letterMenu);*/
                         if (el.contentful_id === node.data.target.sys.id) {
                             url = el.slug
                             title = el.title
-                        } 
+                        }
                     })
-                    
+
                 })
                 return (<Link to={`/blogg/${url}`}>{title}</Link>)
             },
@@ -217,7 +234,7 @@ console.log("LETTERMENU", letterMenu);*/
             [BLOCKS.HYPERLINK]: (id, children) => {
 
                 //let linkId = id.data.target.sys.id
-               
+
                 //<Link to={`/blogg/${id.data.target.sys.id}`}>{children}</Link>
                 return <p>BLOCK HYPERLINK</p>
             }
@@ -236,52 +253,53 @@ console.log("LETTERMENU", letterMenu);*/
     return (
         <Layout>
             <SimpleReactLightbox>
-            <SRLWrapper>
-            <Head title={"Programmeringsordliste"} />
-            <div className={blogStyles.wrapper}>
-                <div className={blogStyles.wrapperInner}>
-                    <Breadcrumbs crumbs={['/', `Programmeringsordliste`]} />
-                    <h1 className={blogStyles.header}>Programmeringsordliste</h1>
-                    <div className={styles.ordwrapper}>
-                        <Search
-                            setOrdliste={setOrdListe}
-                            ordListe={data.allContentfulProgrammeringsord}
-                            setSearchQuery={setSearchQuery}
-                            searchQuery={searchQuery}
-                        />
-                        <p className={styles.indeks}>{`Indeks: `}
-                        {posts.length ? 
-                        letters.map((node, index) => (
-                            <a key={index} href={`#${node.tittel}`}>{node.letter}</a>
-                        )
-                        )
-                        : "" }
-                        
-                        
-                        </p>
-
-                       
-                        {posts.length ?
-                            posts.map((node, index) => (
-
-                                <div key={index}>
-
-                                    <a className={styles.tittel} href={`#${node.node.tittel}`} name={node.node.tittel}>{node.node.tittel}: </a>
-                                    <span className={styles.betydning}>{node.node.betydning}</span>
-                                    {documentToReactComponents(
-                                        JSON.parse(node.node.beskrivelse.raw), options
-                                    )}
-                                </div>
+                <SRLWrapper>
+                    <Head title={"Programmeringsordliste"} />
+                    <div className={blogStyles.wrapper}>
+                        <div className={blogStyles.wrapperInner}>
+                            <Breadcrumbs crumbs={['/', `Programmeringsordliste`]} />
+                            <h1 className={blogStyles.header}>Programmeringsordliste</h1>
+                            <div className={styles.ordwrapper}>
+                                <Search
+                                    setOrdliste={setOrdListe}
+                                    ordListe={data.allContentfulProgrammeringsord}
+                                    setSearchQuery={setSearchQuery}
+                                    searchQuery={searchQuery}
+                                />
+                                <p className={styles.indeks}>{`Indeks: `}
+                                    {posts.length ?
+                                        letters.map((node, index) => (
+                                            <a key={index} href={`#${node.tittel}`}>{node.letter}</a>
+                                        )
+                                        )
+                                        : ""}
 
 
-                            ))
-                            : <h2>Beklager, ingen treff</h2>}
+                                </p>
 
+
+                                {posts.length ?
+                                    posts.map((node, index) => (
+
+                                        <div key={index}>
+
+                                            <a className={styles.tittel} href={`#${node.node.tittel}`} name={node.node.tittel}>{searchQuery ? (node.node.tittel.toLowerCase().includes(searchQuery.toLocaleLowerCase()) ? <span>{node.node.tittel.slice(0, node.node.tittel.toLowerCase().indexOf(searchQuery.toLowerCase()))}<span className={styles.searchhit}>{node.node.tittel.slice(node.node.tittel.toLowerCase().indexOf(searchQuery.toLocaleLowerCase()), node.node.tittel.toLowerCase().indexOf(searchQuery.toLocaleLowerCase()) + searchQuery.length)}</span>{node.node.tittel.slice(node.node.tittel.toLowerCase().indexOf(searchQuery.toLocaleLowerCase()) + searchQuery.length, node.node.tittel.length)}</span>  : node.node.tittel ): node.node.tittel}:</a>
+                                            
+                                            <span className={styles.betydning}>{searchQuery && searchQuery != " " ? (node.node.betydning.toLowerCase().includes(searchQuery.toLocaleLowerCase()) ? <span>{node.node.betydning.slice(0, node.node.betydning.toLowerCase().indexOf(searchQuery.toLowerCase()))}<span className={styles.searchhit}>{node.node.betydning.slice(node.node.betydning.toLowerCase().indexOf(searchQuery.toLocaleLowerCase()), node.node.betydning.toLowerCase().indexOf(searchQuery.toLocaleLowerCase()) + searchQuery.length)}</span>{node.node.betydning.slice(node.node.betydning.toLowerCase().indexOf(searchQuery.toLocaleLowerCase()) + searchQuery.length, node.node.betydning.length)}</span>  : node.node.betydning ): node.node.betydning}</span>
+                                            {documentToReactComponents(
+                                                JSON.parse(node.node.beskrivelse.raw), options
+                                            )}
+                                        </div>
+
+
+                                    ))
+                                    : <h2>Beklager, ingen treff</h2>}
+
+                            </div>
+
+                        </div>
                     </div>
-
-                </div>
-            </div>
-            </SRLWrapper>
+                </SRLWrapper>
             </SimpleReactLightbox>
         </Layout>
 
@@ -322,8 +340,10 @@ query {
               __typename
               fixed(width:750) {
                 src
+                width
+                height
               }
-              fluid(maxWidth: 1000) {
+              fluid(maxWidth:1000) {
                 src
                 srcWebp
                 srcSet

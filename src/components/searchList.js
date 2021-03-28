@@ -6,6 +6,7 @@ const SearchBar = ({ ord, setOrdListe, setSearchQuery, searchQuery }) => {
 
     function update (e) {
         setSearchQuery(e.target.value)
+        e.preventDefault();
    }
 
 

@@ -36,7 +36,7 @@ export const query = graphql`
               sizes
             }
             description
-            resize (quality:1) {
+            resize (quality:50) {
               width
               height
             }
@@ -81,12 +81,21 @@ export const query = graphql`
       ingress {
         raw
       }
-      codeBlock2{childMarkdownRemark {rawMarkdownBody}}
+      codeBlock2{
+        childMarkdownRemark {
+        rawMarkdownBody
+      }
+      }
       bokomtale {
         boktittel
         forfatter
         kategori
         sidetall
+        bilde{
+          fluid (maxWidth: 1000, quality: 50) {
+          src
+          }
+        }
         publisert
         niv
         evaluering
@@ -95,12 +104,6 @@ export const query = graphql`
           oppsummering
         }
         link
-        bilde {
-
-          file {
-            url
-          }
-        }
       }
     }
   }
@@ -235,7 +238,9 @@ const Blog = (props) => {
             image = el;
             width = el.resize.width
             height = el.resize.height
-            console.log("image", image)
+            console.log("source", image.fluid.src)
+                            console.log("width", width)
+                            console.log("height", height)
           } 
         })
         return <Img width={width} fluid={{
@@ -294,7 +299,6 @@ const Blog = (props) => {
     props.data.contentfulBlogginnlegg.category = [];
     props.data.contentfulBlogginnlegg.category.push({ categoryName: "Ukategorisert" })
   }
-
 
   return (
     <Layout>
