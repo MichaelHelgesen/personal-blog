@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from "react";
 
 import { Link } from "gatsby";
-import ReactMarkdown from 'react-markdown'
+import ReactMarkdown from 'react-markdown';
 import * as styles from "./bookwidget.module.scss";
 
 const BookWidget = ({ bookdetails, sort, sortOrder, bloggkort, numberOfBooks }) => {
-console.log("bookwidget", numberOfBooks)
 
+    
+
+    
     const formatBookItem = (item) => {
         if (!item.length) return [{ node: { ...item } }]
         return item;
@@ -93,14 +95,12 @@ console.log("bookwidget", numberOfBooks)
 
     const showComment = (e) => {
         const openComments = document.querySelectorAll(`.${styles.open_comment}`)
-        console.log("opencomments", openComments)
         openComments.forEach(function (com) {
             com.classList.remove(`${styles.open_comment}`);
             com.classList.add(`${styles.close_comment}`);
         })
 
         const elem = e.target.parentElement.parentElement;
-        console.log(elem);
         const comments = elem.querySelector(".comment");
         comments.style.display = "block";
         comments.classList.remove(`${styles.close_comment}`);
@@ -115,14 +115,12 @@ console.log("bookwidget", numberOfBooks)
         comments.classList.remove(`${styles.open_comment}`);
         comments.classList.add(`${styles.close_comment}`);
     }
-console.log(sortedBookArray);
 
     return (
         sortedBookArray.map(({ node }, index) => {
-            console.log("NOOOOOOOODDDDEEEE", node)
             return (
 
-                <div className={styles.book__item} key={index}>
+                <div className={styles.book__item} key={index} id={"main"}>
 
                     <div className={styles.book__image}>
                         <span className={styles.helper}></span>
@@ -176,6 +174,8 @@ console.log(sortedBookArray);
 
                             </div>
                             <button className={styles.btn__close_comment} onClick={closeComment}>Lukk</button>
+
+
                         </div>
 
                     </div>
@@ -185,6 +185,8 @@ console.log(sortedBookArray);
             )
             
         }))
+    
+        
 }
 
 

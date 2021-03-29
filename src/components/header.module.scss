@@ -147,7 +147,7 @@ nav {
 .nav-item {
     color: #000000;
     text-decoration: none;
-    font-size: 2em;
+    font-size: 1.5em;
     line-height: 1.6em;
     transition: all .2s ease;
     
@@ -171,7 +171,7 @@ nav {
 
 
 
-  @media only screen and (min-width: 570px) {
+  @media only screen and (min-width: 750px) {
     .menuicon {
         display: none;
     }
@@ -210,6 +210,9 @@ nav {
         margin-bottom: 0;
         transform: unset;
         opacity: unset;
+        a{
+            line-height: 1.4em;
+        }
     }
 
     .nav-item {

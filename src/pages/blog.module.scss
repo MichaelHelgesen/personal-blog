@@ -256,6 +256,31 @@
     font-weight: 700;
 }
 
+.showmorebutton {
+    font-size: 1em;
+    color: #0E6BA8;
+    text-decoration: none;
+    display: inline-block;
+    padding: .8em 2em;
+    margin-top: 1.2em;
+    background: #0E6BA8;
+    transition: all 0.2s ease;
+    color: white;
+    border-radius: 4px;
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.showmorebutton:hover {
+    background: #E8AEB7;
+    color: #103750;
+    cursor: pointer;
+}
+
+.readmorewrapper {
+    text-align: center;
+}
+
 
 @media only screen and (min-width: 1000px) {
     .wrapper {

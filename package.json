@@ -57,6 +57,7 @@
     "react-infinite-scroll-component": "^6.0.0",
     "react-markdown": "^5.0.3",
     "react-masonry-css": "^1.0.14",
+    "react-modal": "^3.12.1",
     "react-responsive-masonry": "^2.1.1",
     "react-syntax-highlighter": "^15.4.3",
     "react-use-flexsearch": "^0.1.1",

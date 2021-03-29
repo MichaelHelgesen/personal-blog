@@ -131,11 +131,12 @@ const Blog = (props) => {
       [MARKS.BOLD]: text => <Bold>{text}</Bold>,
       [MARKS.CODE]: (text) => {
         return (
+          <p>
           <PrismCode
             code={text}
             language="js"
             plugins={["line-numbers", "show-language"]}
-          />
+          /></p>
         );
       },
     },
@@ -159,14 +160,17 @@ const Blog = (props) => {
             entry = <a href={`/programmeringsordbok/#${el.tittel}`}>{el.tittel}</a>
           } 
           if (el.contentful_id === id && el.__typename === "ContentfulKode") {
-            entry = <PrismCode
+            entry = <p><PrismCode
             code={el.childContentfulKodeKodeTextNode.kode}
             language={el.programmeringssprk}
             plugins={["line-numbers", "show-language"]}
-          />
+          /></p>
           }
           if (el.contentful_id === id && el.__typename === "ContentfulBlogginnlegg") {
             entry = <a href={`/blogg/${el.slug}`}>{el.title}</a>
+          } 
+          if (el.contentful_id === id && el.__typename === "ContentfulSider") {
+            entry = <a href={`/${el.slug}`}>{el.tittel}</a>
           } 
           
         })
@@ -196,6 +200,7 @@ const Blog = (props) => {
         //<Link to={`/blogg/${id.data.target.sys.id}`}>{children}</Link>
         if (typeName === "ContentfulBlogginnlegg") return <Link to={`/blogg/${hyperLink}`}>{children}</Link>
         if (typeName === "ContentfulProgrammeringsord") return <Link to={`/programmeringsordbok/#${title}`}>{children}</Link>
+        if (typeName === "ContentfulSider") return <Link to={`/${hyperLink}`}>{children}</Link>
       }),
       [BLOCKS.EMBEDDED_ENTRY]: (node, children) => {
         const id = node.data.target.sys.id
@@ -210,17 +215,23 @@ const Blog = (props) => {
             </p>
           } 
           if (el.contentful_id === id && el.__typename === "ContentfulKode") {
-            entry = <PrismCode
+            entry = <p><PrismCode
             code={el.childContentfulKodeKodeTextNode.kode}
             language={el.programmeringssprk}
             plugins={["line-numbers", "show-language"]}
-          />
+          /></p>
           }
           if (el.contentful_id === id && el.__typename === "ContentfulBlogginnlegg") {
             entry = <p className={layoutStyles.orddefinisjon}>
             {el.title}
             {el.ingress}
             <a href={`/blogg/${el.slug}`}>Se blogginnlegg</a>
+            </p>
+          } 
+          if (el.contentful_id === id && el.__typename === "ContentfulSider") {
+            entry = <p className={layoutStyles.orddefinisjon}>
+            {el.tittel}
+            <a href={`/${el.slug}`}>Les mer på siden</a>
             </p>
           } 
         })
@@ -238,12 +249,9 @@ const Blog = (props) => {
             image = el;
             width = el.resize.width
             height = el.resize.height
-            console.log("source", image.fluid.src)
-                            console.log("width", width)
-                            console.log("height", height)
           } 
         })
-        return <Img width={width} fluid={{
+        return <p><Img width={width} fluid={{
           aspectRatio: width / height,
           src: image.fluid.src + '?w=630&q=80',
           srcSet: ` 
@@ -254,7 +262,7 @@ const Blog = (props) => {
                 ${image.fluid.src}?w=1000&&q=80 1000w,
             `,
           sizes: '(max-width: 630px) 100vw, 630px'
-        }} />
+        }} /></p>
       },
     },
   }

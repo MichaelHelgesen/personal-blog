@@ -133,6 +133,15 @@ useEffect(() => {
                         <li>
                         <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/blogg" partiallyActive={true} onClick={closeNav} onKeyDown={closeNav}>Blogg</Link>
                     </li>
+                    <li>
+                        <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/book-library" partiallyActive={true} onClick={closeNav} onKeyDown={closeNav}>Bibliotek</Link>
+                    </li>
+                    <li>
+                        <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/programmeringsordliste" partiallyActive={true} onClick={closeNav} onKeyDown={closeNav}>Ordbok</Link>
+                    </li>
+                    <li>
+                        <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/galleri" partiallyActive={true} onClick={closeNav} onKeyDown={closeNav}>Galleri</Link>
+                    </li>
                     {
                             codeData.allContentfulSider.edges.map(function (element, index) {
                                   return  (<li key={index}><Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to={`/${element.node.slug}`} onClick={closeNav} onKeyDown={closeNav}>{element.node.tittel}</Link></li>)

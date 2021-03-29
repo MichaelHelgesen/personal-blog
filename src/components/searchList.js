@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useImperativeHandle } from 'react';
 import * as searchStyles from "../components/search.module.scss";
 
 const SearchBar = ({ ord, setOrdListe, setSearchQuery, searchQuery }) => {
@@ -6,15 +6,19 @@ const SearchBar = ({ ord, setOrdListe, setSearchQuery, searchQuery }) => {
 
     function update (e) {
         setSearchQuery(e.target.value)
-        e.preventDefault();
    }
+
+   function submit (e) {
+    e.preventDefault();
+}
 
 
 
     return (
     <form
-        action="/"
+    onSubmit={submit}
         method="get"
+        role="search"
         autoComplete="off"
         className={searchStyles.form}
     >
@@ -30,7 +34,6 @@ const SearchBar = ({ ord, setOrdListe, setSearchQuery, searchQuery }) => {
             type="text"
             id="header-search"
             placeholder="Søk etter ord"
-            name="s"
         />
     </form>
     )
