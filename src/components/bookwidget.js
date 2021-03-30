@@ -109,7 +109,6 @@ const BookWidget = ({ bookdetails, sort, sortOrder, bloggkort, numberOfBooks }) 
 
     const closeComment = (e) => {
         const elem = e.target.parentElement.parentElement;
-        console.log(elem);
         const comments = elem.querySelector(".comment");
         comments.style.display = "block";
         comments.classList.remove(`${styles.open_comment}`);
@@ -169,8 +168,10 @@ const BookWidget = ({ bookdetails, sort, sortOrder, bloggkort, numberOfBooks }) 
                         
                         <div className={`${styles.comment__wrapper} comment`}>
                             <div className={styles.book__comment}>
-
-                                <ReactMarkdown>{node.bokomtale.oppsummering.oppsummering}</ReactMarkdown>
+                            <h4>{node.bokomtale.boktittel}</h4>
+                                <ReactMarkdown>
+                                    {node.bokomtale.oppsummering.oppsummering}
+                                </ReactMarkdown>
 
                             </div>
                             <button className={styles.btn__close_comment} onClick={closeComment}>Lukk</button>
