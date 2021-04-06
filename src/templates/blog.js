@@ -123,7 +123,7 @@ const Text = ({ children }) => <p className="align-center">{children}</p>
 
 const Blog = (props) => {
   
-  setTimeout(() => Prism.highlightAll(), 0)
+  //setTimeout(() => Prism.highlightAll(), 0)
 
   console.log("REFERATER", props.data)
 
@@ -362,7 +362,7 @@ const Blog = (props) => {
 
   
 };
-Prism.highlightAll()
+//Prism.highlightAll()
 export default Blog;
 
 /*
