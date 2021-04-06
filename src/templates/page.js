@@ -16,7 +16,7 @@ import ReactMarkdown from 'react-markdown'
 
 import * as blogStyles from "../pages/blog.module.scss";
 import * as pageStyles from "../templates/pages.module.scss"
-
+import * as embeddedStyles from "../components/embedded-links.module.scss"
 
 export const query = graphql`
   query ($slug: String!) {
@@ -192,7 +192,7 @@ const Page = (props, { pageContext }) => {
 
         props.data.contentfulSider.tekst.references.forEach(el => {
           if (el.contentful_id === id && el.__typename === "ContentfulProgrammeringsord") {
-            entry = <p className={blogStyles.orddefinisjon}>
+            entry = <p className={embeddedStyles.orddefinisjon}>
             {el.tittel}
             {el.betydning}
             <a href={`/programmeringsordbok/#${el.tittel}`}>Se i ordlisten</a>
@@ -207,18 +207,22 @@ const Page = (props, { pageContext }) => {
           }
           if (el.contentful_id === id && el.__typename === "ContentfulBlogginnlegg") {
             
-            entry = <p className={pageStyles.fremmhevet}>
-            {el.title}
-                <Link to={`/blogg/${el.slug}`}>Les blogginnlegget</Link> 
-        </p>
+            entry = <section className={embeddedStyles.blogglink}>
+            <a href={`/blogg/${el.slug}`}>
+              <h4>{el.title}</h4>
+                Les blogginnlegget
+                </a>
+        </section>
           } 
           if (el.contentful_id === id && el.__typename === "ContentfulSider") {
             console.log("SIDER", el)
-            entry = <p className={pageStyles.fremmhevet}>
-            {el.tittel}
+            entry = <section className={embeddedStyles.blogglink}>
+            <a href={`/${el.slug}`}>
+            <h4>{el.tittel}</h4>
             
-                <Link to={`/${el.slug}`}>Les mer på siden</Link> 
-        </p>
+                Les mer på siden
+                </a>
+        </section>
           }
         })
         return entry
@@ -264,10 +268,12 @@ const Page = (props, { pageContext }) => {
             sizes: '(max-width: 630px) 100vw, 630px'
           }} /></span>
         } else {
-          return (<p className={pageStyles.fremmhevet}>
-            {tittel}
-                <a href={src} alt="file">Last ned</a> 
-        </p>)
+          return (<section className={embeddedStyles.blogglink}>
+            <a href={src}>
+            <h4>{tittel}</h4>
+                Last ned
+                </a>
+        </section>)
         }
         
       },
