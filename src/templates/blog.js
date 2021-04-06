@@ -137,7 +137,7 @@ const Blog = (props) => {
       [MARKS.CODE]: (text) => {
         return (
           
-          <code class="language-javascript">{text}</code>
+          <code>{text}</code>
         );
       },
     },
