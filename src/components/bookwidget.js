@@ -137,24 +137,26 @@ const BookWidget = ({ bookdetails, sort, sortOrder, bloggkort, numberOfBooks }) 
                                 </div>
                             </div>
                         </div>
-
+                        <div className={`${styles.data} ${styles.book__registered}`}>
+                            lest<span>{node.bokomtale.lest}</span>
+                        </div>
+                        <div className={styles.data}>
+                            score<span>{node.bokomtale.evaluering}</span>
+                        </div>
                         <div className={styles.data}>
                             kategori<span>{node.bokomtale.kategori}</span>
+                        </div>
+                        <div className={styles.data}>
+                            nivå<span>{node.bokomtale.niv}</span>
                         </div>
                         <div className={styles.data}>
                             publisert<span>{node.bokomtale.publisert}</span>
                         </div>
                         <div className={styles.data}>
                             sider<span>{node.bokomtale.sidetall}</span></div>
-                        <div className={styles.data}>
-                            nivå<span>{node.bokomtale.niv}</span>
-                        </div>
-                        <div className={styles.data}>
-                            score<span>{node.bokomtale.evaluering}</span>
-                        </div>
-                        <div className={`${styles.data} ${styles.book__registered}`}>
-                            lest<span>{node.bokomtale.lest}</span>
-                        </div>
+                        
+                        
+                        
                         <Link to={bloggkort ? `/book-library` : `/blogg/${node.slug}`}>
                         <div className={`${styles.data} ${styles.book__link}`}>
 

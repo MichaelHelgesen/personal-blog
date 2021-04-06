@@ -137,7 +137,7 @@ useEffect(() => {
                         <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/book-library" partiallyActive={true} onClick={closeNav} onKeyDown={closeNav}>Bibliotek</Link>
                     </li>
                     <li>
-                        <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/programmeringsordliste" partiallyActive={true} onClick={closeNav} onKeyDown={closeNav}>Ordbok</Link>
+                        <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/programmeringsordliste" partiallyActive={true} onClick={closeNav} onKeyDown={closeNav}>Ordliste</Link>
                     </li>
                     <li>
                         <Link className={headerStyles.navItem} activeClassName={headerStyles.activeNavItem} to="/galleri" partiallyActive={true} onClick={closeNav} onKeyDown={closeNav}>Galleri</Link>

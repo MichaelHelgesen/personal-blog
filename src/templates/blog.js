@@ -13,6 +13,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import Img from "gatsby-image";
 import { PrismCode } from "../components/prism";
 import * as layoutStyles from "../components/layout.module.scss";
+import * as embeddedStyles from "../components/embedded-links.module.scss"
 
 export const query = graphql`
   query ($slug: String!) {
@@ -47,6 +48,9 @@ export const query = graphql`
             __typename
             slug
             body {
+              raw
+            }
+            ingress {
               raw
             }
           }
@@ -131,12 +135,12 @@ const Blog = (props) => {
       [MARKS.BOLD]: text => <Bold>{text}</Bold>,
       [MARKS.CODE]: (text) => {
         return (
-          <p>
+          
           <PrismCode
             code={text}
             language="js"
             plugins={["line-numbers", "show-language"]}
-          /></p>
+          />
         );
       },
     },
@@ -157,14 +161,14 @@ const Blog = (props) => {
 
         props.data.contentfulBlogginnlegg.body.references.forEach(el => {
           if (el.contentful_id === id && el.__typename === "ContentfulProgrammeringsord") {
-            entry = <a href={`/programmeringsordbok/#${el.tittel}`}>{el.tittel}</a>
+            entry = <a href={`/programmeringsordliste/#${el.tittel}`}>{el.tittel}</a>
           } 
           if (el.contentful_id === id && el.__typename === "ContentfulKode") {
-            entry = <p><PrismCode
+            entry = <PrismCode
             code={el.childContentfulKodeKodeTextNode.kode}
             language={el.programmeringssprk}
             plugins={["line-numbers", "show-language"]}
-          /></p>
+          />
           }
           if (el.contentful_id === id && el.__typename === "ContentfulBlogginnlegg") {
             entry = <a href={`/blogg/${el.slug}`}>{el.title}</a>
@@ -208,31 +212,42 @@ const Blog = (props) => {
 
         props.data.contentfulBlogginnlegg.body.references.forEach(el => {
           if (el.contentful_id === id && el.__typename === "ContentfulProgrammeringsord") {
-            entry = <p className={layoutStyles.orddefinisjon}>
-            {el.tittel}
-            {el.betydning}
-            <a href={`/programmeringsordbok/#${el.tittel}`}>Se i ordlisten</a>
-            </p>
+            entry = 
+            <section className={embeddedStyles.orddefinisjon}>
+            <a href={`/programmeringsordliste/#${el.tittel}`}>
+            <h4>{el.tittel}: <span className={embeddedStyles.orddefinisjon__beskrivelse}>{el.betydning}</span></h4>
+            Les forklaringen i ordlisten
+            </a>
+            </section>
           } 
           if (el.contentful_id === id && el.__typename === "ContentfulKode") {
-            entry = <p><PrismCode
+            entry = <span className={layoutStyles.kodeblokk}><PrismCode
             code={el.childContentfulKodeKodeTextNode.kode}
             language={el.programmeringssprk}
             plugins={["line-numbers", "show-language"]}
-          /></p>
+          /></span>
           }
           if (el.contentful_id === id && el.__typename === "ContentfulBlogginnlegg") {
-            entry = <p className={layoutStyles.orddefinisjon}>
-            {el.title}
-            {el.ingress}
-            <a href={`/blogg/${el.slug}`}>Se blogginnlegg</a>
-            </p>
+            console.log("INGRESS", el.ingress)
+            entry = 
+            <section className={embeddedStyles.blogglink}>
+            <a href={`/blogg/${el.slug}`}>
+            <h4>{el.title}</h4>
+            {documentToReactComponents(
+                  JSON.parse(el.ingress.raw), ingressOptions)}
+            
+            Les blogginnlegg
+            </a>
+            </section>
           } 
           if (el.contentful_id === id && el.__typename === "ContentfulSider") {
-            entry = <p className={layoutStyles.orddefinisjon}>
-            {el.tittel}
-            <a href={`/${el.slug}`}>Les mer på siden</a>
-            </p>
+            entry = 
+            <section className={embeddedStyles.orddefinisjon}>
+            <a href={`/${el.slug}`}>
+            <h4>{el.tittel}</h4>
+            Les mer på siden
+            </a>
+            </section>
           } 
         })
         return entry
@@ -251,7 +266,7 @@ const Blog = (props) => {
             height = el.resize.height
           } 
         })
-        return <p><Img width={width} fluid={{
+        return <Img width={width} fluid={{
           aspectRatio: width / height,
           src: image.fluid.src + '?w=630&q=80',
           srcSet: ` 
@@ -262,7 +277,7 @@ const Blog = (props) => {
                 ${image.fluid.src}?w=1000&&q=80 1000w,
             `,
           sizes: '(max-width: 630px) 100vw, 630px'
-        }} /></p>
+        }} />
       },
     },
   }

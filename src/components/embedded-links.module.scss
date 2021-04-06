@@ -1,0 +1,58 @@
+.orddefinisjon {
+    background: white;
+    color: black;
+    transition: all .2s ease;
+    border-radius: 5px;
+    margin-bottom: 1.45rem;
+    box-shadow: 0em 0.1em 0.2em rgba(0, 0, 0, .2);
+    a {
+        text-decoration: none;
+        display: block;
+        padding: 10px;
+    }
+    h4 {
+        font-size: 1.2em;
+        color: #103750;
+        margin-bottom: 5px;
+    }
+}
+
+.orddefinisjon:hover {
+    
+    transform: scale(1.03);
+    box-shadow: 0em .5em .5em rgba(0, 0, 0, .2);
+}
+
+.orddefinisjon h4 span {
+    font-weight: 100;
+    font-style: italic;
+}
+
+.blogglink {
+    background: white;
+    color: black;
+    transition: all .2s ease;
+    border-radius: 5px;
+    box-shadow: 0em 0.1em 0.2em rgba(0, 0, 0, .2);
+    margin-bottom: 1.45rem;
+    a {
+        text-decoration: none;
+        display: block;
+        padding: 10px;
+    }
+    h4 {
+        font-size: 1.2em;
+        color: #103750;
+        font-family: "Roboto Slab", serif;
+        margin-bottom: 5px;
+    }
+    p {
+        margin-bottom: 1rem;
+    }
+}
+
+.blogglink:hover {
+    
+    transform: scale(1.03);
+    box-shadow: 0em .5em .5em rgba(0, 0, 0, .2);
+}

@@ -1,7 +1,12 @@
 .tittel {
     display: inline;
+    text-decoration: none;
+    color: unset;
 }
-
+.tittel:hover {
+    color: unset;
+    cursor: unset;
+}
 
 
 .ordwrapper > div {

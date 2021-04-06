@@ -102,13 +102,19 @@ ul {
     margin-top: 20px;
 }
 
-.orddefinisjon {
-    background: rgb(253, 160, 241);
-    color: blue;
-    padding: 10px;
-    a {
-        display: block;
-    }
+
+
+.kodeblokk {
+    margin-bottom: 1.45rem;
+    display: block;
+}
+
+a {
+    color: #0d6ba8;
+}
+
+a:hover {
+    color: #dd808e;
 }
 
 @media only screen and (min-width: 500px) {

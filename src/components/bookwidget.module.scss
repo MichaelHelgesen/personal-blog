@@ -122,7 +122,7 @@ div.data:nth-child(3n+1) {
 }
 .book__data {
 	font-style: italic;
-	color: #ce919a;
+	color: #0E6BA8;
 	font-size: 0.8em;
 }
 .book__data span {
@@ -170,13 +170,20 @@ div.data:nth-child(3n+1) {
 }
 
 .book__link, .book__comment_btn {
-    width: 50%!important;
     outline: none;
     text-decoration: underline;
     font-weight: 700;
     color: #002D31;
     transition: all .2s ease;
 	padding: 20px 0!important;
+}
+
+.book__comment_btn {
+	width: calc(50% + 1px) !important;
+}
+
+.book__link {
+	width: calc(50% - 1px) !important;
 }
 
 .book__link span, .book__comment_btn span {
