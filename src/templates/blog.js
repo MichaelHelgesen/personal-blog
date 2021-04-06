@@ -11,10 +11,11 @@ import commentBox from 'commentbox.io';
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Img from "gatsby-image";
+import ReactMarkdown from "react-markdown"
 import { PrismCode } from "../components/prism";
 import * as layoutStyles from "../components/layout.module.scss";
 import * as embeddedStyles from "../components/embedded-links.module.scss"
-
+import Prism from 'prismjs';
 export const query = graphql`
   query ($slug: String!) {
     contentfulBlogginnlegg(slug: {eq: $slug}) {
@@ -121,8 +122,8 @@ const Text = ({ children }) => <p className="align-center">{children}</p>
 
 
 const Blog = (props) => {
-
-  //setTimeout(() => Prism.highlightAll(), 0)
+  
+  setTimeout(() => Prism.highlightAll(), 0)
 
   console.log("REFERATER", props.data)
 
@@ -136,11 +137,7 @@ const Blog = (props) => {
       [MARKS.CODE]: (text) => {
         return (
           
-          <PrismCode
-            code={text}
-            language="js"
-            plugins={["line-numbers", "show-language"]}
-          />
+          <code class="language-javascript">{text}</code>
         );
       },
     },
@@ -347,12 +344,12 @@ const Blog = (props) => {
                 documentToReactComponents(
                   JSON.parse(props.data.contentfulBlogginnlegg.ingress.raw), ingressOptions
                 )}</div>
-
-              {documentToReactComponents(
+              {props.data.contentfulBlogginnlegg.body != null &&
+              documentToReactComponents(
                 JSON.parse(props.data.contentfulBlogginnlegg.body.raw), options4
               )}
 
-
+{props.data.contentfulBlogginnlegg.codeBlock2 != null && <div><ReactMarkdown>{props.data.contentfulBlogginnlegg.codeBlock2.childMarkdownRemark.rawMarkdownBody}</ReactMarkdown> </div>}
 
             </SRLWrapper>
             <PageWithComments />
@@ -362,8 +359,10 @@ const Blog = (props) => {
       </SimpleReactLightbox>
     </Layout>
   )
-};
 
+  
+};
+Prism.highlightAll()
 export default Blog;
 
 /*

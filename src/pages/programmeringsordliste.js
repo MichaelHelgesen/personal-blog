@@ -149,9 +149,18 @@ const ProgrammeringsOrdliste = ({ data }) => {
                 let url
                 let title
                 let type
+                let entry
                 data.allContentfulProgrammeringsord.edges.forEach(item => {
                     item.node.beskrivelse.references.forEach(el => {
-                        if (el.contentful_id === node.data.target.sys.id) {
+                       
+                        if (el.contentful_id === node.data.target.sys.id && el.__typename === "ContentfulKode") {
+                            entry = <PrismCode
+                            code={el.childContentfulKodeKodeTextNode.kode}
+                            language={el.programmeringssprk}
+                            plugins={["line-numbers", "show-language"]}
+                          />
+                          }
+                        /*if (el.contentful_id === node.data.target.sys.id) {
                             url = el.slug
                             if (el.tittel) {
                                 title = el.tittel
@@ -160,16 +169,11 @@ const ProgrammeringsOrdliste = ({ data }) => {
                                 title = el.title
                                 type = el.__typename
                             }
-                        }
+                        }*/
                     })
 
                 })
-                return (<p className={styles.fremmhevet}>
-                    {title}
-                    {type === "ContentfulBlogginnlegg" ?
-                        <Link to={`/blogg/${url}`}>Les blogginnlegget</Link> :
-                        <Link to={`/${url}`}>Gå til siden</Link>}
-                </p>)
+                return (entry)
             },
             [BLOCKS.EMBEDDED_ASSET]: (node, children) => {
                 let source
@@ -326,15 +330,7 @@ query {
            beskrivelse {
              raw
              references {
-                ... on ContentfulBlogginnlegg {
-                  contentful_id
-              title
-              __typename
-              slug
-              body {
-                raw
-              }
-                }
+               
                 ... on ContentfulAsset {
                   contentful_id
               __typename
@@ -355,17 +351,15 @@ query {
                 height
               }
                 }
-                ... on ContentfulEntry {
-                  __typename
-                }
                 
-                          ... on ContentfulSider {
-                contentful_id
-              __typename
-              id
-              tittel
-              slug
-              }
+                ... on ContentfulKode {
+                    __typename
+                    contentful_id
+                    programmeringssprk
+                    childContentfulKodeKodeTextNode {kode}
+                  }
+                
+                  
               }
            }
            }

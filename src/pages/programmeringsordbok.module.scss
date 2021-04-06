@@ -2,6 +2,7 @@
     display: inline;
     text-decoration: none;
     color: unset;
+    font-size: 1.2em;
 }
 .tittel:hover {
     color: unset;
@@ -18,7 +19,18 @@
 }
 
 .ordwrapper > div p {
-    margin: .5rem 0 .5rem .6rem;
+    margin: .5rem 0 1.45rem .6rem;
+}
+
+.ordwrapper > div ul {
+    margin: .5rem 0 1.45rem 1.8rem;
+    li p {
+        margin: 0;
+    }
+}
+
+.ordwrapper > div pre {
+    margin: .5rem 0 1.45rem .7rem;
 }
 
 .ordwrapper > div img {
@@ -64,6 +76,7 @@
 
 .betydning {
     font-style: italic;
+    font-size:1.2em;
 }
 
 .searchhit {
