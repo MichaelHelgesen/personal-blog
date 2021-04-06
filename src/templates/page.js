@@ -295,9 +295,7 @@ const Page = (props, { pageContext }) => {
           </p>
           <SimpleReactLightbox>
             <SRLWrapper>
-              <ReactMarkdown>
-                {props.data.contentfulSider.brodtekst.brodtekst}
-              </ReactMarkdown>
+             
               {documentToReactComponents(
                 JSON.parse(props.data.contentfulSider.tekst.raw), options4
               )}
