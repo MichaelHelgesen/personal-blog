@@ -33,7 +33,7 @@ const SearchBar = ({ ord, setOrdListe, setSearchQuery, searchQuery }) => {
             onInput={update}
             type="text"
             id="header-search"
-            placeholder="Søk etter ord"
+            placeholder="Søk i ord og betydning"
         />
     </form>
     )
