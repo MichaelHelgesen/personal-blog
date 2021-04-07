@@ -725,6 +725,10 @@ html {
   margin-top: 50px;
 }
 
+.bold {
+  font-weight: 600;
+}
+
 @media only screen and (min-width: 750px) {
   .colorchange {
     transition: color .2s ease;
