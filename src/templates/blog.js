@@ -136,7 +136,6 @@ const Blog = (props) => {
       [MARKS.BOLD]: text => <Bold>{text}</Bold>,
       [MARKS.CODE]: (text) => {
         return (
-          
           <code>{text}</code>
         );
       },
