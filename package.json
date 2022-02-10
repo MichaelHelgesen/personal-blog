@@ -48,7 +48,7 @@
     "gatsby-transformer-sharp": "^3.1.0",
     "lazysizes": "^5.3.1",
     "markdown-it": "^12.0.4",
-    "node-sass": "5.0.0",
+    "node-sass": "7.0.0",
     "prism-react-renderer": "^1.2.0",
     "prismjs": "^1.23.0",
     "react": "^17.0.1",
